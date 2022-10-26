@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "Wait Time at Walt Disney World"
+author: "Group 12"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
