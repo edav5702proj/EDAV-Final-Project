@@ -6,4 +6,4 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
-
+Disneyland is one of the most popular parks in the world. However, visitors often spend a long time waiting for facilities. They may wait for hours for a five-minute roller coaster. Thus, we want to find a way to spend less time waiting and enjoy as many facilities as possible. In this project, we will examine the data of Disneyland waiting times, find the pattern, and provide an optimal visit plan.
