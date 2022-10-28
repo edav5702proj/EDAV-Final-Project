@@ -1,6 +1,9 @@
 # Proposal
 
 ## Research topic
+
 In this project, we focus on the waiting time at Magic Kingdom. We will try to find the pattern for every year, such as a possible peak appearing every summer. We will also create a heat map showing the number of people waiting in lines in Disneyland and how it changes throughout the day. Besides, the correlation between different factors will also be reported.
+
 ## Data availability
-The data comes from thrill-data.com. The data includes the most recent daily or hourly average waiting time for every facility in the area for decades.
+
+The data comes from [THRILL-DATA](https://www.thrill-data.com/waits/chain/dlr/). The data includes the most recent daily or hourly average waiting time for every facility in the area for decades.
