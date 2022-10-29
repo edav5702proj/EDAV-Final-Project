@@ -4,6 +4,14 @@
 
 In this project, we focus on the waiting time at Magic Kingdom. We will try to find the pattern for every year, such as a possible peak appearing every summer. We will also create a heat map showing the number of people waiting in lines in Disneyland and how it changes throughout the day. Besides, the correlation between different factors will also be reported.
 
+For our final project, we are interested in exploring the wait time data for Disney World's Magic Kindom. All our group members and our friends have been to Disney before, and we are all tired of waiting. We want to find out whether there are some patterns in the waiting time for each attraction in Disneyland, and we hope the exploration could provide us some insights on when the best time is to visit some attractions or visit the Magic Kindom so that we do not need to wait for too long, and we can visit as many attractions as possible within a limited time. 
+
+Also, Disney actually has its own app showing the waiting time for each attraction, but it does not provide many data visualizations and historical data to show the trend. We hope to explore more insights about the wait times from a larger picture by using more historical data and charts. 
+(helpful link: https://www.inputmag.com/culture/disney-world-line-wait-system-tracker-websites-apps)
+
 ## Data availability
 
 The data comes from [THRILL-DATA](https://www.thrill-data.com/waits/chain/dlr/). The data includes the most recent daily or hourly average waiting time for every facility in the area for decades.
+
+Thrill Data collects the data directly from Disney's My Disney Experience app, and it reflects real-time data.
+The data can be downloaded directly from the Thrill Data's website for free. A spreadsheet downloaded is for a specific month and for a specific attraction or the general Magic Kindom. In the spreadsheet, each day's wait time data at a 5-minute interval is recorded. The data are grouped by each attraction and month per spreadsheet downloaded. The data is available for each park opening day and from 1/1/2020 to today. The website provides 25 attractions' data. 
