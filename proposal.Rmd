@@ -2,16 +2,14 @@
 
 ## Research topic
 
-In this project, we focus on the waiting time at Magic Kingdom. We will try to find the pattern for every year, such as a possible peak appearing every summer. We will also create a heat map showing the number of people waiting in lines in Disneyland and how it changes throughout the day. Besides, the correlation between different factors will also be reported.
+Many visitors complained about the waiting time at Disneyland. It is possible to wait in line for 6 hours to take a ride. In this project, we are interested in exploring the waiting time at the Disney Magic Kingdom to gain some insights into the general trends and patterns. Moreover, we hope the patterns discovered can help visitors plan their trip wisely to avoid waiting in long lines and enjoy as many attractions as possible in a limited time. In the future, our project can facilitate finding specific hypotheses for further supervised machine-learning studies predicting the waiting time of each attraction. 
 
-For our final project, we are interested in exploring the wait time data for Disney World's Magic Kindom. All our group members and our friends have been to Disney before, and we are all tired of waiting. We want to find out whether there are some patterns in the waiting time for each attraction in Disneyland, and we hope the exploration could provide us some insights on when the best time is to visit some attractions or visit the Magic Kindom so that we do not need to wait for too long, and we can visit as many attractions as possible within a limited time. 
-
-Also, Disney actually has its own app showing the waiting time for each attraction, but it does not provide many data visualizations and historical data to show the trend. We hope to explore more insights about the wait times from a larger picture by using more historical data and charts. 
-(helpful link: https://www.inputmag.com/culture/disney-world-line-wait-system-tracker-websites-apps)
+Disney provides an app showing the waiting time for each attraction, but it does not reflect historical data to show the trend. We focus on exploring the waiting times from a larger picture perspective and show how the time varies daily, monthly, and annually. We will also create some graphs to visualize the data and illustrate trends and patterns.
 
 ## Data availability
 
-The data comes from [THRILL-DATA](https://www.thrill-data.com/waits/chain/dlr/). The data includes the most recent daily or hourly average waiting time for every facility in the area for decades.
+The data comes from [THRILL-DATA](https://www.thrill-data.com/waits/chain/dlr/). The data includes the most recent daily or hourly average waiting time for some selected attractions in the Magic Kingdom of Disney.
 
-Thrill Data collects the data directly from Disney's My Disney Experience app, and it reflects real-time data.
-The data can be downloaded directly from the Thrill Data's website for free. A spreadsheet downloaded is for a specific month and for a specific attraction or the general Magic Kindom. In the spreadsheet, each day's wait time data at a 5-minute interval is recorded. The data are grouped by each attraction and month per spreadsheet downloaded. The data is available for each park opening day and from 1/1/2020 to today. The website provides 25 attractions' data. 
+The data is collected directly from the My Disney Experience app, and they can be downloaded directly from the Thrill Data website for free in CSV format. A CSV document downloaded contains wait time data for a specific month and an attraction (or the general Magic Kingdom) of users’ choice. The wait time is recorded at a 5-minute interval for each day, and all the interval times are shown. 
+
+The data is available for each park opening day from 1/1/2020 to today, and the website provides data for 25 attractions. 
