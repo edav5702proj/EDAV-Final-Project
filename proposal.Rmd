@@ -2,14 +2,14 @@
 
 ## Research topic
 
-Many visitors complained about the waiting time at Disneyland. It is possible to wait in line for 6 hours to take a ride. In this project, we are interested in exploring the waiting time at the Disney Magic Kingdom to gain some insights into the general trends and patterns. Moreover, we hope the patterns discovered can help visitors plan their trip wisely to avoid waiting in long lines and enjoy as many attractions as possible in a limited time. In the future, our project can facilitate finding specific hypotheses for further supervised machine-learning studies predicting the waiting time of each attraction. 
+Many visitors complained about the waiting time at Disneyland. It is possible to wait in line for 6 hours to take a ride (Source:https://www.disneydining.com/one-disney-world-attraction-saw-a-6-hour-wait-over-the-weekend-hint-its-not-even-a-brand-new-ride-bb1/). In this project, we are interested in exploring the waiting time at the Disney Magic Kingdom to gain some insights into the general trends and patterns. Moreover, we hope the patterns discovered can help visitors plan their trip wisely to avoid waiting in long lines and enjoy as many attractions as possible in a limited time. In the future, our project can facilitate finding specific hypotheses for further supervised machine-learning studies predicting the waiting time of each attraction. 
 
 Disney provides an app showing the waiting time for each attraction, but it does not reflect historical data to show the trend. We focus on exploring the waiting times from a larger picture perspective and show how the time varies daily, monthly, and annually. We will also create some graphs to visualize the data and illustrate trends and patterns.
 
 ## Data availability
 
-The data comes from [THRILL-DATA](https://www.thrill-data.com/waits/chain/dlr/). The data includes the most recent daily or hourly average waiting time for some selected attractions in the Magic Kingdom of Disney.
+The data comes from [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]). The data includes the most recent daily or hourly average waiting time for some selected attractions in the Magic Kingdom of Disney.
 
-The data is collected directly from the My Disney Experience app, and they can be downloaded directly from the Thrill Data website for free in CSV format. A CSV document downloaded contains wait time data for a specific month and an attraction (or the general Magic Kingdom) of users’ choice. The wait time is recorded at a 5-minute interval for each day, and all the interval times are shown. 
+The data is collected directly from 3 sources: 1) from app users of TouringPlans.com; 2) Disney’s My Disney Experience app; 3) observation from the TouringPlans.com's staffs on sights. The data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. 
 
-The data is available for each park opening day from 1/1/2020 to today, and the website provides data for 25 attractions. 
+The data is available for each park opening day from 1/1/2015 to 12/28/2021, and the website provides data for 41 attractions. 
