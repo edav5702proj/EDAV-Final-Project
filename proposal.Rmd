@@ -2,7 +2,7 @@
 
 ## Research topic
 
-Many visitors complained about the waiting time at Disneyland. It is possible to wait in line for 6 hours to take a ride (Source:https://www.disneydining.com/one-disney-world-attraction-saw-a-6-hour-wait-over-the-weekend-hint-its-not-even-a-brand-new-ride-bb1/). In this project, we are interested in exploring the waiting time at the Disney Magic Kingdom to gain some insights into the general trends and patterns. Moreover, we hope the patterns discovered can help visitors plan their trip wisely to avoid waiting in long lines and enjoy as many attractions as possible in a limited time. In the future, our project can facilitate finding specific hypotheses for further supervised machine-learning studies predicting the waiting time of each attraction. 
+Many visitors complained about the waiting time at Disneyland. It is possible to wait in line for 6 hours to take a ride (Source:https://www.disneydining.com/one-disney-world-attraction-saw-a-6-hour-wait-over-the-weekend-hint-its-not-even-a-brand-new-ride-bb1/). In this project, we are interested in exploring the waiting time at the Disney Magic Kingdom to gain some insights into the general trends and patterns. Moreover, we hope the patterns discovered can help visitors plan their trip wisely to avoid waiting in long lines and enjoy as many attractions as possible in a limited time. In the future, our project can facilitate finding specific hypotheses for further supervised machine-learning studies predicting the waiting time of each attraction.
 
 Disney provides an app showing the waiting time for each attraction, but it does not reflect historical data to show the trend. We focus on exploring the waiting times from a larger picture perspective and show how the time varies daily, monthly, and annually. We will also create some graphs to visualize the data and illustrate trends and patterns.
 
@@ -10,6 +10,20 @@ Disney provides an app showing the waiting time for each attraction, but it does
 
 The data comes from [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]). The data includes the most recent daily or hourly average waiting time for some selected attractions in the Magic Kingdom of Disney.
 
-The data is collected directly from 3 sources: 1) from app users of TouringPlans.com; 2) Disney’s My Disney Experience app; 3) observation from the TouringPlans.com's staffs on sights. The data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. 
+The data is collected directly from 3 sources: 1) from app users of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]); 2) [Disney’s My Disney Experience app](https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact|G|5231013.RR.AM.01.01|MWNOQXO|BR|601187705510&keyword_id=aud-300113739056:kwd-2901498835|dc|disney%20experience|601187705510|p|5060:3|&gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE); 3) observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights. As for its availability, the data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. For example, the raw data for attraction [Dumbo](https://disneyworld.disney.go.com/attractions/magic-kingdom/dumbo-the-flying-elephant/) and [Laugh Floor](https://disneyworld.disney.go.com/attractions/magic-kingdom/monsters-inc-laugh-floor/) are displayed below.
 
-The data is available for each park opening day from 1/1/2015 to 12/28/2021, and the website provides data for 41 attractions. 
+<!-- <center> -->
+<!-- <img src="Imgs/dumbo_eg.png" alt="Example Wait Time Data", width = "50%" -->
+<!-- ![Dumbo](Imgs/dumbo_eg.jpeg){width=40%} ![Laugh Floor](Imgs/lf_eg.jpeg){width=40%} -->
+<!-- ![Example Wait Time Data](Imgs/dumbo_eg.png)![Example Wait Time Data](Imgs/dumbo_eg.png) -->
+<!-- </center> -->
+<div class='container', style="text-align: center;">
+<img style="height: auto; width: 45%;" src="Imgs/dumbo_eg.jpeg" alt="hello"/>
+&nbsp;
+&nbsp;
+<img style="height: auto; width: 45%;" src="Imgs/lf_eg.jpeg" alt="dumbo"/>
+<figcaption style="text-align: center;">Fig. 1: Example Data for Dumbo (left) and Laugh Floor (right)</figcaption></div>
+
+<!-- </div> -->
+
+The data is available for each park opening day from 1/1/2015 to 12/28/2021, and the website provides data for 41 attractions.
