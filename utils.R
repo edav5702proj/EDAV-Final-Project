@@ -5,5 +5,7 @@ quick_build <- function(fname){
   bookdown::render_book(name)
   browseURL(sprintf("docs/%s.html", fname))
 }
-# Run this to test (quick build helper)
+# Run this to render
 quick_build("index")
+
+
