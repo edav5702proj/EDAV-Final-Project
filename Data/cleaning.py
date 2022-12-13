@@ -27,7 +27,9 @@ def preprocess(path, format):
 if __name__ == "__main__":
     ic("Data Cleaning & Joining...")
     # Some examples
-    filename = "dumbo"
+    # filename = "dumbo"
+    # filename = "7_dwarfs_train"
+    filename = ""
     local_path = "Data/data/Magic Kingdom/" + f"{filename}.csv"
     # Convert to dataframe
     df = pd.read_csv(local_path)
