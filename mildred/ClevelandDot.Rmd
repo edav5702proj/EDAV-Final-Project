@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
 ```{r}
 library(ggplot2)
 library(plyr)
@@ -16,40 +17,42 @@ library(tidyverse)
 
 #install.packages("hash")
 library(hash)
+#install.packages("reticulate")
+library(reticulate)
 ```
 
 ```{r}
-filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
+process_name <- function(csv){
+  return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function(){
+  return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
+}
+
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
 dict <- hash()
-for (csv in filenames){
-  dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
+for (csv in filenames) {
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
 }
 ```
 
 ```{r}
 avg <- list()
 for (csv in filenames) {
-  avg <- append(avg, mean(dict[[csv]]$Waiting.Time))
+  avg <- append(avg, mean(dict[[process_name(csv)]]$Waiting.Time))
 }
 ```
 
 ```{r}
-avg_time = data.frame(unlist(filenames), unlist(avg))
+avg_time = data.frame(unlist(get_attraction_name()), unlist(avg))
 names(avg_time) = c("Ride","avgtime")
-avg_time
 ```
 
 ```{r}
 ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) + 
-  geom_point(color = "blue") +
+  geom_point(color = "#B12228") +
   labs(title = "Average Waiting Time for Each Ride", 
        x = "Average Waiting Time", 
        y = "Ride")
-```
-
-```{r}
-avg <- list()
-for (csv in filenames) {
-  avg <- append(avg, mean(dict[[csv]]$Waiting.Time >= ""))
-}
 ```
