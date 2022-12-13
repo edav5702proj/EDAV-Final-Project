@@ -15,9 +15,7 @@ read_all <- function(){
   filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
   dict <- hash()
   for(csv in filenames){
-    path <- sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv)
-    df <- read.csv(path)
-    dict[[csv]] <- df
+    dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
   }
   return(dict)
 }
