@@ -65,7 +65,7 @@ def clean_all(dest):
         ic(f"File {idx}: {csv} Cleaning...")
         local_path = "Data/data/Magic Kingdom/" + f"{csv}"
         data = preprocess(local_path)
-        df = pd.DataFrame(data, columns=["Date", "Time", "Waiting Time"])
+        df = pd.DataFrame(data, columns=["Datetime", "Waiting Time"])
         df.to_csv(dest + f"{csv}")
         ic(f"File {idx}: {csv} Saved!")
 
