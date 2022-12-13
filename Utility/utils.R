@@ -7,3 +7,18 @@ quick_build <- function(fname){
 }
 # Run this to render
 quick_build("index")
+
+# Utility function for plotting
+# library(reticulate)
+read_all <- function(){
+  library(hash)
+  filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
+  dict <- hash()
+  for(csv in filenames){
+    path <- sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv)
+    df <- read.csv(path)
+    dict[[csv]] <- df
+  }
+  return(dict)
+}
+
