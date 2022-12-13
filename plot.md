@@ -15,6 +15,10 @@
   1. Duration of attraction vs. <em>average_waiting_time</em>
 
 - (Optional) Confirm validity of data source
-  - <em>average_wait_per_hundred</em> vs.<em>average_waiting_time</em>
+  - <em>average_wait_per_hundred</em> vs. <em>average_waiting_time</em>
 - (Optional) Some interesting statistics
   - Open time of each attraction
+
+<!-- ## D3 components
+
+- -->
