@@ -1,0 +1,100 @@
+---
+title: "Untitled"
+author: "Mildred Ouyang"
+date: "2022-12-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+
+#install.packages("hash")
+library(hash)
+```
+
+```{r}
+df <- space_mountain
+
+ggplot(df, aes(df$'Waiting Time')) + 
+  geom_histogram(bins=15, color="black", fill="#69b3a2", boundary=0) +
+  labs(title = "Space Mountain Wait Time Histogram", 
+       x = "Waiting time (in minute)", 
+       y = "Count")
+```
+
+```{r}
+ggplot(df, aes(df$'Waiting Time')) +
+  geom_boxplot()
+```
+
+```{r}
+#temp = list.files(pattern="*.csv")
+#for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i]))
+```
+
+```{r}
+filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
+dict <- hash()
+for (csv in filenames){
+  dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
+}
+#dwarfs_train = read.csv("./Data/data/Magic Kingdom/xysong_python/7_dwarfs_train.csv")
+#astro_orbiter = read.csv("./Data/data/Magic Kingdom/xysong_python/astro_orbiter.csv")
+#barnstormer = read.csv("./Data/data/Magic Kingdom/xysong_python/barnstormer.csv")
+#big_thunder_mtn = read.csv("./Data/data/Magic Kingdom/xysong_python/big_thunder_mtn.csv")
+#buzz_lightyear = read.csv("./Data/data/Magic Kingdom/xysong_python/buzz_lightyear.csv")
+#carousel_of_progress = read.csv("./Data/data/Magic Kingdom/xysong_python/carousel_of_progress.csv")
+```
+
+```{r}
+View(dict[["astro_orbiter.csv"]])
+```
+
+```{r}
+avg <- list()
+for (csv in filenames) {
+  date = substr(dict[[csv]]$Datetime,1,10)
+  ymd = as.Date(date, format = "%Y-%m-%d")
+  md = substr(dict[[csv]]$Datetime,6,10)
+  md = as.Date(md, format = "%m-%d")
+  dict[[csv]]<-cbind(dict[[csv]],ymd)
+  dict[[csv]]<-cbind(dict[[csv]],md)
+}
+```
+
+```{r}
+first = 1
+for (csv in filenames) {
+  if (first==1){
+    df_ymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    first = 2
+  }
+  else{
+    df_nymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd <- merge(df_ymd,df_nymd,by="ymd",all=TRUE)
+    df_md <- merge(df_md,df_nmd,by="md",all=TRUE)
+  }
+}
+```
+
+```{r}
+merge(df_ymd,df_nymd,by="ymd",all=TRUE)
+
+```
+```{r}
+rowMeans(df_md)
+```
+```{r}
+avg_wait = rowMeans(df_md[2:34],na.rm=TRUE)
+plot(df_md$md,avg_wait)
+```
+

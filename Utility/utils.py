@@ -35,6 +35,7 @@ def get_all_csv_names():
 
 
 def find_num_matched(names, meta):
+    # Deprecated!
     count = 0
     for item in names:
         if item in meta:
@@ -43,13 +44,25 @@ def find_num_matched(names, meta):
     return count
 
 
+def parse_attraction_name():
+    csv, raw = get_all_csv_names()
+    ic(raw)
+    ic(raw[0])
+    # Parsing
+    names = [x.replace("_", " ") for x in raw]
+    names = [x.replace("  ", " ") for x in names]
+    ic(names)
+
+
 if __name__ == '__main__':
     ic("Utility functions")
     # Get basic csv info
-    raw, names = get_all_csv_names()
-    # Get metadata attraction info
-    meta_names = read_metadata()
-    # ic(meta_names)
-    ic(raw)
+    # raw, names = get_all_csv_names()
+    # # Get metadata attraction info
+    # meta_names = read_metadata()
+    # # ic(meta_names)
+    # ic(raw)
     # Find number of matched data
     # find_num_matched(names, meta_names)
+
+    parse_attraction_name()

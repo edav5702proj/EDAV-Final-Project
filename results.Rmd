@@ -1,1 +1,50 @@
 # Results
+
+## xysong demo
+```{r}
+library(ggplot2)
+library(ggeasy)
+library(dplyr)
+library(lubridate)
+library(tidyverse)
+# source("Utility/utils.R")
+
+all_dsets <- read_all()
+dumbo <- all_dsets[["dumbo.csv"]]
+class(dumbo)
+# Elementary statistics
+head(dumbo)
+# TODO: (Xiaoyang) whether using detailed time or just date?
+# dumbo$Datetime <- as.Date(dumbo$Datetime, "%Y-%m-%d %H:%M:%S")
+date <- head(dumbo)$Datetime[1]
+# lubridate::floor_date(date, "month")
+date
+# Example
+head(dsets)
+
+group_by <- function(df) {
+    # Process dataframe
+    dsets <- df %>%
+        dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S")) %>%
+        dplyr::mutate(month = lubridate::floor_date(Datetime, "month")) %>%
+        dplyr::group_by(month) %>%
+        dplyr::summarise(avg = sum(Waiting.Time) / n())
+    return(dsets)
+}
+plot_time_series <- function(dsets) { # Plot
+    g <- ggplot(dsets, aes(month, avg), type = "l") +
+        geom_line() +
+        scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) +
+        xlab("Month") +
+        ylab("Average Waiting Time") +
+        ggtitle("Blizzard Employee Annual Salary Histogram") +
+        ggeasy::easy_center_title()
+    # theme_grey(14)
+    return(g)
+}
+
+g <- plot_time_series(group_by(dumbo))
+g
+
+# lubridate::floor_date(as.Date("2016-04-03"), 'month')
+```
