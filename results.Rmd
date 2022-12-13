@@ -3,6 +3,7 @@
 ## xysong demo
 ```{r}
 library(ggplot2)
+library(ggeasy)
 library(dplyr)
 library(lubridate)
 library(tidyverse)
@@ -34,8 +35,12 @@ plot_time_series <- function(dsets) { # Plot
     g <- ggplot(dsets, aes(month, avg), type = "l") +
         geom_line() +
         scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) +
-        # theme_grey(14)
-        return(g)
+        xlab("Month") +
+        ylab("Average Waiting Time") +
+        ggtitle("Blizzard Employee Annual Salary Histogram") +
+        ggeasy::easy_center_title()
+    # theme_grey(14)
+    return(g)
 }
 
 g <- plot_time_series(group_by(dumbo))
