@@ -9,7 +9,7 @@
 # DO NOT PUSH PYCACHE
 __pycache__
 
-
-# For now, do not push cleaning.py
+# Xiaoyang only
+# For now, do not push cleaning.py & D3
 # cleaning.py
 D3

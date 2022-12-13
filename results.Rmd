@@ -1,1 +1,11 @@
 # Results
+
+## xysong demo
+```{r}
+library(ggplot2)
+filename <- "dumbo"
+path <- sprintf("Data/data/Magic Kingdom/xysong_python/%s.csv", filename)
+df <- read.csv(path)
+# Elementary statistics
+head(df)
+```
