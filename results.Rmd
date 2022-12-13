@@ -10,7 +10,7 @@ library(tidyverse)
 # source("Utility/utils.R")
 
 all_dsets <- read_all()
-dumbo <- all_dsets[["dumbo.csv"]]
+dumbo <- all_dsets[["dumbo"]]
 class(dumbo)
 # Elementary statistics
 head(dumbo)
@@ -33,18 +33,29 @@ group_by <- function(df) {
 }
 plot_time_series <- function(dsets) { # Plot
     g <- ggplot(dsets, aes(month, avg), type = "l") +
-        geom_line() +
-        scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) +
+        geom_line(color = "purple") +
+        scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) + # nolint
         xlab("Month") +
         ylab("Average Waiting Time") +
-        ggtitle("Blizzard Employee Annual Salary Histogram") +
+        ggtitle("Time Series Plot: Average Waiting Time (By Month)") +
         ggeasy::easy_center_title()
     # theme_grey(14)
     return(g)
 }
-
-g <- plot_time_series(group_by(dumbo))
+identify_abnormal <- function(g, start, end, text_y) {
+    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.5) # nolint
+    # Append text
+    g <- g + annotate("text", x = end + 10, y = text_y *(2/3), label = "Covid Disruption", color = "black", hjust = 0) # nolint
+    return(g)
+}
+grouped_dsets <- group_by(dumbo)
+g <- plot_time_series(grouped_dsets)
+start <- as.Date("2020-01-01")
+end <- as.Date("2020-09-01")
+g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
 g
-
-# lubridate::floor_date(as.Date("2016-04-03"), 'month')
 ```
+
+
+
+
