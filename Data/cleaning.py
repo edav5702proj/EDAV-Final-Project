@@ -53,7 +53,7 @@ def preprocess(path, format='%Y-%m-%d %H:%M:%S'):
     data = np.array(list(filterfalse(lambda x: condition(x), raw)))
     # ic(data.shape)
 
-    return data
+    return data[:, 1:3]
 
 
 def clean_all(dest):
@@ -66,7 +66,7 @@ def clean_all(dest):
         local_path = "Data/data/Magic Kingdom/" + f"{csv}"
         data = preprocess(local_path)
         df = pd.DataFrame(data, columns=["Date", "Time", "Waiting Time"])
-        df.to_csv(destination + f"{csv}")
+        df.to_csv(dest + f"{csv}")
         ic(f"File {idx}: {csv} Saved!")
 
 
@@ -74,23 +74,25 @@ if __name__ == "__main__":
     ic("Data Cleaning & Joining...")
     # Some examples
     # filename = "dumbo"
-    filename = "7_dwarfs_train"
-    local_path = "Data/data/Magic Kingdom/" + f"{filename}.csv"
-    # Convert to dataframe
-    df = pd.read_csv(local_path)
-    ic(df.head())
+    # filename = "7_dwarfs_train"
+    # filename = "princess_hall__rapunzel_tiana"
+    # local_path = "Data/data/Magic Kingdom/" + f"{filename}.csv"
+    # # Convert to dataframe
+    # df = pd.read_csv(local_path)
+    # ic(df.head())
 
-    eg_date = df.head()['datetime'][0]
-    ic(eg_date)
-    format = '%Y-%m-%d %H:%M:%S'  # The format
-    datetime_str = datetime.datetime.strptime(eg_date, format)
-    ic(datetime_str.hour)
+    # eg_date = df.head()['datetime'][0]
+    # ic(eg_date)
+    # format = '%Y-%m-%d %H:%M:%S'  # The format
+    # datetime_str = datetime.datetime.strptime(eg_date, format)
+    # ic(datetime_str.hour)
 
-    # Using preprocess function
-    data = preprocess(local_path, format)
-    ic(data.shape)
+    # # Using preprocess function
+    # data = preprocess(local_path, format)
+    # ic(data.shape)
+    # ic(data[0:5, :])
 
     # ACTUAL PROCESSING CODE (ABOVE ARE ALL EXAMPLES: can comment out if needed)
-    # folder_name = "xysong_python"
-    # destination = "Data/data/Magic Kingdom/" + f"{folder_name}/"
-    # clean_all(destination)
+    folder_name = "xysong_python"
+    destination = "Data/data/Magic Kingdom/" + f"{folder_name}/"
+    clean_all(destination)
