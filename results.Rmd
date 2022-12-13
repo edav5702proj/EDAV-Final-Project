@@ -5,14 +5,35 @@
 library(ggplot2)
 library(dplyr)
 library(lubridate)
-filename <- "dumbo"
-path <- sprintf("Data/data/Magic Kingdom/xysong_python/%s.csv", filename)
-df <- read.csv(path)
+library(tidyverse)
+# source("Utility/utils.R",local = knitr::knit_global())
+
+all_dsets <- read_all()
+dumbo <- all_dsets[["dumbo.csv"]]
+class(dumbo)
 # Elementary statistics
-head(df)
+head(dumbo)
 # TODO: (Xiaoyang) whether using detailed time or just date?
-df$Datetime <- as.Date(df$Datetime, "%Y-%m-%d %H:%M:%S")
-df$Datetime[1]$year
-cut(head(df$Datetime), breaks = "month")
-# dset <- head(df) %>% dplyr::group_by(month_yr = cut(Datetime, breaks = "1 month") %>% summarise(avg = avg(Waiting.Time))
+# dumbo$Datetime <- as.Date(dumbo$Datetime, "%Y-%m-%d %H:%M:%S")
+date <- head(dumbo)$Datetime[1]
+lubridate::floor_date(date, "month")
+# Example
+dsets <- dumbo %>% dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S"))
+head(dsets)
+
+
+dsets <- dumbo %>%
+    dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S")) %>%
+    dplyr::mutate(month = lubridate::floor_date(Datetime, "month")) %>%
+    dplyr::group_by(month) %>%
+    dplyr::summarise(avg = n())
+
+g <- ggplot(
+    df %>% filter(Week < as.Date("2016-01-01")),
+    aes(Week, `30 yr FRM`)
+) +
+    geom_line() +
+    theme_grey(14)
+
+# lubridate::floor_date(as.Date("2016-04-03"), 'month')
 ```

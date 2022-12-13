@@ -9,13 +9,13 @@ quick_build <- function(fname){
 quick_build("index")
 
 # Utility function for plotting
-# library(reticulate)
-read_all <- function(){
+# library(reticulate) #nolint
+read_all <- function() {
   library(hash)
   filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
   dict <- hash()
-  for(csv in filenames){
-    dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
+  for (csv in filenames){
+    dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv)) #nolint
   }
   return(dict)
 }
