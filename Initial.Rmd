@@ -1,0 +1,66 @@
+---
+title: "Untitled"
+author: "Mildred Ouyang"
+date: "2022-12-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+#install.packages("hash")
+library(hash)
+```
+
+```{r}
+df <- space_mountain
+
+ggplot(df, aes(df$'Waiting Time')) + 
+  geom_histogram(bins=15, color="black", fill="#69b3a2", boundary=0) +
+  labs(title = "Space Mountain Wait Time Histogram", 
+       x = "Waiting time (in minute)", 
+       y = "Count")
+```
+
+```{r}
+ggplot(df, aes(df$'Waiting Time')) +
+  geom_boxplot()
+```
+
+```{r}
+#temp = list.files(pattern="*.csv")
+#for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i]))
+```
+
+```{r}
+filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
+dict <- hash()
+for (csv in filenames){
+  dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
+}
+#dwarfs_train = read.csv("./Data/data/Magic Kingdom/xysong_python/7_dwarfs_train.csv")
+#astro_orbiter = read.csv("./Data/data/Magic Kingdom/xysong_python/astro_orbiter.csv")
+#barnstormer = read.csv("./Data/data/Magic Kingdom/xysong_python/barnstormer.csv")
+#big_thunder_mtn = read.csv("./Data/data/Magic Kingdom/xysong_python/big_thunder_mtn.csv")
+#buzz_lightyear = read.csv("./Data/data/Magic Kingdom/xysong_python/buzz_lightyear.csv")
+#carousel_of_progress = read.csv("./Data/data/Magic Kingdom/xysong_python/carousel_of_progress.csv")
+```
+
+```{r}
+View(dict[["astro_orbiter.csv"]]$Waiting.Time)
+```
+
+
+```{r}
+avg <- list()
+for (csv in filenames) {
+  avg.append(mean(dict[[csv]]$Waiting.Time))
+}
+```
