@@ -6,6 +6,8 @@
 .DS_Store
 # utils.R
 
+# DO NOT PUSH PYCACHE
+__pycache__
 
 
 # For now, do not push cleaning.py

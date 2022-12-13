@@ -6,6 +6,8 @@ import sys
 import numpy as np
 import pandas as pd
 from icecream import ic
+import itertools
+from itertools import filterfalse
 
 
 def read_metadata():
@@ -21,7 +23,10 @@ def read_metadata():
 def get_all_csv_names():
     local_path = r"Data/data/Magic Kingdom"
     csvs = os.listdir(local_path)
-    ic(f"Number of csv files: {len(csvs)}")
+    # ic(csvs[0][:-4])
+    csvs = np.array(list(filterfalse(lambda x: x[-4:] != '.csv', csvs)))
+    ic(type(csvs))
+    ic(f"Number of csv files: {csvs.shape}")
     # ic(csvs)
     # Process names
     attractions = np.array([x[:-4] for x in csvs])
