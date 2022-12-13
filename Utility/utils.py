@@ -35,6 +35,7 @@ def get_all_csv_names():
 
 
 def find_num_matched(names, meta):
+    # Deprecated!
     count = 0
     for item in names:
         if item in meta:

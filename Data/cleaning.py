@@ -8,7 +8,7 @@ from itertools import filterfalse
 # Custom import
 from Utility.utils import get_all_csv_names
 
-# Gloabl constraints
+# Global constraints
 OPEN, CLOSE = 9, 23
 
 
@@ -16,13 +16,17 @@ def get_info(name):
     pass
 
 
-def rename_cols(raw: np.ndarray):
-    result = []
-    result.append(raw[:, 0:2])
+def refactor_cols(raw: np.ndarray):
+    # Short version
+    return np.concatenate([raw[:, 0:2], np.sum(raw[:, 2:4], axis=1, keepdims=True)], axis=1)
+
+    # Verbose version
+    # result = []
+    # result.append(raw[:, 0:2])
     # ic(raw[:, 0:2].shape)
-    result.append(np.sum(raw[:, 2:4], axis=1, keepdims=True))
+    # result.append(np.sum(raw[:, 2:4], axis=1, keepdims=True))
     # ic(np.sum(raw[:, 2:4], axis=1, keepdims=True).shape)
-    return np.concatenate(result, axis=1)
+    # return np.concatenate(result, axis=1)
 
 
 def preprocess(path, format='%Y-%m-%d %H:%M:%S'):
@@ -39,25 +43,23 @@ def preprocess(path, format='%Y-%m-%d %H:%M:%S'):
     # ic(raw.shape)
     # ic(raw[:, -1])
     # Re-combine last two columns
-    raw = rename_cols(raw)
+    raw = refactor_cols(raw)
     # ic(raw.shape)
 
     def condition(x):
-        # Time not in OPEN -- CLOSE
+        # Condition 1: Time not in OPEN -- CLOSE
         time_cond = int(datetime.datetime.strptime(x[1], format).hour) >= CLOSE or int(
             datetime.datetime.strptime(x[1], format).hour) < OPEN
-        # Null: -999
+        # Condition 2: Null: -999
         null_cond = x[-1] < 0
         return time_cond or null_cond
-
-    data = np.array(list(filterfalse(lambda x: condition(x), raw)))
-    # ic(data.shape)
-
-    return data[:, 1:3]
+    return np.array(list(filterfalse(lambda x: condition(x), raw)))[:, 1:3]
+    # data = np.array(list(filterfalse(lambda x: condition(x), raw)))
+    # return data[:, 1:3]
 
 
 def clean_all(dest):
-    # TODO: (Xiaoyang) can save files with customized names
+    # TODO: (Xiaoyang) can save files with customized names if necessary
     raw, names = get_all_csv_names()
     # Clean each csv
     ic("Start cleaning data...")
@@ -74,25 +76,25 @@ if __name__ == "__main__":
     ic("Data Cleaning & Joining...")
     # Some examples
     # filename = "dumbo"
-    # filename = "7_dwarfs_train"
-    # filename = "princess_hall__rapunzel_tiana"
-    # local_path = "Data/data/Magic Kingdom/" + f"{filename}.csv"
-    # # Convert to dataframe
-    # df = pd.read_csv(local_path)
-    # ic(df.head())
+    filename = "7_dwarfs_train"
+    filename = "princess_hall__rapunzel_tiana"
+    local_path = "Data/data/Magic Kingdom/" + f"{filename}.csv"
+    # Convert to dataframe
+    df = pd.read_csv(local_path)
+    ic(df.head())
 
-    # eg_date = df.head()['datetime'][0]
-    # ic(eg_date)
-    # format = '%Y-%m-%d %H:%M:%S'  # The format
-    # datetime_str = datetime.datetime.strptime(eg_date, format)
-    # ic(datetime_str.hour)
+    eg_date = df.head()['datetime'][0]
+    ic(eg_date)
+    format = '%Y-%m-%d %H:%M:%S'  # The format
+    datetime_str = datetime.datetime.strptime(eg_date, format)
+    ic(datetime_str.hour)
 
-    # # Using preprocess function
-    # data = preprocess(local_path, format)
-    # ic(data.shape)
-    # ic(data[0:5, :])
+    # Using preprocess function
+    data = preprocess(local_path, format)
+    ic(data.shape)
+    ic(data[0:5, :])
 
     # ACTUAL PROCESSING CODE (ABOVE ARE ALL EXAMPLES: can comment out if needed)
-    folder_name = "xysong_python"
-    destination = "Data/data/Magic Kingdom/" + f"{folder_name}/"
-    clean_all(destination)
+    # folder_name = "xysong_python"
+    # destination = "Data/data/Magic Kingdom/" + f"{folder_name}/"
+    # clean_all(destination)
