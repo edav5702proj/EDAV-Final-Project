@@ -11,7 +11,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(ggplot2)
-library(plyr)
 library(dplyr)
 library(tidyverse)
 
@@ -54,13 +53,48 @@ for (csv in filenames){
 ```
 
 ```{r}
-View(dict[["astro_orbiter.csv"]]$Waiting.Time)
+View(dict[["astro_orbiter.csv"]])
 ```
-
 
 ```{r}
 avg <- list()
 for (csv in filenames) {
-  avg.append(mean(dict[[csv]]$Waiting.Time))
+  date = substr(dict[[csv]]$Datetime,1,10)
+  ymd = as.Date(date, format = "%Y-%m-%d")
+  md = substr(dict[[csv]]$Datetime,6,10)
+  md = as.Date(md, format = "%m-%d")
+  dict[[csv]]<-cbind(dict[[csv]],ymd)
+  dict[[csv]]<-cbind(dict[[csv]],md)
 }
 ```
+
+```{r}
+first = 1
+for (csv in filenames) {
+  if (first==1){
+    df_ymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    first = 2
+  }
+  else{
+    df_nymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd <- merge(df_ymd,df_nymd,by="ymd",all=TRUE)
+    df_md <- merge(df_md,df_nmd,by="md",all=TRUE)
+  }
+}
+```
+
+```{r}
+merge(df_ymd,df_nymd,by="ymd",all=TRUE)
+
+```
+```{r}
+rowMeans(df_md)
+```
+```{r}
+avg_wait = rowMeans(df_md[2:34],na.rm=TRUE)
+plot(df_md$md,avg_wait)
+```
+
