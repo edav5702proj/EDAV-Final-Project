@@ -13,6 +13,9 @@ def read_metadata():
     metadata = np.array(pd.read_csv(local_path))
     ic(metadata.shape)
     # Extract columns
+    attractions = metadata[:, 1]
+    # ic(attractions)
+    return attractions
 
 
 def get_all_csv_names():
@@ -21,11 +24,27 @@ def get_all_csv_names():
     ic(f"Number of csv files: {len(csvs)}")
     # ic(csvs)
     # Process names
+    attractions = np.array([x[:-4] for x in csvs])
+    # ic(attractions)
+    return csvs, attractions
+
+
+def find_num_matched(names, meta):
+    count = 0
+    for item in names:
+        if item in meta:
+            count += 1
+    ic(count)
+    return count
 
 
 if __name__ == '__main__':
     ic("Utility functions")
     # Get basic csv info
-    get_all_csv_names()
+    raw, names = get_all_csv_names()
     # Get metadata attraction info
-    read_metadata()
+    meta_names = read_metadata()
+    # ic(meta_names)
+    ic(raw)
+    # Find number of matched data
+    # find_num_matched(names, meta_names)
