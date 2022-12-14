@@ -1,26 +1,61 @@
 # Results
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="zoom.js"></script>
 
-## xysong demo
+<!-- Zoom in -->
+<div id="myModal" class="modal">
+
+  <!-- The Close Button -->
+  <span class="close">&times;</span>
+
+  <!-- Modal Content (The Image) -->
+  <img class="modal-content" id="img01">
+
+  <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
+</div>
+## Waiting Time Pattern Analysis
+
+```{r, out.extra='id:"avg_abnormal"'}
+process_name <- function(csv) {
+    return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function() {
+    return(lapply(list.files("Data/data/Magic Kingdom/xysong_python"), process_name)) # nolint
+}
+# get_attraction_name() #nolint
+
+
+read_all <- function() {
+    library(hash)
+    filenames <- list.files("Data/data/Magic Kingdom/xysong_python") # nolint
+    dict <- hash()
+    for (csv in filenames) {
+        dict[[process_name(csv)]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv)) # nolint
+    }
+    return(dict)
+}
+```
 ```{r}
 library(ggplot2)
+library(ggeasy)
 library(dplyr)
 library(lubridate)
 library(tidyverse)
 # source("Utility/utils.R")
 
 all_dsets <- read_all()
-dumbo <- all_dsets[["dumbo.csv"]]
+dumbo <- all_dsets[["dumbo"]]
 class(dumbo)
 # Elementary statistics
 head(dumbo)
-# TODO: (Xiaoyang) whether using detailed time or just date?
-# dumbo$Datetime <- as.Date(dumbo$Datetime, "%Y-%m-%d %H:%M:%S")
-date <- head(dumbo)$Datetime[1]
-# lubridate::floor_date(date, "month")
-date
-# Example
-head(dsets)
+# Get all datasets
+df_all <- bind_rows(lapply(get_attraction_name(), function(i) all_dsets[[i]]))
+# nrow(df_all)
 
+# Example
+# head(dsets)
 group_by <- function(df) {
     # Process dataframe
     dsets <- df %>%
@@ -30,16 +65,89 @@ group_by <- function(df) {
         dplyr::summarise(avg = sum(Waiting.Time) / n())
     return(dsets)
 }
-plot_time_series <- function(dsets) { # Plot
+
+plot_time_series <- function(dsets, name) { # Plot
     g <- ggplot(dsets, aes(month, avg), type = "l") +
-        geom_line() +
-        scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) +
-        # theme_grey(14)
-        return(g)
+        geom_line(color = "black") +
+        scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) + # nolint
+        xlab("Month") +
+        ylab("Average Waiting Time (minutes)") +
+        ggtitle(sprintf("%s: Average Waiting Time (By Month)", name)) +
+        ggeasy::easy_center_title()
+    return(g)
+}
+identify_abnormal <- function(g, start, end, text_y) {
+    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.5) # nolint
+    # Append text
+    g <- g + annotate("text", x = end + 10, y = text_y * (2 / 3), label = "Covid \nDisruption", color = "green", hjust = 0) # nolint
+    return(g)
 }
 
-g <- plot_time_series(group_by(dumbo))
-g
-
-# lubridate::floor_date(as.Date("2016-04-03"), 'month')
+plot_in_one_shot <- function(df, name) {
+    grouped_dsets <- group_by(df)
+    g <- plot_time_series(grouped_dsets, name)
+    start <- as.Date("2020-01-01")
+    end <- as.Date("2020-12-01")
+    g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
+    return(g)
+}
+# nrow(df_all)
+plot_in_one_shot(df_all, "All Attractions")
 ```
+
+<!-- :::{#abnormal_plot} -->
+```{r, fig.show="hold", out.width="20%", out.extra='class="abnormal"'}
+all_plot <- list()
+names <- get_attraction_name()
+# length(names)
+# names
+for (i in 1:25) {
+    name <- names[[i]]
+    all_plot[[i]] <- plot_in_one_shot(all_dsets[[name]], name)
+}
+for (g in all_plot) {
+    print(g)
+}
+```
+<!-- ::: -->
+
+
+### Identify cyclical patterns
+
+:::{#facet}
+```{r, fig.show="hold", out.width="50%"}
+dumbo <- all_dsets[["dumbo"]]
+# dumbo
+head(dumbo)
+# sum(dumbo$Waiting.Time) / nrow(dumbo)
+group_by_date <- function(df) {
+    # Process dataframe
+    dsets <- df %>%
+        dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S")) %>%
+        dplyr::group_by(Datetime) %>%
+        dplyr::summarise(avg = sum(Waiting.Time) / n()) %>%
+        dplyr::mutate(yr = year(Datetime))
+    return(dsets)
+}
+dset <- group_by_date(dumbo)
+head(dset)
+g <- ggplot(dset, aes(as.Date(format(Datetime, format = "%m-%d"), "%m-%d"), avg)) + # nolint
+    geom_line(color = "grey30") +
+    geom_point(size = 0.1) +
+    scale_x_date(date_labels = "%b", date_breaks = "1 months", guide = guide_axis(angle = 45)) + # nolint
+    facet_grid(yr ~ ., scale = "free_y") +
+    geom_smooth(se = FALSE)
+g
+print(head(dset, 100), n = 100)
+as.character(as.Date("2020/01/01"))
+# grid.arrange(g,g, ncol=2)
+g
+g
+g
+head(dset, 100)
+```
+:::
+
+
+
+

@@ -1,0 +1,118 @@
+---
+title: "Untitled"
+author: "Mildred Ouyang"
+date: "2022-12-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+#install.packages("hash")
+library(hash)
+#install.packages("reticulate")
+library(reticulate)
+```
+
+```{r}
+process_name <- function(csv){
+  return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function(){
+  return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
+}
+
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
+dict <- hash()
+for (csv in filenames) {
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
+}
+```
+
+```{r}
+avg <- list()
+for (csv in filenames) {
+  avg <- append(avg, mean(dict[[process_name(csv)]]$Waiting.Time))
+}
+```
+
+```{r}
+avg_time = data.frame(unlist(get_attraction_name()), unlist(avg))
+names(avg_time) = c("Ride","avgtime")
+```
+
+```{r}
+ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) + 
+  geom_point(color = "#B12228") +
+  labs(title = "Average Waiting Time for Each Ride", 
+       x = "Average Waiting Time", 
+       y = "Ride")
+```
+
+```{r}
+section_list <- list("Adventureland", "Fantasyland", "Frontierland", "Tomorrowland", "Main Street, U.S.A.", "Liberty Square")
+
+avg_section <- list()
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("enchanted tiki rm", "jungle cruise", "magic carpets", "pirates of caribbean", "swiss family tree", "pirate s adventure"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("7 dwarfs train", "dumbo", "it s a small world", "peter pan s flight", "winnie the pooh", "under the sea", "princess hallcinderella elena", "princess hallrapunzel tiana", "regal carrousel", "mad tea party", "philharmagic", "barnstormer"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("big thunder mtn", "splash mountain", "tom sawyer island", "country bears"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("buzz lightyear", "astro orbiter", "space mountain", "laugh floor", "tom land speedway", "peoplemover", "carousel of progress"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("town sq mickey"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("haunted mansion", "hall of presidents", "liberty sq riverboat"))$avgtime))
+
+avg_section_time = data.frame(unlist(section_list), unlist(avg_section))
+names(avg_section_time) = c("section","avgtime")
+```
+
+```{r}
+#Cleveland Dot for each each section
+#ggplot(avg_section_time, aes(x=avgtime, y=fct_reorder(section, avgtime))) + 
+  #geom_point(color = "#B12228") +
+  #labs(title = "Average Waiting Time for Each Section", 
+       #x = "Average Waiting Time", 
+       #y = "Section")
+```
+
+```{r}
+ggplot(avg_section_time, aes(x=avgtime, y=fct_reorder(section, avgtime))) + 
+  geom_bar(stat = "identity", fill = "#393E8F") +
+  labs(title = "Average Waiting Time for Each Section", 
+       x = "Average Waiting Time", 
+       y = "Section")
+```
+
+```{r}
+#head(sort(avg_time$avgtime, decreasing=TRUE), n = 5)
+sort_df <- avg_time[order(-avg_time$avgtime),]
+head(sort_df, 5)
+top_five <- list()
+df_comb <- NA
+for (i in head(sort_df, 5)$Ride) {
+  dict[[i]]['ride'] <- i
+  df_comb <- rbind(df_comb, dict[[i]])
+}
+df_comb <- na.omit(df_comb)
+```
+
+```{r}
+#reorder(ride, -Waiting.Time, median)
+ggplot(df_comb, aes(x=Waiting.Time, y=reorder(ride, Waiting.Time, median))) + 
+  geom_boxplot() + 
+  labs(title = "Waiting Time Each Ride", 
+       x = "Waiting Time", 
+       y = "Ride")
+```

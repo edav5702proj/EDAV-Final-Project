@@ -1,0 +1,607 @@
+---
+title: "DataClean"
+author: "Mildred Ouyang"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(dplyr)
+X7_dwarfs_train$SPOSTMIN[is.na(X7_dwarfs_train$SPOSTMIN)] <- X7_dwarfs_train$SACTMIN[is.na(X7_dwarfs_train$SPOSTMIN)]
+
+df <- X7_dwarfs_train[ , colSums(is.na(X7_dwarfs_train))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new_X7_dwarfs_train <- df4[df4$datetime < "23:00:00", ]
+
+View(new_X7_dwarfs_train)
+
+write.csv(new_X7_dwarfs_train, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/7 Dwarfs Train.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+astro_orbiter$SPOSTMIN[is.na(astro_orbiter$SPOSTMIN)] <- astro_orbiter$SACTMIN[is.na(astro_orbiter$SPOSTMIN)]
+
+df <- astro_orbiter[ , colSums(is.na(astro_orbiter))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/Astro Orbiter.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+barnstormer$SPOSTMIN[is.na(barnstormer$SPOSTMIN)] <- barnstormer$SACTMIN[is.na(barnstormer$SPOSTMIN)]
+
+df <- barnstormer[ , colSums(is.na(barnstormer))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/barnstormer.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+big_thunder_mtn$SPOSTMIN[is.na(big_thunder_mtn$SPOSTMIN)] <- big_thunder_mtn$SACTMIN[is.na(big_thunder_mtn$SPOSTMIN)]
+
+df <- big_thunder_mtn[ , colSums(is.na(big_thunder_mtn))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/big thunder mtn.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+buzz_lightyear$SPOSTMIN[is.na(buzz_lightyear$SPOSTMIN)] <- buzz_lightyear$SACTMIN[is.na(buzz_lightyear$SPOSTMIN)]
+
+df <- buzz_lightyear[ , colSums(is.na(buzz_lightyear))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/buzz_lightyear.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+carousel_of_progress$SPOSTMIN[is.na(carousel_of_progress$SPOSTMIN)] <- carousel_of_progress$SACTMIN[is.na(carousel_of_progress$SPOSTMIN)]
+
+df <- carousel_of_progress[ , colSums(is.na(carousel_of_progress))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/carousel_of_progress.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+country_bears$SPOSTMIN[is.na(country_bears$SPOSTMIN)] <- country_bears$SACTMIN[is.na(country_bears$SPOSTMIN)]
+
+df <- country_bears[ , colSums(is.na(country_bears))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/country_bears.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+dumbo$SPOSTMIN[is.na(dumbo$SPOSTMIN)] <- dumbo$SACTMIN[is.na(dumbo$SPOSTMIN)]
+
+df <- dumbo[ , colSums(is.na(dumbo))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/dumbo.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+enchanted_tiki_rm$SPOSTMIN[is.na(enchanted_tiki_rm$SPOSTMIN)] <- enchanted_tiki_rm$SACTMIN[is.na(enchanted_tiki_rm$SPOSTMIN)]
+
+df <- enchanted_tiki_rm[ , colSums(is.na(enchanted_tiki_rm))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/enchanted_tiki_rm.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+hall_of_presidents$SPOSTMIN[is.na(hall_of_presidents$SPOSTMIN)] <- hall_of_presidents$SACTMIN[is.na(hall_of_presidents$SPOSTMIN)]
+
+df <- hall_of_presidents[ , colSums(is.na(hall_of_presidents))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/hall_of_presidents.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+haunted_mansion$SPOSTMIN[is.na(haunted_mansion$SPOSTMIN)] <- haunted_mansion$SACTMIN[is.na(haunted_mansion$SPOSTMIN)]
+
+df <- haunted_mansion[ , colSums(is.na(haunted_mansion))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/haunted_mansion.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+it_s_a_small_world$SPOSTMIN[is.na(it_s_a_small_world$SPOSTMIN)] <- it_s_a_small_world$SACTMIN[is.na(it_s_a_small_world$SPOSTMIN)]
+
+df <- it_s_a_small_world[ , colSums(is.na(it_s_a_small_world))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/it_s_a_small_world.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+jungle_cruise$SPOSTMIN[is.na(jungle_cruise$SPOSTMIN)] <- jungle_cruise$SACTMIN[is.na(jungle_cruise$SPOSTMIN)]
+
+df <- jungle_cruise[ , colSums(is.na(jungle_cruise))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/jungle_cruise.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+laugh_floor$SPOSTMIN[is.na(laugh_floor$SPOSTMIN)] <- laugh_floor$SACTMIN[is.na(laugh_floor$SPOSTMIN)]
+
+df <- laugh_floor[ , colSums(is.na(laugh_floor))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/laugh_floor.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+mad_tea_party$SPOSTMIN[is.na(mad_tea_party$SPOSTMIN)] <- mad_tea_party$SACTMIN[is.na(mad_tea_party$SPOSTMIN)]
+
+df <- mad_tea_party[ , colSums(is.na(mad_tea_party))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/mad_tea_party.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+magic_carpets$SPOSTMIN[is.na(magic_carpets$SPOSTMIN)] <- magic_carpets$SACTMIN[is.na(magic_carpets$SPOSTMIN)]
+
+df <- magic_carpets[ , colSums(is.na(magic_carpets))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/magic_carpets.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+peoplemover$SPOSTMIN[is.na(peoplemover$SPOSTMIN)] <- peoplemover$SACTMIN[is.na(peoplemover$SPOSTMIN)]
+
+df <- peoplemover[ , colSums(is.na(peoplemover))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/peoplemover.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+peter_pan_s_flight$SPOSTMIN[is.na(peter_pan_s_flight$SPOSTMIN)] <- peter_pan_s_flight$SACTMIN[is.na(peter_pan_s_flight$SPOSTMIN)]
+
+df <- peter_pan_s_flight[ , colSums(is.na(peter_pan_s_flight))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/peter_pan_s_flight.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+philharmagic$SPOSTMIN[is.na(philharmagic$SPOSTMIN)] <- philharmagic$SACTMIN[is.na(philharmagic$SPOSTMIN)]
+
+df <- philharmagic[ , colSums(is.na(philharmagic))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/philharmagic.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+pirate_s_adventure$SPOSTMIN[is.na(pirate_s_adventure$SPOSTMIN)] <- pirate_s_adventure$SACTMIN[is.na(pirate_s_adventure$SPOSTMIN)]
+
+df <- pirate_s_adventure[ , colSums(is.na(pirate_s_adventure))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/pirate_s_adventure.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+pirates_of_caribbean$SPOSTMIN[is.na(pirates_of_caribbean$SPOSTMIN)] <- pirates_of_caribbean$SACTMIN[is.na(pirates_of_caribbean$SPOSTMIN)]
+
+df <- pirates_of_caribbean[ , colSums(is.na(pirates_of_caribbean))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/pirates_of_caribbean.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+princess_hall_cinderella_elena$SPOSTMIN[is.na(princess_hall_cinderella_elena$SPOSTMIN)] <- princess_hall_cinderella_elena$SACTMIN[is.na(princess_hall_cinderella_elena$SPOSTMIN)]
+
+df <- princess_hall_cinderella_elena[ , colSums(is.na(princess_hall_cinderella_elena))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/princess_hall_cinderella_elena.csv", row.names=FALSE)
+```
+
+```{r}
+princess_hall_rapunzel_tiana$SPOSTMIN[is.na(princess_hall_rapunzel_tiana$SPOSTMIN)] <- princess_hall_rapunzel_tiana$SACTMIN[is.na(princess_hall_rapunzel_tiana$SPOSTMIN)]
+
+keeps <- c("date","datetime", "SPOSTMIN")
+df0 <- princess_hall_rapunzel_tiana[keeps]
+
+df <- df0[rowSums(is.na(df0)) == 0, ] 
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/princess_hall_rapunzel_tiana.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+regal_carrousel$SPOSTMIN[is.na(regal_carrousel$SPOSTMIN)] <- regal_carrousel$SACTMIN[is.na(regal_carrousel$SPOSTMIN)]
+
+df <- regal_carrousel[ , colSums(is.na(regal_carrousel))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/regal_carrousel.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+sorcerers_of_the_mk$SPOSTMIN[is.na(sorcerers_of_the_mk$SPOSTMIN)] <- sorcerers_of_the_mk$SACTMIN[is.na(sorcerers_of_the_mk$SPOSTMIN)]
+
+df <- sorcerers_of_the_mk[ , colSums(is.na(sorcerers_of_the_mk))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/sorcerers_of_the_mk.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+space_mountain$SPOSTMIN[is.na(space_mountain$SPOSTMIN)] <- space_mountain$SACTMIN[is.na(space_mountain$SPOSTMIN)]
+
+df <- space_mountain[ , colSums(is.na(space_mountain))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/space_mountain.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+splash_mountain$SPOSTMIN[is.na(splash_mountain$SPOSTMIN)] <- splash_mountain$SACTMIN[is.na(splash_mountain$SPOSTMIN)]
+
+df <- splash_mountain[ , colSums(is.na(splash_mountain))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/splash_mountain.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+swiss_family_tree$SPOSTMIN[is.na(swiss_family_tree$SPOSTMIN)] <- swiss_family_tree$SACTMIN[is.na(swiss_family_tree$SPOSTMIN)]
+
+df <- swiss_family_tree[ , colSums(is.na(swiss_family_tree))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/swiss_family_tree.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+tom_land_speedway$SPOSTMIN[is.na(tom_land_speedway$SPOSTMIN)] <- tom_land_speedway$SACTMIN[is.na(tom_land_speedway$SPOSTMIN)]
+
+df <- tom_land_speedway[ , colSums(is.na(tom_land_speedway))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/tom_land_speedway.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+tom_sawyer_island$SPOSTMIN[is.na(tom_sawyer_island$SPOSTMIN)] <- tom_sawyer_island$SACTMIN[is.na(tom_sawyer_island$SPOSTMIN)]
+
+df <- tom_sawyer_island[ , colSums(is.na(tom_sawyer_island))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/tom_sawyer_island.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+town_sq_mickey$SPOSTMIN[is.na(town_sq_mickey$SPOSTMIN)] <- town_sq_mickey$SACTMIN[is.na(town_sq_mickey$SPOSTMIN)]
+
+df <- town_sq_mickey[ , colSums(is.na(town_sq_mickey))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/town_sq_mickey.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+under_the_sea$SPOSTMIN[is.na(under_the_sea$SPOSTMIN)] <- under_the_sea$SACTMIN[is.na(under_the_sea$SPOSTMIN)]
+
+df <- under_the_sea[ , colSums(is.na(under_the_sea))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/under_the_sea.csv", row.names=FALSE)
+```
+
+```{r}
+library(dplyr)
+winnie_the_pooh$SPOSTMIN[is.na(winnie_the_pooh$SPOSTMIN)] <- winnie_the_pooh$SACTMIN[is.na(winnie_the_pooh$SPOSTMIN)]
+
+df <- winnie_the_pooh[ , colSums(is.na(winnie_the_pooh))==0]
+
+df2 <- df[df$SPOSTMIN >= 0, ]
+
+df3 <- df2
+
+df3$datetime <- format(df2$datetime, format = "%H:%M:%S")
+
+df4 <- df3[df3$datetime >= "09:00:00", ]
+new <- df4[df4$datetime < "23:00:00", ]
+
+write.csv(new, "/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/cleanData/winnie_the_pooh.csv", row.names=FALSE)
+```
