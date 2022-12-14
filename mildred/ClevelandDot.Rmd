@@ -56,3 +56,45 @@ ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) +
        x = "Average Waiting Time", 
        y = "Ride")
 ```
+
+```{r}
+section_list <- list("Adventureland", "Fantasyland", "Frontierland", "Tomorrowland", "Main Street, U.S.A.", "Liberty Square")
+
+avg_section <- list()
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("enchanted tiki rm", "jungle cruise", "magic carpets", "pirates of caribbean", "swiss family tree", "pirate s adventure"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("7 dwarfs train", "dumbo", "it s a small world", "peter pan s flight", "winnie the pooh", "under the sea", "princess hallcinderella elena", "princess hallrapunzel tiana", "regal carrousel", "mad tea party", "philharmagic", "barnstormer"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("big thunder mtn", "splash mountain", "tom sawyer island", "country bears"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("buzz lightyear", "astro orbiter", "space mountain", "laugh floor", "tom land speedway", "peoplemover", "carousel of progress"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("town sq mickey"))$avgtime))
+
+avg_section <- append(avg_section, mean(subset(avg_time, Ride %in% c("haunted mansion", "hall of presidents", "liberty sq riverboat"))$avgtime))
+
+avg_section_time = data.frame(unlist(section_list), unlist(avg_section))
+names(avg_section_time) = c("section","avgtime")
+```
+
+```{r}
+#Cleveland Dot for each each section
+#ggplot(avg_section_time, aes(x=avgtime, y=fct_reorder(section, avgtime))) + 
+  #geom_point(color = "#B12228") +
+  #labs(title = "Average Waiting Time for Each Section", 
+       #x = "Average Waiting Time", 
+       #y = "Section")
+```
+
+```{r}
+ggplot(avg_section_time, aes(x=avgtime, y=fct_reorder(section, avgtime))) + 
+  geom_bar(stat = "identity", fill = "#393E8F") +
+  labs(title = "Average Waiting Time for Each Section", 
+       x = "Average Waiting Time", 
+       y = "Section")
+```
+
+```{r}
+
+```
