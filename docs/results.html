@@ -112,24 +112,7 @@
 <div id="results" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<!-- <script src="D3/scripts/example.js"></script> -->
-<script>
-var state=true;
-d3.select("div#facet").selectAll("img")
-  .on("click", function(event) {
-    console.log("hello");
-      console.log(state);
-      var width = parseFloat(d3.select(event.currentTarget).attr("width"))/100;
-      console.log(width);
-  if(state==true){
-d3.select(event.currentTarget).transition().duration(100).attr("width", parseFloat(width*2*100).toFixed(2)+"%");
-      state=false;
-  }else{
-d3.select(event.currentTarget).transition().duration(100).attr("width", parseFloat(width*0.5*100).toFixed(0.5)+"%");
-      state=true;
-  }
-});
-</script>
+<script src="zoom.js"></script>
 <div id="xysong-demo" class="section level2 hasAnchor" number="4.1">
 <h2><span class="header-section-number">4.1</span> xysong demo<a href="results.html#xysong-demo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
