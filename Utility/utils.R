@@ -7,7 +7,6 @@ quick_build <- function(fname) {
 }
 # Run this to render
 quick_build("index")
-
 # Utility function for plotting
 # library(reticulate) #nolint
 process_name <- function(csv){
@@ -17,7 +16,7 @@ process_name <- function(csv){
 get_attraction_name <- function(){
   return(lapply(list.files("Data/data/Magic Kingdom/xysong_python"), process_name)) #nolint
 }
-# get_attraction_name()
+get_attraction_name()
 
 
 read_all <- function() {
@@ -29,4 +28,3 @@ read_all <- function() {
   }
   return(dict)
 }
-

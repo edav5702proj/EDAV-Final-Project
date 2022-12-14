@@ -54,6 +54,7 @@ def parse_attraction_name():
     ic(names)
 
 
+
 if __name__ == '__main__':
     ic("Utility functions")
     # Get basic csv info
