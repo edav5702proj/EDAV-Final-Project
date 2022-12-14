@@ -18,7 +18,6 @@ get_attraction_name <- function(){
 }
 get_attraction_name()
 
-
 read_all <- function() {
   library(hash)
   filenames <- list.files("Data/data/Magic Kingdom/xysong_python") # nolint
