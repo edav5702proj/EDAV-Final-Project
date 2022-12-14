@@ -1,6 +1,6 @@
 ---
-title: "Untitled"
-author: "Mildred Ouyang"
+title: "Average Analysis"
+author: "Liwen Zhu"
 date: "2022-12-13"
 output: html_document
 ---
@@ -13,30 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
-
-#install.packages("hash")
-library(hash)
 ```
 
-```{r}
-df <- space_mountain
-
-ggplot(df, aes(df$'Waiting Time')) + 
-  geom_histogram(bins=15, color="black", fill="#69b3a2", boundary=0) +
-  labs(title = "Space Mountain Wait Time Histogram", 
-       x = "Waiting time (in minute)", 
-       y = "Count")
-```
-
-```{r}
-ggplot(df, aes(df$'Waiting Time')) +
-  geom_boxplot()
-```
-
-```{r}
-#temp = list.files(pattern="*.csv")
-#for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i]))
-```
 
 ```{r}
 filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
@@ -44,16 +22,6 @@ dict <- hash()
 for (csv in filenames){
   dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
 }
-#dwarfs_train = read.csv("./Data/data/Magic Kingdom/xysong_python/7_dwarfs_train.csv")
-#astro_orbiter = read.csv("./Data/data/Magic Kingdom/xysong_python/astro_orbiter.csv")
-#barnstormer = read.csv("./Data/data/Magic Kingdom/xysong_python/barnstormer.csv")
-#big_thunder_mtn = read.csv("./Data/data/Magic Kingdom/xysong_python/big_thunder_mtn.csv")
-#buzz_lightyear = read.csv("./Data/data/Magic Kingdom/xysong_python/buzz_lightyear.csv")
-#carousel_of_progress = read.csv("./Data/data/Magic Kingdom/xysong_python/carousel_of_progress.csv")
-```
-
-```{r}
-View(dict[["astro_orbiter.csv"]])
 ```
 
 ```{r}
@@ -61,11 +29,20 @@ avg <- list()
 for (csv in filenames) {
   date = substr(dict[[csv]]$Datetime,1,10)
   ymd = as.Date(date, format = "%Y-%m-%d")
+  weekday = weekdays(ymd)
+  yr = substr(dict[[csv]]$Datetime,1,4)
+  yr = format(as.Date(yr, format = "%Y"),"%Y")
   md = substr(dict[[csv]]$Datetime,6,10)
-  md = as.Date(md, format = "%m-%d")
+  md = format(as.Date(md, format = "%m-%d"),"%m-%d")
   dict[[csv]]<-cbind(dict[[csv]],ymd)
+  dict[[csv]]<-cbind(dict[[csv]],weekday)
+  dict[[csv]]<-cbind(dict[[csv]],yr)
   dict[[csv]]<-cbind(dict[[csv]],md)
 }
+```
+
+```{r}
+View(dict[["dumbo.csv"]])
 ```
 
 ```{r}
@@ -74,27 +51,190 @@ for (csv in filenames) {
   if (first==1){
     df_ymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
     df_md <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday <- dict[[csv]] %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     first = 2
   }
   else{
     df_nymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
     df_nmd <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday <- dict[[csv]] %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_nymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_nymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     
     df_ymd <- merge(df_ymd,df_nymd,by="ymd",all=TRUE)
     df_md <- merge(df_md,df_nmd,by="md",all=TRUE)
+    df_weekday <- merge(df_weekday,df_nweekday,by="weekday",all=TRUE)
+    
+    df_ymd_before <- merge(df_ymd_before,df_nymd_before,by="ymd",all=TRUE)
+    df_md_before <- merge(df_md_before,df_nmd_before,by="md",all=TRUE)
+    df_weekday_before <- merge(df_weekday_before,df_nweekday_before,by="weekday",all=TRUE)
+    
+    df_ymd_after <- merge(df_ymd_after,df_nymd_after,by="ymd",all=TRUE)
+    df_md_after <- merge(df_md_after,df_nmd_after,by="md",all=TRUE)
+    df_weekday_after <- merge(df_weekday_after,df_nweekday_after,by="weekday",all=TRUE)
   }
 }
 ```
 
 ```{r}
-merge(df_ymd,df_nymd,by="ymd",all=TRUE)
+average_wait = rowMeans(df_md[2:35],na.rm=TRUE)
+df_mdwait <-cbind(df_md[1],average_wait)
+df_mdwait <-na.omit(df_mdwait)
+df_mdwait$md <- as.Date(df_mdwait$md,format = "%m-%d")
+```
+
+```{r}
+ggplot(df_mdwait,aes(x=md,y=average_wait))+
+  geom_line()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %d")+
+  xlab("day")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every day")
+```
+From the
+
+```{r}
+average_wait_before = rowMeans(df_md_before[2:35],na.rm=TRUE)
+average_wait_after = rowMeans(df_md_after[2:35],na.rm=TRUE)
+df_mdwait_before <-cbind(df_md[1],average_wait_before)
+df_mdwait_covid <-cbind(df_mdwait_before,average_wait_after)
+df_mdwait_covid <-na.omit(df_mdwait_covid)
+df_mdwait_covid$md <- as.Date(df_mdwait_covid$md,format = "%m-%d")
+```
+
+```{r}
+ggplot(df_mdwait_covid,aes(x=md))+
+  geom_line(aes(y=average_wait_before,colour="average_wait_before"))+
+  geom_line(aes(y=average_wait_after,colour="average_wait_after"))+
+  scale_colour_manual("",
+                      breaks = c("average_wait_before", "average_wait_after"),
+                      values = c("blue","red"),
+                      labels = c("Before covid","After Covid"))+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %d")+
+  xlab("day")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every day")
+```
+
+```{r}
+weekday_wait = rowMeans(df_weekday[2:35],na.rm=TRUE)
+df_weekwait <-cbind(df_weekday[1],weekday_wait)
+df_weekwait$weekday <- factor(df_weekwait$weekday, levels= c("Sunday", "Monday", 
+    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+df_weekwait <-df_weekwait[order(df_weekwait$weekday), ]
+```
+
+```{r}
+ggplot(df_weekwait,aes(x=weekday,y=weekday_wait))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label = round(weekday_wait,2)), vjust = 1.5, colour = "white")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every weekday")
+```
+
+```{r}
+weekday_wait_before = rowMeans(df_weekday_before[2:35],na.rm=TRUE)
+df_weekwait_before <-cbind(df_weekday_before[1],weekday_wait_before)
+df_weekwait_before$weekday <- factor(df_weekwait_before$weekday, levels= c("Sunday", "Monday", 
+    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+df_weekwait_before <-df_weekwait_before[order(df_weekwait_before$weekday), ]
+```
+
+```{r}
+ggplot(df_weekwait_before,aes(x=weekday,y=weekday_wait_before))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label = round(weekday_wait_before,2)), vjust = 1.5, colour = "white")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every weekday before covid")
 
 ```
+
 ```{r}
-rowMeans(df_md)
+weekday_wait_after = rowMeans(df_weekday_after[2:35],na.rm=TRUE)
+df_weekwait_after <-cbind(df_weekday_after[1],weekday_wait_after)
+df_weekwait_after$weekday <- factor(df_weekwait_after$weekday, levels= c("Sunday", "Monday", 
+    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+df_weekwait_after <-df_weekwait_after[order(df_weekwait_after$weekday), ]
 ```
+
 ```{r}
-avg_wait = rowMeans(df_md[2:34],na.rm=TRUE)
-plot(df_md$md,avg_wait)
+ggplot(df_weekwait_after,aes(x=weekday,y=weekday_wait_after))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label = round(weekday_wait_after,2)), vjust = 1.5, colour = "white")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every weekday after covid")
 ```
+
+
+```{r}
+df_dumbo <- df_weekday[c(1,9)]
+df_dumbo$weekday <- factor(df_dumbo$weekday, levels= c("Sunday", "Monday", 
+    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+df_dumbo <-df_dumbo[order(df_dumbo$weekday), ]
+ggplot(df_dumbo,aes(x=weekday,y=avg_wait.y))+
+  geom_bar(stat="identity")+
+  geom_text(aes(label = round(avg_wait.y,2)), vjust = 1.5, colour = "white")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for dumbo")
+```
+
+```{r}
+duration = read.csv("Data/data/entities.csv")
+```
+
+```{r}
+du <- duration[c(78,24,90,73,27,NaN,NaN,30,31,NaN,84,87,77,92,NaN,88,80,94,75,89,NaN,42,82,83,85,NaN,44,74,NaN,93, NaN,95,79,76),]
+```
+
+```{r}
+wait_time<-data.frame(0)
+names(wait_time)<-c("Waiting.time")
+for (csv in filenames) {
+  avg = mean(dict[[csv]]$Waiting.Time)
+  wait_time<-rbind(wait_time,avg)
+}
+```
+
+```{r}
+wait_time<-wait_time[2:35,]
+```
+
+```{r}
+du<-cbind(du,wait_time)
+```
+
+```{r}
+du <-na.omit(du)
+```
+
+```{r}
+ggplot(du,aes(x=duration,y=wait_time))+
+  geom_point()+
+  geom_smooth(method='loess', formula= y~x)
+```
+
+
+
+
+
+
+
+
+
+
+
 
