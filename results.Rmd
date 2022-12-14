@@ -20,8 +20,7 @@ date <- head(dumbo)$Datetime[1]
 # lubridate::floor_date(date, "month")
 date
 # Example
-head(dsets)
-
+# head(dsets)
 group_by <- function(df) {
     # Process dataframe
     dsets <- df %>%
@@ -31,30 +30,64 @@ group_by <- function(df) {
         dplyr::summarise(avg = sum(Waiting.Time) / n())
     return(dsets)
 }
-plot_time_series <- function(dsets) { # Plot
+
+plot_time_series <- function(dsets, name) { # Plot
     g <- ggplot(dsets, aes(month, avg), type = "l") +
-        geom_line(color = "purple") +
+        geom_line(color = "black") +
         scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) + # nolint
         xlab("Month") +
-        ylab("Average Waiting Time") +
-        ggtitle("Time Series Plot: Average Waiting Time (By Month)") +
+        ylab("Average Waiting Time (minutes)") +
+        ggtitle(sprintf("%s: Average Waiting Time (By Month)", name)) +
         ggeasy::easy_center_title()
-    # theme_grey(14)
     return(g)
 }
 identify_abnormal <- function(g, start, end, text_y) {
     g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.5) # nolint
     # Append text
-    g <- g + annotate("text", x = end + 10, y = text_y *(2/3), label = "Covid Disruption", color = "black", hjust = 0) # nolint
+    g <- g + annotate("text", x = end + 10, y = text_y * (2 / 3), label = "Covid \nDisruption", color = "black", hjust = 0) # nolint
     return(g)
 }
 grouped_dsets <- group_by(dumbo)
-g <- plot_time_series(grouped_dsets)
+g <- plot_time_series(grouped_dsets, "dumbo")
 start <- as.Date("2020-01-01")
-end <- as.Date("2020-09-01")
+end <- as.Date("2020-12-01")
 g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
 g
 ```
+### Identify cyclical patterns
+```{r, fig.width=1000, fig.height=1200}
+dumbo <- all_dsets[["dumbo"]]
+# dumbo
+head(dumbo)
+# sum(dumbo$Waiting.Time) / nrow(dumbo)
+group_by_date <- function(df) {
+    # Process dataframe
+    dsets <- df %>%
+        dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S")) %>%
+        dplyr::group_by(Datetime) %>%
+        dplyr::summarise(avg = sum(Waiting.Time) / n()) %>%
+        ungroup() %>%
+        dplyr::mutate(yr = year(Datetime))
+    return(dsets)
+}
+dset <- group_by_date(dumbo)
+head(dset)
+g <- ggplot(head(dset, 5000), aes(month(Datetime), avg)) +
+    geom_line(color = "grey30") +
+    geom_point(size = 0.1) +
+    facet_grid(. ~ year(Datetime)) +
+    geom_smooth(se = FALSE)
+g
+
+as.character(as.Date("2020/01/01"))
+
+library(readr)
+urlfile <- "https://raw.githubusercontent.com/jtr13/data/master/ManchesterByTheSea.csv"
+data <- read_csv(url(urlfile))
+head(data)
+head(dset)
+```
+
 
 
 
