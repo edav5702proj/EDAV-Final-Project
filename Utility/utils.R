@@ -7,7 +7,6 @@ quick_build <- function(fname) {
 }
 # Run this to render
 quick_build("index")
-
 # Utility function for plotting
 # library(reticulate) #nolint
 process_name <- function(csv){
@@ -29,9 +28,3 @@ read_all <- function() {
   }
   return(dict)
 }
-
-
-
-
-
-
