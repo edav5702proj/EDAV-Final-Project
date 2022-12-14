@@ -66,26 +66,26 @@ group_by_date <- function(df) {
         dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S")) %>%
         dplyr::group_by(Datetime) %>%
         dplyr::summarise(avg = sum(Waiting.Time) / n()) %>%
-        ungroup() %>%
         dplyr::mutate(yr = year(Datetime))
     return(dsets)
 }
 dset <- group_by_date(dumbo)
 head(dset)
-g <- ggplot(head(dset, 5000), aes(month(Datetime), avg)) +
+g <- ggplot(dset, aes(as.Date(format(Datetime, format = "%m-%d"), "%m-%d"), avg)) +
     geom_line(color = "grey30") +
     geom_point(size = 0.1) +
-    facet_grid(. ~ year(Datetime)) +
+    scale_x_date(date_labels = "%b", date_breaks = "1 months", guide = guide_axis(angle = 45)) +
+    facet_grid(yr ~., scale = "free_y") +
     geom_smooth(se = FALSE)
 g
-
+print(head(dset, 100), n = 100)
 as.character(as.Date("2020/01/01"))
 
 library(readr)
 urlfile <- "https://raw.githubusercontent.com/jtr13/data/master/ManchesterByTheSea.csv"
 data <- read_csv(url(urlfile))
 head(data)
-head(dset)
+head(dset, 100)
 ```
 
 
