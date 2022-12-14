@@ -2,7 +2,7 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="zoom.js"></script>
 
-## xysong demo
+## Waiting Time Pattern Analysis
 
 ```{r}
 process_name <- function(csv) {
@@ -38,11 +38,10 @@ dumbo <- all_dsets[["dumbo"]]
 class(dumbo)
 # Elementary statistics
 head(dumbo)
-# TODO: (Xiaoyang) whether using detailed time or just date?
-# dumbo$Datetime <- as.Date(dumbo$Datetime, "%Y-%m-%d %H:%M:%S")
-date <- head(dumbo)$Datetime[1]
-# lubridate::floor_date(date, "month")
-date
+# Get all datasets
+df_all <- bind_rows(lapply(get_attraction_name(), function(i) all_dsets[[i]]))
+# nrow(df_all)
+
 # Example
 # head(dsets)
 group_by <- function(df) {
@@ -68,16 +67,40 @@ plot_time_series <- function(dsets, name) { # Plot
 identify_abnormal <- function(g, start, end, text_y) {
     g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.5) # nolint
     # Append text
-    g <- g + annotate("text", x = end + 10, y = text_y * (2 / 3), label = "Covid \nDisruption", color = "black", hjust = 0) # nolint
+    g <- g + annotate("text", x = end + 10, y = text_y * (2 / 3), label = "Covid \nDisruption", color = "green", hjust = 0) # nolint
     return(g)
 }
-grouped_dsets <- group_by(dumbo)
-g <- plot_time_series(grouped_dsets, "dumbo")
-start <- as.Date("2020-01-01")
-end <- as.Date("2020-12-01")
-g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
-g
+
+plot_in_one_shot <- function(df, name) {
+    grouped_dsets <- group_by(df)
+    g <- plot_time_series(grouped_dsets, name)
+    start <- as.Date("2020-01-01")
+    end <- as.Date("2020-12-01")
+    g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
+    return(g)
+}
+# nrow(df_all)
+plot_in_one_shot(df_all, "All Attractions")
 ```
+
+:::{#abnormal_plot}
+```{r, fig.show="hold", out.width="20%"}
+all_plot <- list()
+names <- get_attraction_name()
+length(names)
+# names
+# names[[1]]
+for (i in 1:25) {
+    name <- names[[i]]
+    all_plot[[i]] <- plot_in_one_shot(all_dsets[[name]], name)
+}
+for (g in all_plot){
+  print(g)
+}
+```
+:::
+
+
 ### Identify cyclical patterns
 
 :::{#facet}

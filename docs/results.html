@@ -86,7 +86,10 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#xysong-demo"><i class="fa fa-check"></i><b>4.1</b> xysong demo</a></li>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#waiting-time-pattern-analysis"><i class="fa fa-check"></i><b>4.1</b> Waiting Time Pattern Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.1.1</b> Identify cyclical patterns</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
@@ -113,8 +116,8 @@
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="zoom.js"></script>
-<div id="xysong-demo" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> xysong demo<a href="results.html#xysong-demo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="waiting-time-pattern-analysis" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Waiting Time Pattern Analysis<a href="results.html#waiting-time-pattern-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <pre><code>##   X            Datetime Waiting.Time
 ## 1 0 2015-01-01 09:02:13           10
@@ -123,9 +126,13 @@
 ## 4 3 2015-01-01 09:22:35           10
 ## 5 4 2015-01-01 09:23:12           10
 ## 6 5 2015-01-01 09:29:12           10</code></pre>
-<pre><code>## [1] &quot;2015-01-01 09:02:13&quot;</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" />
-### Identify cyclical patterns</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div id="abnormal_plot">
+<pre><code>## [1] 25</code></pre>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-2.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-3.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-4.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-5.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-6.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-7.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-8.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-9.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-10.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-11.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-12.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-13.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-14.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-15.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-16.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-17.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-18.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-19.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-20.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-21.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-22.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-23.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-24.png" width="20%" /><img src="finalproj_files/figure-html/unnamed-chunk-9-25.png" width="20%" /></p>
+</div>
+<div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Identify cyclical patterns<a href="results.html#identify-cyclical-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="facet">
 <pre><code>##   X            Datetime Waiting.Time
 ## 1 0 2015-01-01 09:02:13           10
@@ -261,9 +268,10 @@
 ##  9 2015-01-09  12.2  2015
 ## 10 2015-01-10  21.6  2015
 ## # … with 90 more rows</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-7-2.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-7-3.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-7-4.png" width="50%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-10-3.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-10-4.png" width="50%" /></p>
 </div>
 
+</div>
 </div>
 </div>
             </section>

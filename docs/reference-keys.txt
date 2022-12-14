@@ -7,6 +7,7 @@ sources
 cleaning-transformation
 missing-value-analysis
 results
-xysong-demo
+waiting-time-pattern-analysis
+identify-cyclical-patterns
 interactive-component
 conclusion
