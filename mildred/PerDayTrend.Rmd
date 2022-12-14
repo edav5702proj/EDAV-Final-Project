@@ -1,0 +1,90 @@
+---
+title: "PerDayTrend"
+author: "Mildred Ouyang"
+date: "2022-12-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+#install.packages("hash")
+library(hash)
+#install.packages("reticulate")
+library(reticulate)
+```
+
+```{r}
+process_name <- function(csv){
+  return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function(){
+  return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
+}
+
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
+dict <- hash()
+for (csv in filenames) {
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
+}
+```
+
+```{r}
+name_list <- list()
+for (csv in filenames) {
+  temp <- process_name(csv)
+  name_list <- append(name_list, temp)
+  dict[[temp]]$Datetime <- as.POSIXlt(dict[[temp]]$Datetime)
+}
+```
+
+```{r}
+m_avg <- list()
+a_avg <- list()
+e_avg <- list()
+for (n in name_list) {
+  m_avg <- append(m_avg, mean(dict[[n]][dict[[n]]$Datetime$hour < 12, 'Waiting.Time']))
+  a_avg <- append(a_avg, mean(dict[[n]][((dict[[n]]$Datetime$hour >= 12) | (dict[[n]]$Datetime$hour < 18)), 'Waiting.Time']))
+  e_avg <- append(e_avg, mean(dict[[n]][dict[[n]]$Datetime$hour >= 18, 'Waiting.Time']))
+}
+
+m_avg_time = data.frame(unlist(name_list), unlist(m_avg))
+names(m_avg_time) = c("ride","avg")
+
+a_avg_time = data.frame(unlist(name_list), unlist(a_avg))
+names(a_avg_time) = c("ride","avg")
+
+e_avg_time = data.frame(unlist(name_list), unlist(e_avg))
+names(e_avg_time) = c("ride","avg")
+```
+
+```{r}
+m_avg_time['timeofday'] <- 'morning'
+a_avg_time['timeofday'] <- 'afternoon'
+e_avg_time['timeofday'] <- 'evening' 
+avg_comb <- NA
+avg_comb <- rbind(avg_comb, m_avg_time)
+avg_comb <- rbind(avg_comb, a_avg_time)
+avg_comb <- rbind(avg_comb, e_avg_time)
+avg_comb <- na.omit(avg_comb)
+```
+
+```{r}
+ggplot(avg_comb, aes(x=avg, y=fct_reorder2(ride,timeofday=='afternoon',avg,.desc=FALSE), color = timeofday)) + 
+  geom_point() +
+  labs(title = "Average Waiting Time for Each Ride", 
+       x = "Average Waiting Time", 
+       y = "Ride")
+```
+
+```{r}
+
+```
