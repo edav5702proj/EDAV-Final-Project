@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
+library(hash)
+library(plotly)
 ```
 
 
@@ -39,10 +41,6 @@ for (csv in filenames) {
   dict[[csv]]<-cbind(dict[[csv]],yr)
   dict[[csv]]<-cbind(dict[[csv]],md)
 }
-```
-
-```{r}
-View(dict[["dumbo.csv"]])
 ```
 
 ```{r}
@@ -145,8 +143,8 @@ df_weekwait <-df_weekwait[order(df_weekwait$weekday), ]
 
 ```{r}
 ggplot(df_weekwait,aes(x=weekday,y=weekday_wait))+
-  geom_bar(stat="identity")+
-  geom_text(aes(label = round(weekday_wait,2)), vjust = 1.5, colour = "white")+
+  geom_bar(stat="identity",fill="skyblue")+
+  geom_text(aes(label = round(weekday_wait,2)), vjust = -0.5, colour = "black")+
   ylab("average waiting time(min)")+
   ggtitle("Average waiting time for every weekday")
 ```
@@ -155,47 +153,28 @@ The graph above shows the average waiting time per facility every weekday. We do
 ```{r}
 weekday_wait_before = rowMeans(df_weekday_before[2:26],na.rm=TRUE)
 df_weekwait_before <-cbind(df_weekday_before[1],weekday_wait_before)
-df_weekwait_before$weekday <- factor(df_weekwait_before$weekday, levels= c("Sunday", "Monday", 
-    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
-df_weekwait_before <-df_weekwait_before[order(df_weekwait_before$weekday), ]
-```
+df_weekwait_before <-cbind(df_weekwait_before,c("before","before","before","before","before","before","before"))
+colnames(df_weekwait_before) <- c('weekday','weekday_wait','covid')
 
-```{r}
-ggplot(df_weekwait_before,aes(x=weekday,y=weekday_wait_before))+
-  geom_bar(stat="identity")+
-  geom_text(aes(label = round(weekday_wait_before,2)), vjust = 1.5, colour = "white")+
-  ylab("average waiting time(min)")+
-  ggtitle("Average waiting time for every weekday before covid")
-
-```
-
-```{r}
-weekday_wait_after = rowMeans(df_weekday_after[2:26],na.rm=TRUE)
+weekday_wait_after= rowMeans(df_weekday_after[2:26],na.rm=TRUE)
 df_weekwait_after <-cbind(df_weekday_after[1],weekday_wait_after)
-df_weekwait_after$weekday <- factor(df_weekwait_after$weekday, levels= c("Sunday", "Monday", 
+df_weekwait_after <-cbind(df_weekwait_after,c("after","after","after","after","after","after","after"))
+colnames(df_weekwait_after) <- c('weekday','weekday_wait','covid')
+
+df_weekwait_covid <-rbind(df_weekwait_before,df_weekwait_after)
+df_weekwait_covid$weekday <- factor(df_weekwait_covid$weekday, levels= c("Sunday", "Monday", 
     "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
-df_weekwait_after <-df_weekwait_after[order(df_weekwait_after$weekday), ]
+df_weekwait_covid <-df_weekwait_covid[order(df_weekwait_covid$weekday), ]
+df_weekwait_covid$covid <- factor(df_weekwait_covid$covid, levels = c('before', 'after'))
 ```
 
 ```{r}
-ggplot(df_weekwait_after,aes(x=weekday,y=weekday_wait_after))+
-  geom_bar(stat="identity")+
-  geom_text(aes(label = round(weekday_wait_after,2)), vjust = 1.5, colour = "white")+
+ggplot(df_weekwait_covid,aes(fill=covid,x=weekday,y=weekday_wait))+
+  geom_bar(stat="identity",position=position_dodge(width = 0.9))+
+  geom_text(position = position_dodge(width = 0.9),aes(label = round(weekday_wait,2), hjust = 0.5, vjust = -0.5), colour = "black",size=3.2)+
   ylab("average waiting time(min)")+
-  ggtitle("Average waiting time for every weekday after covid")
+  ggtitle("Average waiting time for every weekday before and after covid")
+
 ```
 
-The two graphs above show the waiting time every weekday before and after covid. On every weekday, the average the less after covid than before covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.58 minutes. The tourists spend less time waiting after the covid.
-
-
-Given the analysis we provided above, we recommend that tourists visit Disney Land on a Sunday or Thursday in September in order to take advantage of as many facilities as possible.
-
-
-
-
-
-
-
-
-
-
+The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.58 minutes. The tourists spend less time waiting after the Covid.

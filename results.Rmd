@@ -150,31 +150,14 @@ g1
 ```
 
 ## General Pattern Analysis - Macro-Level
-With confidence of dataset validity, we first analyze the pattern of waiting time of each attraction 
-spanning from _2015-01-01_ to _2022-01-01_, by which we can identify the peak season of Walt Disneyland. Note that for this section, 
-we are doing macro-scale analysis, implying we will focus on the _average waiting time_ for each month for each attraction. 
-
-### Secular Trends
-
-To identify secular trend, we computed the _average waiting time_ for each month for all attractions and then made the following time series plot. 
-Here is the main observations:
-
-- From _2015_ to _2019_, there is a general trend of increasing waiting time.\\
-Explanation: as Disneyland became more famous, there are more tourists but the attractions remain unchanged, which result in an increasing of waiting time.
-- From about _2019_ to _2020_, there is a huge decreasing in terms of waiting time.\\
-Explanation: this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.
-- Starting from _2020_, there is a general trend of increasing waiting time\\
-Explanation: this corresponds to the fact that people are back to normal life from COVID disruption.
-
-**Note**: According to Disneyland's Officials, Disneyland was closed during COVID-19 outbreaks
 ```{r}
 # source("Utility/utils.R")
 
 all_dsets <- read_all()
 dumbo <- all_dsets[["dumbo"]]
-# class(dumbo)
+class(dumbo)
 # Elementary statistics
-# head(dumbo)
+head(dumbo)
 # Get all datasets
 df_all <- bind_rows(lapply(get_attraction_name(), function(i) all_dsets[[i]]))
 # nrow(df_all) #nolint
@@ -194,9 +177,6 @@ group_by <- function(df) {
 plot_time_series <- function(dsets, name) { # Plot
     g <- ggplot(dsets, aes(month, avg), type = "l") +
         geom_line(color = "black") +
-        # geom_line(color = "#F3CC64") +
-        geom_point(color = "deeppink", alpha = 0.4) +
-        geom_smooth(method = "loess", span = .5, se = FALSE) +
         scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) + # nolint
         xlab("Month") +
         ylab("Average Waiting Time (minutes)") +
@@ -205,9 +185,9 @@ plot_time_series <- function(dsets, name) { # Plot
     return(g)
 }
 identify_abnormal <- function(g, start, end, text_y) {
-    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.3) # nolint
+    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.5) # nolint
     # Append text
-    g <- g + annotate("text", x = end + 10, y = text_y * (4 / 5), label = "COVID \nOUTBREAK", color = "#393E8F", hjust = 0) # nolint
+    g <- g + annotate("text", x = end + 10, y = text_y * (2 / 3), label = "Covid \nDisruption", color = "green", hjust = 0) # nolint
     return(g)
 }
 
@@ -219,16 +199,15 @@ plot_in_one_shot <- function(df, name) {
     g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
     return(g)
 }
-# nrow(df_all) #nolint
-g2 <- plot_in_one_shot(df_all, "All Attractions")
-g2
+# nrow(df_all)
+plot_in_one_shot(df_all, "All Attractions")
 ```
 
 <!-- :::{#abnormal_plot} -->
 ```{r, fig.show="hold", out.width="20%", out.extra='class="abnormal"'}
 all_plot <- list()
 names <- get_attraction_name()
-# length(names) #nolint
+# length(names)
 # names
 for (i in 1:25) {
     name <- names[[i]]
@@ -241,7 +220,7 @@ for (g in all_plot) {
 <!-- ::: -->
 
 
-### Identify Cyclical Patterns
+### Identify cyclical patterns
 
 :::{#facet}
 ```{r, fig.show="hold", out.width="50%"}
@@ -269,7 +248,7 @@ g <- ggplot(dset, aes(as.Date(format(Datetime, format = "%m-%d"), "%m-%d"), avg)
 g
 print(head(dset, 100), n = 100)
 as.character(as.Date("2020/01/01"))
-# grid.arrange(g,g, ncol=2) # nolint
+# grid.arrange(g,g, ncol=2)
 g
 g
 g
@@ -289,7 +268,6 @@ df$avg <- avg_wait
 write.csv(df, "Data/data/name_duration_avg.csv", row.names = FALSE)
 # Check writing csv
 df <- read.csv("Data/data/name_duration_avg.csv")
-df
 ```
 <script src="zoom.js"></script>
 
