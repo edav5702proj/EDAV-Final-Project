@@ -375,31 +375,31 @@ for (csv in filenames) {
 first = 1
 for (csv in filenames) {
   if (first==1){
-    df_ymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_md <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_weekday <- dict[[csv]] %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_ymd <- dict[[csv]] %>% dplyr::group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md <- dict[[csv]] %>% dplyr::group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday <- dict[[csv]] %>% dplyr::group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     
-    df_ymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_md_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_weekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_ymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% dplyr::group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% dplyr::group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% dplyr::group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     
-    df_ymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_md_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_weekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_ymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% dplyr::group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% dplyr::group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% dplyr::group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     first = 2
   }
   else{
-    df_nymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_nmd <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_nweekday <- dict[[csv]] %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nymd <- dict[[csv]] %>% dplyr::group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd <- dict[[csv]] %>% dplyr::group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday <- dict[[csv]] %>% dplyr::group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     
-    df_nymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_nmd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_nweekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% dplyr::group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% dplyr::group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% dplyr::group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     
-    df_nymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_nmd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
-    df_nweekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% dplyr::group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% dplyr::group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% dplyr::group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
     
     df_ymd <- merge(df_ymd,df_nymd,by="ymd",all=TRUE)
     df_md <- merge(df_md,df_nmd,by="md",all=TRUE)
@@ -514,4 +514,4 @@ ggplot(df_weekwait_covid,aes(fill=covid,x=weekday,y=weekday_wait))+
 
 ```
 
-The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. The tourists spend less time waiting after the Covid.
+The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. This indicates that for every two and half hours, the tourists can enjoy one more facility after the Covid than before.The tourists spend less time on waiting and enjoy more facilities after the Covid.
