@@ -252,10 +252,10 @@ for (g in all_plot) {
 ### Identify cyclical patterns
 
 :::{#facet}
-```{r, fig.show="hold", out.width="50%"}
+```{r, fig.show="hold", out.width="100%"}
 dumbo <- all_dsets[["dumbo"]]
 # dumbo
-head(dumbo)
+# head(dumbo)
 # sum(dumbo$Waiting.Time) / nrow(dumbo)
 group_by_date <- function(df) {
     # Process dataframe
@@ -266,25 +266,39 @@ group_by_date <- function(df) {
         dplyr::mutate(yr = year(Datetime))
     return(dsets)
 }
-dset <- group_by_date(dumbo)
-head(dset)
-g <- ggplot(dset, aes(as.Date(format(Datetime, format = "%m-%d"), "%m-%d"), avg)) + # nolint
-    geom_line(color = "grey30") +
-    geom_point(size = 0.1) +
-    scale_x_date(date_labels = "%b", date_breaks = "1 months", guide = guide_axis(angle = 45)) + # nolint
-    facet_grid(yr ~ ., scale = "free_y") +
-    geom_smooth(se = FALSE)
-g
-print(head(dset, 100), n = 100)
-as.character(as.Date("2020/01/01"))
-# grid.arrange(g,g, ncol=2) #nolint
-g
-g
-g
-head(dset, 100)
+# dset <- group_by_date(dumbo)
+# head(dset)
+plot_faceting_in_one_shot <- function(df, name) {
+    dset <- group_by_date(df)
+    g <- ggplot(dset, aes(as.Date(format(Datetime, format = "%m-%d"), "%m-%d"), avg)) + # nolint
+        # geom_line(color = "grey30") +
+        geom_point(size = 0.05, color = "deeppink", alpha = 0.4) +
+        scale_x_date(date_labels = "%b", date_breaks = "3 months", guide = guide_axis(angle = 45)) + # nolint
+        facet_grid(. ~ yr, scale = "free_y") +
+        xlab("Month") +
+        ylab("Average Waiting Time (minutes)") +
+        ggtitle(sprintf("%s: Average Waiting Time (By Month)", name)) +
+        ggeasy::easy_center_title() +
+        geom_smooth(se = FALSE, color = "#393E8F")
+    return(g)
+}
+# dumbo <- all_dsets[["dumbo"]]
+plot_faceting_in_one_shot(df_all, "All Attractions")
 ```
 :::
-
+```{r, fig.show="hold", out.width="20%", out.extra='class="abnormal"'}
+all_plot <- list()
+names <- get_attraction_name()
+# length(names)
+# names
+for (i in 1:25) {
+    name <- names[[i]]
+    all_plot[[i]] <- plot_faceting_in_one_shot(all_dsets[[name]], name)
+}
+for (g in all_plot) {
+    print(g)
+}
+```
 ```{r}
 # Check duration
 df <- read.csv("Data/data/name_duration.csv")
