@@ -15,7 +15,7 @@ get_attraction_name <- function() {
 }
 # get_attraction_name() #nolint
 
-read_all <- function() {
+read_raw <- function() {
     library(hash)
     filenames <- list.files("Data/data/Magic Kingdom/xysong_python") # nolint
     dict <- hash()
@@ -26,51 +26,51 @@ read_all <- function() {
 }
 ```
 ```{r}
-names <- get_attraction_name()
-# names[[4]]
-all_dsets <- read_all()
-num_dsets <- length(all_dsets)
-class(head(all_dsets[["dumbo"]]$Datetime))
-# num_dsets
-# Configure start/end date
-start_date <- as.Date("2020-04-01")
-end_date <- as.Date("2020-10-01")
+# names <- get_attraction_name()
+# # names[[4]]
+# all_dsets <- read_raw()
+# num_dsets <- length(all_dsets)
+# class(head(all_dsets[["dumbo"]]$Datetime))
+# # num_dsets
+# # Configure start/end date
+# start_date <- as.Date("2020-04-01")
+# end_date <- as.Date("2020-10-01")
 
-dates <- c(
-    "2020-04-01 12:00:00",
-    "2020-05-01 12:00:00",
-    "2020-06-01 12:00:00",
-    "2020-07-01 12:00:00",
-    "2020-08-01 12:00:00",
-    "2020-09-01 12:00:00",
-    "2020-10-01 12:00:00"
-)
-# Complementary dataframe
-comp_df <- data.frame(
-    "X" = c(0, 1, 2, 3, 4, 5, 6),
-    "Datetime" = dates,
-    "Waiting.Time" = rep(0, 7)
-) # nolint
-# Print out statistics
-outliers <- rep(0, num_dsets)
-for (i in 1:num_dsets) {
-    name <- names[[i]]
-    date_df <- as.Date(all_dsets[[name]]$Datetime, "%Y-%m-%d %H:%M:%S")
-    mask <- date_df > start_date & date_df < end_date
-    outliers[[i]] <- sum(mask)
-    all_dsets[[name]]$Waiting.Time[mask] <- rep(as.numeric(0.0), sum(mask))
-    # add complementary data frames
-    all_dsets[[name]] <- bind_rows(list(all_dsets[[name]], comp_df))
-    write.csv(all_dsets[[name]], sprintf("Data/data/cleaned/%s.csv", name))
-}
+# dates <- c(
+#     "2020-04-01 12:00:00",
+#     "2020-05-01 12:00:00",
+#     "2020-06-01 12:00:00",
+#     "2020-07-01 12:00:00",
+#     "2020-08-01 12:00:00",
+#     "2020-09-01 12:00:00",
+#     "2020-10-01 12:00:00"
+# )
+# # Complementary dataframe
+# comp_df <- data.frame(
+#     "X" = c(0, 1, 2, 3, 4, 5, 6),
+#     "Datetime" = dates,
+#     "Waiting.Time" = rep(0, 7)
+# ) # nolint
+# # Print out statistics
+# outliers <- rep(0, num_dsets)
+# for (i in 1:num_dsets) {
+#     name <- names[[i]]
+#     date_df <- as.Date(all_dsets[[name]]$Datetime, "%Y-%m-%d %H:%M:%S")
+#     mask <- date_df > start_date & date_df < end_date
+#     outliers[[i]] <- sum(mask)
+#     all_dsets[[name]]$Waiting.Time[mask] <- rep(as.numeric(0.0), sum(mask))
+#     # add complementary data frames
+#     all_dsets[[name]] <- bind_rows(list(all_dsets[[name]], comp_df))
+#     write.csv(all_dsets[[name]], sprintf("Data/data/cleaned/%s.csv", name))
+# }
 
-num_vals <- rep(0, 25)
-for (i in 1:25) {
-    name <- names[[i]]
-    num_vals[[i]] <- nrow(all_dsets[[name]])
-}
-num_vals
-names[14]
+# num_vals <- rep(0, 25)
+# for (i in 1:25) {
+#     name <- names[[i]]
+#     num_vals[[i]] <- nrow(all_dsets[[name]])
+# }
+# num_vals
+# names[14]
 ```
 
 ```{r}
@@ -214,9 +214,15 @@ plot_missing <- function(x, percent = TRUE) {
 }
 ```
 
+### Missing Metadata
 
 ```{r}
 library(gridExtra)
+library(ggplot2)
+library(ggeasy)
+library(dplyr)
+library(lubridate)
+library(tidyverse)
 # process_missing()
 g0 <- plot_missing_heatmap(process_missing())
 g0
@@ -224,4 +230,58 @@ g1 <- plot_missing(process_missing(), percent = FALSE)
 g1
 # process_missing()
 # grid.arrange(g1, g0, nrow = 2)
+```
+
+### Missing Time Series Data
+
+```{r}
+library(dplyr)
+raw_df <- read_raw()
+# dumbo <- raw_df[["dumbo"]]
+
+df <- bind_rows(lapply(get_attraction_name(), function(i) raw_df[[i]]))
+
+plot_bar_missing <- function(df, start, end, year) {
+    df <- df %>%
+        dplyr::mutate(Datetime = as.Date(Datetime, "%Y-%m-%d %H:%M:%S")) %>%
+        dplyr::mutate(month = lubridate::floor_date(Datetime, "month")) %>%
+        dplyr::group_by(month) %>%
+        dplyr::summarise(freq = n()) %>%
+        dplyr::filter(month >= start & month < end)
+
+    g1 <- df %>% ggplot(aes(x = month, y = freq)) + # nolint
+        geom_bar(stat = "identity", fill = "#EFBEB7", alpha = 0.8) +
+        xlab("Date") +
+        ylab("Number of records") +
+        # scale_color_manual()+
+        scale_x_date(date_labels = "%b %Y", date_breaks = "4 months", guide = guide_axis(angle = 45)) + # nolint
+        ggtitle(sprintf("# Time Series Records from %s", year)) +
+        ggeasy::easy_center_title()
+    # scale_x_discrete(guide = guide_axis(angle = 45)) +
+    # theme(panel.grid.major.x = element_blank())
+    return(g1)
+}
+
+identify_abnormal <- function(g, start, end, text_y) {
+    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.3) # nolint
+    # Append text
+    g <- g + annotate("text", x = as.Date("2020-03-01"), y = text_y, label = "COVID OUTBREAK\n  MISSING DATA", color = "Black", hjust = 0) # nolint
+    return(g)
+}
+
+start <- as.Date("2015-01-01", "%Y-%m-%d")
+mid1 <- as.Date("2017-04-01", "%Y-%m-%d")
+mid2 <- as.Date("2019-08-01", "%Y-%m-%d")
+end <- as.Date("2022-01-01", "%Y-%m-%d")
+g1 <- plot_bar_missing(df, start, mid1, "2015 Jan to 2017 Mar")
+g2 <- plot_bar_missing(df, mid1, mid2, "2017 Apr to 2019 Jul")
+g3 <- plot_bar_missing(df, mid2, end, "2019 Aug to 2021 Dec")
+# g_all <- plot_bar_missing(df, start, end, "2015 Jan to 2021 Dec")
+missing_start <- as.Date("2020-03-15")
+missing_end <- as.Date("2020-10-15")
+g3 <- identify_abnormal(g3, missing_start, missing_end, 80000)
+# grid.arrange(g1 + coord_flip(), g2 + coord_flip(), g3 + coord_flip(), nrow = 1)
+grid.arrange(g1, g2, g3, nrow = 3)
+# g_all + coord_flip()
+# g1
 ```
