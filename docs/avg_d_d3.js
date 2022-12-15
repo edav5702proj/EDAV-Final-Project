@@ -1,5 +1,4 @@
 // Create svg and initial bars
-
 const w = 500;
 const h = 500;
 const margin = {top: 25, right: 0, bottom: 25,
@@ -13,9 +12,11 @@ const duration = [[3.0,79.22,"7 dwarfs train"], [7.5,29.26,"pirates of caribbean
 [1.5,21.9,"dumbo"], [1.5,18.91,"magic carpets"], [10,16.98,"peoplemover"], 
 [7,20.24,"under the sea"], [2,20.23,"barnstormer"], [4,29.55,"winnie the pooh"], 
 [14.5,5.07,"enchanted tiki rm"], [10,32.56,"haunted mansion"], [4.5,33.07,"buzz lightyear"]];
+const pop7 = ["7 dwarfs train", "pirates of caribbean", "haunted mansion",
+              "splash mountain", "big thunder7mtn", "space mountain", "jungle cruise"];
 
 const xScale = d3.scaleLinear()
-    .domain([0,30])
+    .domain([0,24])
     .range([0, innerWidth]);
 
 const yScale = d3.scaleLinear()
@@ -52,6 +53,7 @@ const circles = svg.append("g")
   .selectAll("circle")
     .data(duration);
 var curtarget = "dummyvar";
+var curcolor = "dummyvar";
 circles.enter().append("circle")
     .attr("cx", d => xScale(d[0]))
     .attr("cy", d => yScale(d[1]))
@@ -59,8 +61,9 @@ circles.enter().append("circle")
     .attr("fill", "#ffbf00")
     .on("mouseover", function(event,d) {
       curtarget = event.currentTarget;
-      var xcoord = +d3.select(event.currentTarget).attr("cx") + 8
-      var ycoord = +d3.select(event.currentTarget).attr("cy") - 8
+      var xcoord = +d3.select(event.currentTarget).attr("cx") + 8;
+      var ycoord = +d3.select(event.currentTarget).attr("cy") - 8;
+      curcolor = d3.select(event.currentTarget).attr("fill");
       d3.select(event.currentTarget).transition().duration(250).attr("fill", "#00b384").attr("r", "9");
       svg.select("g#plot")
         .append("text")
@@ -76,7 +79,7 @@ circles.enter().append("circle")
         .text("Attraction: "+d[2]);
    })
    .on("mouseout", function() {
-       d3.select(curtarget).transition().duration(250).attr("fill", "#ffbf00").attr("r", "7");
+       d3.select(curtarget).transition().duration(250).attr("fill", curcolor).attr("r", "7");
        d3.select("#tooltip").remove();
        d3.select("#tooltip2").remove();
    });
@@ -93,7 +96,7 @@ svg.append("text")
   .attr("text-anchor", "end")
   .attr("x", 0.7*w)
   .attr("y", h+10)
-  .text("duration (min)");
+  .text("Attraction Duration (min)");
 
 svg.append("g")
     .attr("class", "yAxis")
@@ -107,4 +110,25 @@ svg.append("text")
   .attr("y", 20)
   // .attr("dy", ".75em")
   .attr("transform", "rotate(-90)")
-  .text("average waiting time (min)");
+  .text("AWT (min)");
+
+
+// Button
+d3.selectAll("input")
+.on("click", function(event) { 
+  // console.log("input");
+    var pop = event.currentTarget.value; 
+    console.log(pop);
+    var temp = d3.select("g#plot").selectAll("circle");
+    for (let i = 0; i < 18; i++){
+      var target = temp._groups[0][i];
+      var name = target.__data__[2];
+      if (pop7.includes(name)){
+        if (pop == "pop") {
+            d3.select(target).attr("fill", "red");
+        }else{
+          d3.select(target).attr("fill", "#ffbf00");
+        }
+      }
+    };
+    }) // end .// end .on
