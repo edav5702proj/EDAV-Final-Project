@@ -93,7 +93,8 @@
 </ul></li>
 <li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#general-pattern-analysis---macro-level"><i class="fa fa-check"></i><b>4.2</b> General Pattern Analysis - Macro-Level</a>
 <ul>
-<li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.2.1</b> Identify cyclical patterns</a></li>
+<li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#secular-trends"><i class="fa fa-check"></i><b>4.2.1</b> Secular Trends</a></li>
+<li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.2.2</b> Identify Cyclical Patterns</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a></li>
 </ul></li>
@@ -180,20 +181,20 @@ with the power of time series data, it is powerful when analyzing trend and desi
 </div>
 <div id="general-pattern-analysis---macro-level" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> General Pattern Analysis - Macro-Level<a href="results.html#general-pattern-analysis---macro-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<pre><code>## [1] &quot;data.frame&quot;</code></pre>
-<pre><code>##   X            Datetime Waiting.Time
-## 1 0 2015-01-01 09:02:13           10
-## 2 1 2015-01-01 09:09:16           10
-## 3 2 2015-01-01 09:16:12           10
-## 4 3 2015-01-01 09:22:35           10
-## 5 4 2015-01-01 09:23:12           10
-## 6 5 2015-01-01 09:29:12           10</code></pre>
+<p>With confidence of dataset validity, we first analyze the pattern of waiting time of each attraction
+spanning from <em>2015-01-01</em> to <em>2022-01-01</em>, by which we can identify the peak season of Walt Disneyland. Note that for this section,
+we are doing macro-scale analysis, implying we will focus on the <em>average waiting time</em> for each month for each attraction.</p>
+<div id="secular-trends" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Secular Trends<a href="results.html#secular-trends" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To identify secular trend, we computed the <em>average waiting time</em> for each month for all attractions and then made the following time series plot.
+We can easily observe that</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <!-- :::{#abnormal_plot} -->
 <p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-25.png" width="20%" class="abnormal" />
 <!-- ::: --></p>
-<div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.2.1">
-<h3><span class="header-section-number">4.2.1</span> Identify cyclical patterns<a href="results.html#identify-cyclical-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Identify Cyclical Patterns<a href="results.html#identify-cyclical-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="facet">
 <pre><code>##   X            Datetime Waiting.Time
 ## 1 0 2015-01-01 09:02:13           10
@@ -350,6 +351,25 @@ with the power of time series data, it is powerful when analyzing trend and desi
 ## 16 15    enchanted tiki rm     14.5
 ## 17 16      haunted mansion     10.0
 ## 18 17       buzz lightyear      4.5</code></pre>
+<pre><code>##     X                 name duration       avg
+## 1   0       7 dwarfs train      3.0 79.219542
+## 2   1 pirates of caribbean      7.5 29.262704
+## 3   2        astro orbiter      1.5 27.769014
+## 4   3      regal carrousel      2.0  9.419322
+## 5   4      big thunder mtn      7.0 38.375384
+## 6   5      splash mountain     18.0 45.127398
+## 7   6       space mountain     10.0 58.371466
+## 8   7        jungle cruise      8.0 44.217690
+## 9   8        mad tea party      1.5 12.727207
+## 10  9                dumbo      1.5 21.896022
+## 11 10        magic carpets      1.5 18.913488
+## 12 11          peoplemover     10.0 16.975566
+## 13 12        under the sea      7.0 20.235918
+## 14 13          barnstormer      2.0 20.226585
+## 15 14      winnie the pooh      4.0 29.549601
+## 16 15    enchanted tiki rm     14.5  5.073858
+## 17 16      haunted mansion     10.0 32.561415
+## 18 17       buzz lightyear      4.5 33.070549</code></pre>
 <script src="zoom.js"></script>
 </div>
 </div>
