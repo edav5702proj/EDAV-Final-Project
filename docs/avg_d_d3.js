@@ -61,7 +61,7 @@ circles.enter().append("circle")
       curtarget = event.currentTarget;
       var xcoord = +d3.select(event.currentTarget).attr("cx") + 8
       var ycoord = +d3.select(event.currentTarget).attr("cy") - 8
-      .select(event.currentTarget).transition().duration(250).attr("fill", "#00b384").attr("r", "9");
+      d3.select(event.currentTarget).transition().duration(250).attr("fill", "#00b384").attr("r", "9");
       svg.select("g#plot")
         .append("text")
         .attr("id", "tooltip")
