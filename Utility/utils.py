@@ -1,4 +1,5 @@
 # Utility function scripts
+from cmath import nan
 import os
 from os import listdir
 from os.path import isfile, join
@@ -108,6 +109,32 @@ def read_duration():
     df.to_csv(dest)
 
 
+def read_duration_avg_with_missing():
+    local_path = r"Data/data/entities.csv"
+    df = pd.read_csv(local_path)
+    df = np.array(df)
+    # ic(df)
+    name_duration_avg = {}
+    for item in df:
+        name_duration_avg[item[2].replace("_", " ").replace(
+            "  ", " ").lower()] = (item[-2], item[-1])
+    # ic(name_duration_avg)
+    # ic(len(name_duration_avg))
+    lst = []
+    for name in parse_attraction_name(False):
+        # ic(name)
+        if name in name_duration_avg:
+            lst.append([name, name_duration_avg[name]
+                       [0], name_duration_avg[name][1]])
+        else:
+            lst.append([name, nan, nan])
+    # ic(len(lst))
+    # ic(lst)
+    df = pd.DataFrame(np.array(lst), columns=["name", "duration", "avg"])
+    dest = "Data/data/entity_missing.csv"
+    df.to_csv(dest)
+
+
 if __name__ == '__main__':
     ic("Utility functions")
     # Get basic csv info
@@ -121,4 +148,5 @@ if __name__ == '__main__':
 
     # parse_attraction_name()
     # read_avg_wait()
-    read_duration()
+    # read_duration()
+    read_duration_avg_with_missing()
