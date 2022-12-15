@@ -10,7 +10,8 @@ results
 assumption
 assumption-1
 assumption-2
-general-pattern-analysis
+general-pattern-analysis---macro-level
 identify-cyclical-patterns
+general-pattern-analysis---micro-level
 interactive-component
 conclusion

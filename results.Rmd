@@ -1,6 +1,6 @@
 # Results
+
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="zoom.js"></script>
 
 <!-- Zoom in -->
 <div id="myModal" class="modal">
@@ -149,8 +149,7 @@ g1 <- df %>% ggplot(aes(x = fct_reorder(name, avg_wait, .desc = TRUE), y = avg_w
 g1
 ```
 
-
-## General Pattern Analysis
+## General Pattern Analysis - Macro-Level
 ```{r}
 # source("Utility/utils.R")
 
@@ -257,6 +256,22 @@ head(dset, 100)
 ```
 :::
 
+```{r}
+# Check duration
+df <- read.csv("Data/data/name_duration.csv")
+df
+avg_wait <- rep(0, 18)
+for (i in 1:18) {
+    avg_wait[[i]] <- mean(all_dsets[[df$name[[i]]]]$Waiting.Time)
+}
+df$avg <- avg_wait
+write.csv(df, "Data/data/name_duration_avg.csv", row.names = FALSE)
+# Check writing csv
+df <- read.csv("Data/data/name_duration_avg.csv")
+```
+<script src="zoom.js"></script>
+
+## General Pattern Analysis - Micro-Level
 
 
 

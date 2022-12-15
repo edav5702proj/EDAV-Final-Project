@@ -83,6 +83,31 @@ def read_avg_wait():
     df.to_csv(dest)
 
 
+def read_duration():
+    local_path = r"Data/data/entities.csv"
+    df = pd.read_csv(local_path)
+    df = np.array(df.fillna(0))
+    # ic(df)
+    name_duration = {}
+    for item in df:
+        name_duration[item[2].replace("_", " ").replace(
+            "  ", " ").lower()] = item[-2]
+    # ic(name_duration)
+    # ic(parse_attraction_name(True))
+
+    lst = []
+    for name in parse_attraction_name(False):
+        # ic(name)
+        if name in name_duration:
+            lst.append([name, name_duration[name]])
+    # ic(lst)
+    # ic(len(lst))
+    # Save to txt file
+    df = pd.DataFrame(np.array(lst), columns=["name", "duration"])
+    dest = "Data/data/name_duration.csv"
+    df.to_csv(dest)
+
+
 if __name__ == '__main__':
     ic("Utility functions")
     # Get basic csv info
@@ -95,4 +120,5 @@ if __name__ == '__main__':
     # find_num_matched(names, meta_names)
 
     # parse_attraction_name()
-    read_avg_wait()
+    # read_avg_wait()
+    read_duration()
