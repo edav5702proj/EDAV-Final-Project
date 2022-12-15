@@ -18,4 +18,5 @@ identify-cyclical-patterns
 section-conclusion
 general-pattern-analysis---micro-level
 interactive-component
+awt-vs.-duration
 conclusion

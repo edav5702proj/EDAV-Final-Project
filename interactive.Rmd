@@ -1,3 +1,10 @@
 # Interactive component
+<script src="https://d3js.org/d3.v7.min.js"></script>
+## _AWT_ vs. Duration
 
-
+The plot below shows the scatterplot of the duration of a facility and the average waiting time. 
+Generally, duration and waiting time are positively correlated. The longer the duration, the longer the waiting time.
+There are also some outliers, such as the 7 dwarf train. This facility only lasts 3 minutes, but the tourists must wait 79 minutes on average.</p>
+Moving the mouse to the data point will provide more information.
+<div id="D3"></div>
+<script src="avg_d_d3.js"></script>
