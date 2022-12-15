@@ -150,6 +150,23 @@ g1
 ```
 
 ## General Pattern Analysis - Macro-Level
+With confidence of dataset validity, we first analyze the pattern of waiting time of each attraction 
+spanning from _2015-01-01_ to _2022-01-01_, by which we can identify the peak season of Walt Disneyland. Note that for this section, 
+we are doing macro-scale analysis, implying we will focus on the _average waiting time_ for each month for each attraction. 
+
+### Secular Trends
+
+To identify secular trend, we computed the _average waiting time_ for each month for all attractions and then made the following time series plot. 
+Here is the main observations:
+
+- From _2015_ to _2019_, there is a general trend of increasing waiting time.\\
+Explanation: as Disneyland became more famous, there are more tourists but the attractions remain unchanged, which result in an increasing of waiting time.
+- From about _2019_ to _2020_, there is a huge decreasing in terms of waiting time.\\
+Explanation: this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.
+- Starting from _2020_, there is a general trend of increasing waiting time\\
+Explanation: this corresponds to the fact that people are back to normal life from COVID disruption.
+
+**Note**: According to Disneyland's Officials, Disneyland was closed during COVID-19 outbreaks
 ```{r}
 # source("Utility/utils.R")
 
