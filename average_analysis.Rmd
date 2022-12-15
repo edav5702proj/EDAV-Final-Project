@@ -177,4 +177,4 @@ ggplot(df_weekwait_covid,aes(fill=covid,x=weekday,y=weekday_wait))+
 
 ```
 
-The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. The tourists spend less time waiting after the Covid.
+The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. This indicates that for every two and half hours, the tourists can enjoy one more facility after the Covid than before. The tourists spend less time waiting after the Covid.
