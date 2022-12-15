@@ -17,6 +17,10 @@ secular-trends
 identify-cyclical-patterns
 section-conclusion
 general-pattern-analysis---micro-level
+average-waiting-time-per-facility-per-day
+average-waiting-time-per-facility-per-day-before-and-after-covid-19
+average-waiting-time-per-facility-per-weekday
+average-waiting-time-per-facility-per-weekday-before-and-after-covid-19
 interactive-component
 awt-vs.-duration
 awt_100-vs.-duration

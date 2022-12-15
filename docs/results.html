@@ -101,7 +101,11 @@
 <li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.2.2</b> Identify cyclical patterns</a></li>
 <li class="chapter" data-level="4.2.3" data-path="results.html"><a href="results.html#section-conclusion"><i class="fa fa-check"></i><b>4.2.3</b> Section Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-day"><i class="fa fa-check"></i><b>4.3.1</b> Average Waiting Time per Facility per day</a></li>
+<li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-weekday"><i class="fa fa-check"></i><b>4.3.2</b> Average Waiting Time per Facility per weekday</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
@@ -185,6 +189,80 @@ we identified that <em>average waiting time</em> itself is not a good indicator 
 popularity of the attraction. Note that we observe that the <em>average waiting time</em> is not always higher for
 popular attractions identified in previous section. Thus, we should not solely leverage on that when analyzing the popularity of attractions. However,
 with the power of time series data, it is powerful when analyzing trend and designing visiting plans.</p>
+<pre><code>## [[1]]
+## [1] &quot;7 dwarfs train&quot;
+## 
+## [[2]]
+## [1] &quot;astro orbiter&quot;
+## 
+## [[3]]
+## [1] &quot;barnstormer&quot;
+## 
+## [[4]]
+## [1] &quot;big thunder mtn&quot;
+## 
+## [[5]]
+## [1] &quot;buzz lightyear&quot;
+## 
+## [[6]]
+## [1] &quot;carousel of progress&quot;
+## 
+## [[7]]
+## [1] &quot;country bears&quot;
+## 
+## [[8]]
+## [1] &quot;dumbo&quot;
+## 
+## [[9]]
+## [1] &quot;enchanted tiki rm&quot;
+## 
+## [[10]]
+## [1] &quot;hall of presidents&quot;
+## 
+## [[11]]
+## [1] &quot;haunted mansion&quot;
+## 
+## [[12]]
+## [1] &quot;it s a small world&quot;
+## 
+## [[13]]
+## [1] &quot;jungle cruise&quot;
+## 
+## [[14]]
+## [1] &quot;liberty sq riverboat&quot;
+## 
+## [[15]]
+## [1] &quot;mad tea party&quot;
+## 
+## [[16]]
+## [1] &quot;magic carpets&quot;
+## 
+## [[17]]
+## [1] &quot;peoplemover&quot;
+## 
+## [[18]]
+## [1] &quot;peter pan s flight&quot;
+## 
+## [[19]]
+## [1] &quot;pirates of caribbean&quot;
+## 
+## [[20]]
+## [1] &quot;regal carrousel&quot;
+## 
+## [[21]]
+## [1] &quot;space mountain&quot;
+## 
+## [[22]]
+## [1] &quot;splash mountain&quot;
+## 
+## [[23]]
+## [1] &quot;tom land speedway&quot;
+## 
+## [[24]]
+## [1] &quot;under the sea&quot;
+## 
+## [[25]]
+## [1] &quot;winnie the pooh&quot;</code></pre>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 </div>
@@ -274,49 +352,29 @@ suggestion is to visit the park in summer or fall.</p>
 </div>
 <div id="general-pattern-analysis---micro-level" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> General Pattern Analysis - Micro-Level<a href="results.html#general-pattern-analysis---micro-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<!-- 
-### Average Waiting Time per Facility per day
+<div id="average-waiting-time-per-facility-per-day" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Average Waiting Time per Facility per day<a href="results.html#average-waiting-time-per-facility-per-day" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disneyland, thus requiring tourists to wait much less time.</p>
+<p>The waiting time then steadily increases until April 1, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom.</p>
+<p>We believe that the waiting time is related to students’ schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.</p>
+<div id="average-waiting-time-per-facility-per-day-before-and-after-covid-19" class="section level4 hasAnchor" number="4.3.1.1">
+<h4><span class="header-section-number">4.3.1.1</span> Average Waiting Time per Facility per day before and after Covid-19<a href="results.html#average-waiting-time-per-facility-per-day-before-and-after-covid-19" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p>We set January 1, 2020 as the threshold which separates the time before and after Covid-19 affected the world. The blue line represents the average waiting time before Covid, and the red line is for the period after Covid. Generally, the waiting time is shorter after Covid, especially during June and July.</p>
+</div>
+</div>
+<div id="average-waiting-time-per-facility-per-weekday" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Average Waiting Time per Facility per weekday<a href="results.html#average-waiting-time-per-facility-per-weekday" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>The graph above shows the average waiting time per facility every weekday. We do expect Saturday has a relatively high waiting time before we start the project. On the other hand, surprisingly, Sunday has the shortest waiting time, while Monday’s and Wednesday’s waiting times are above average.</p>
+<div id="average-waiting-time-per-facility-per-weekday-before-and-after-covid-19" class="section level4 hasAnchor" number="4.3.2.1">
+<h4><span class="header-section-number">4.3.2.1</span> Average Waiting Time per Facility per weekday before and after Covid-19<a href="results.html#average-waiting-time-per-facility-per-weekday-before-and-after-covid-19" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. This indicates that for every two and half hours, the tourists can enjoy one more facility after the Covid than before.The tourists spend less time on waiting and enjoy more facilities after the Covid.</p>
 
-
-
-
-
-
-
-
-
-
-From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disneyland, thus requiring tourists to wait much less time. 
-
-The waiting time then steadily increases until April 1, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom.
-
-We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.
-
-
-
-#### Average Waiting Time per Facility per day before and after Covid-19
-
-
-We set January 1, 2020 as the threshold which separates the time before and after Covid-19 affected the world. The blue line represents the average waiting time before Covid, and the red line is for the period after Covid. Generally, the waiting time is shorter after Covid, especially during June and July.
-
-
-### Average Waiting Time per Facility per weekday
-
-
-
-
-
-The graph above shows the average waiting time per facility every weekday. We do expect Saturday has a relatively high waiting time before we start the project. On the other hand, surprisingly, Sunday has the shortest waiting time, while Monday's and Wednesday's waiting times are above average.
-
-#### Average Waiting Time per Facility per weekday before and after Covid-19
-
-
-
-
-
-The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. The tourists spend less time waiting after the Covid.
--->
-
+</div>
+</div>
 </div>
 </div>
             </section>
