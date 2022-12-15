@@ -1,6 +1,16 @@
 # Data 
 
 ## Sources
+As described in the website, the data is collected directly from 3 sources:
+
+1. from app users of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets])
+The app records the time its users enter waiting lines and enjoy the facility. The difference between these two times is the actual waiting time.
+
+2. [Disney’s My Disney Experience app](https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact|G|5231013.RR.AM.01.01|MWNOQXO|BR|601187705510&keyword_id=aud-300113739056:kwd-2901498835|dc|disney%20experience|601187705510|p|5060:3|&gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE)
+Disneyland estimates the waiting time based on the length of waiting lines. The estimated waiting time is posted on a sign at the entrance to attractions and shown on Disney's app.
+
+3. observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights.
+The staffs visit Disneyland and record their actual waiting time for each attraction.
 
 ## Cleaning / transformation
 

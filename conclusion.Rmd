@@ -1,4 +1,4 @@
 # Conclusion
 The waiting time in Disneyland has seasonal pattern. Tourists need to wait longer time during Spring and Winter than Summer and Fall. We believe it is related to students' schedule. The average waiting time (AWT) significantly drops after the spring semester and the fall semester begin. There are also two small sudden peak around the Fall break and the Thanksgiving break. Besides the seasonal patter, we also notice that people need to wait more on Saturday and Monday. While Sunday and Thursday cost less time on waiting. What's more, due to Covid-19, the AWT in recent two years is less than before 2020.
 ## Recommendation
-We recommend tourists visit Disneyland on a Sunday during Fall.The weather is comfortable and they don't have to wait for a long time. 
+We recommend tourists visit Disneyland on a Sunday during Fall.The weather is comfortable and they don't have to wait for a long time.

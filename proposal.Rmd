@@ -10,13 +10,7 @@ Disney provides an app showing the waiting time for each attraction, but it does
 
 The data comes from [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]). The data includes the most recent daily or hourly average waiting time for some selected attractions in the Magic Kingdom of Disney and the metadata that are useful for conducting analysis.
 
-As described in the website, the data is collected directly from 3 sources:
-
-1. from app users of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets])
-2. [Disney’s My Disney Experience app](https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact|G|5231013.RR.AM.01.01|MWNOQXO|BR|601187705510&keyword_id=aud-300113739056:kwd-2901498835|dc|disney%20experience|601187705510|p|5060:3|&gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE)
-3. observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights.
-
-As for its availability, the data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. For example, the raw data for attraction [Dumbo](https://disneyworld.disney.go.com/attractions/magic-kingdom/dumbo-the-flying-elephant/) and [Laugh Floor](https://disneyworld.disney.go.com/attractions/magic-kingdom/monsters-inc-laugh-floor/) are displayed below.
+The data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. For example, the raw data for attraction [Dumbo](https://disneyworld.disney.go.com/attractions/magic-kingdom/dumbo-the-flying-elephant/) and [Laugh Floor](https://disneyworld.disney.go.com/attractions/magic-kingdom/monsters-inc-laugh-floor/) are displayed below.
 
 <!-- <center> -->
 <!-- <img src="Imgs/dumbo_eg.png" alt="Example Wait Time Data", width = "50%" -->
@@ -32,7 +26,7 @@ As for its availability, the data can be downloaded directly from the website fo
 
 <!-- </div> -->
 
-By our investigation, the data is available for each park opening day from 01/01/2015 to 12/28/2021, and the website provides data for 41 attractions in the Magic Kingdom. Furthermore, we also identified that there are many useful metadata from [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]). For instance, we have the access to the metadata for each attraction of the Magic Kingdom, which records useful information including its unique code, duration, and where it locates. Note that information like durations are extremely helpful when analyzing the waiting time of attractions. The example dataset is displayed below.
+By our investigation, the data is available for each park opening day from 01/01/2015 to 12/28/2021. Yet, from 04/01/2020 to 10/01/2020, Disneyland was closed, so we don't have any data during this period. The website provides data for 41 attractions in the Magic Kingdom. Furthermore, we also identified that there are many useful metadata from [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]). For instance, we have the access to the metadata for each attraction of the Magic Kingdom, which records useful information including its unique code, duration, and where it locates. Note that information like durations are extremely helpful when analyzing the waiting time of attractions. The example dataset is displayed below.
 
 <div class='container', style="text-align: center;">
 <img style="height: auto; width: 80%;" src="Imgs/metadata.jpeg" alt="metadata"/>
