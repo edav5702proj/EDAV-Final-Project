@@ -1,5 +1,5 @@
 ---
-title: "PerDayTrend"
+title: "Time Of Day Per Ride Trend"
 author: "Mildred Ouyang"
 date: "2022-12-14"
 output: html_document
@@ -82,5 +82,8 @@ ggplot(avg_comb, aes(x=avg, y=fct_reorder2(ride,timeofday=='afternoon',avg,.desc
   geom_point() +
   labs(title = "Average Waiting Time for Each Ride", 
        x = "Average Waiting Time", 
-       y = "Ride")
+       y = "Ride") +
+  guides(color = guide_legend(title = "Time of Day"))
 ```
+
+The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest. For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest. Moreover, the attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time. 
