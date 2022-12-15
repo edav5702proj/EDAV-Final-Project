@@ -144,7 +144,7 @@ savg_comb <- na.omit(savg_comb)
 
 ```{r}
 ggplot(savg_comb, aes(x=avg, y=fct_reorder2(section,timeofday=='afternoon',avg,.desc=FALSE), color = timeofday)) + 
-  geom_point() +
+  geom_point(size = 3) +
   labs(title = "Average Waiting Time for Each Land", 
        x = "Average Waiting Time", 
        y = "Land") +
