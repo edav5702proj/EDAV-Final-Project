@@ -251,6 +251,18 @@ for (g in all_plot) {
 
 ### Identify cyclical patterns
 
+Time series data commonly share some underlying cyclical patterns. We utilized faceting techniques to 
+isolate average waiting time for each year and identify the following trends and patterns: (Explanations are based on 
+news, activities, and reports published by Disneyland Officials)
+
+- In general, there are two peaks of _average waiting time_ for attractions in Disneyland: _April - July_ and _December - January_. \
+Explanation: Spring _AWT_ peak corresponds to the fact that there are tons of activities held in that period, whereas winter peak is the direct result 
+of Christmas Holiday (Note that Florida is a good place to stay for many people during winter).
+
+- In _2020_, we observed a completely different trend due to the temporary closure of the park. 
+- In _2021_, even though the general waiting time decreases but the peaks are still around spring and winter. \
+Explanation: the decreasing waiting time (compared to _2015_ to _2019_) accounts for the influence of COVID-19 to people's life, while the consistency of peak seasons 
+confirmed the validity of previously-observed trends.
 :::{#facet}
 ```{r, fig.show="hold", out.width="100%"}
 dumbo <- all_dsets[["dumbo"]]
