@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(dplyr)
 library(tidyverse)
+library(hash)
+library(plotly)
 ```
 
 
@@ -187,14 +189,50 @@ ggplot(df_weekwait_after,aes(x=weekday,y=weekday_wait_after))+
 
 The two graphs above show the waiting time every weekday before and after covid. On every weekday, the average the less after covid than before covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.58 minutes. The tourists spend less time waiting after the covid.
 
-
+Conclusion
 Given the analysis we provided above, we recommend that tourists visit Disney Land on a Sunday or Thursday in September in order to take advantage of as many facilities as possible.
 
+```{r}
+duration = read.csv("Data/data/entities.csv")
+```
 
+```{r}
+du <- duration[c(78,24,90,73,27,30,31,84,87, 77,92,88,80,94, 75,89,42,82,83, 85,44,74,93, 79,76,95),]
+```
 
+```{r}
+wait_time<-data.frame(0)
+names(wait_time)<-c("Waiting.time")
+for (csv in filenames) {
+  avg = mean(dict[[csv]]$Waiting.Time)
+  wait_time<-rbind(wait_time,avg)
+}
+```
 
+```{r}
+wait_time<-wait_time[1:26,]
+```
 
+```{r}
+du<-cbind(du,wait_time)
+```
 
+```{r}
+du <-na.omit(du)
+```
+
+```{r}
+ggplot(du,aes(x=duration,y=wait_time))+
+  geom_point()+
+  geom_smooth(method='loess', formula= y~x)
+```
+
+```{r}
+plot_ly(data=du, x = ~duration, y = ~wait_time,type="scatter",text = ~name,
+        mode="markers") %>%
+  layout(title = 'Waiting time V.S. Duration', plot_bgcolor = "#e5ecf6", xaxis = list(title = 'Duration (min)'), 
+         yaxis = list(title = 'Average Waiting time (min)'))
+```
 
 
 
