@@ -345,5 +345,173 @@ suggestion is to visit the park in summer or fall.
 
 ## General Pattern Analysis - Micro-Level
 
+### Average Waiting Time per Facility per day
+```{r}
+filenames <- list.files("Data/data/cleaned")
+dict <- hash()
+for (csv in filenames){
+  dict[[csv]] <- read.csv(sprintf("Data/data/cleaned/%s", csv))
+}
+```
+
+```{r}
+avg <- list()
+for (csv in filenames) {
+  date = substr(dict[[csv]]$Datetime,1,10)
+  ymd = as.Date(date, format = "%Y-%m-%d")
+  weekday = weekdays(ymd)
+  yr = substr(dict[[csv]]$Datetime,1,4)
+  yr = format(as.Date(yr, format = "%Y"),"%Y")
+  md = substr(dict[[csv]]$Datetime,6,10)
+  md = format(as.Date(md, format = "%m-%d"),"%m-%d")
+  dict[[csv]]<-cbind(dict[[csv]],ymd)
+  dict[[csv]]<-cbind(dict[[csv]],weekday)
+  dict[[csv]]<-cbind(dict[[csv]],yr)
+  dict[[csv]]<-cbind(dict[[csv]],md)
+}
+```
+
+```{r}
+first = 1
+for (csv in filenames) {
+  if (first==1){
+    df_ymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday <- dict[[csv]] %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_md_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_weekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    first = 2
+  }
+  else{
+    df_nymd <- dict[[csv]] %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd <- dict[[csv]] %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday <- dict[[csv]] %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_nymd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday_before <- dict[[csv]] %>% filter(ymd<"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_nymd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(ymd) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nmd_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(md) %>% summarise(avg_wait = mean(Waiting.Time))
+    df_nweekday_after <- dict[[csv]] %>% filter(ymd>"2020-01-01") %>% group_by(weekday) %>% summarise(avg_wait = mean(Waiting.Time))
+    
+    df_ymd <- merge(df_ymd,df_nymd,by="ymd",all=TRUE)
+    df_md <- merge(df_md,df_nmd,by="md",all=TRUE)
+    df_weekday <- merge(df_weekday,df_nweekday,by="weekday",all=TRUE)
+    
+    df_ymd_before <- merge(df_ymd_before,df_nymd_before,by="ymd",all=TRUE)
+    df_md_before <- merge(df_md_before,df_nmd_before,by="md",all=TRUE)
+    df_weekday_before <- merge(df_weekday_before,df_nweekday_before,by="weekday",all=TRUE)
+    
+    df_ymd_after <- merge(df_ymd_after,df_nymd_after,by="ymd",all=TRUE)
+    df_md_after <- merge(df_md_after,df_nmd_after,by="md",all=TRUE)
+    df_weekday_after <- merge(df_weekday_after,df_nweekday_after,by="weekday",all=TRUE)
+  }
+}
+```
+
+```{r}
+average_wait = rowMeans(df_md[2:26],na.rm=TRUE)
+df_mdwait <-cbind(df_md[1],average_wait)
+df_mdwait <-na.omit(df_mdwait)
+df_mdwait$md <- as.Date(df_mdwait$md,format = "%m-%d")
+```
+
+```{r}
+ggplot(df_mdwait,aes(x=md,y=average_wait))+
+  geom_line()+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %d")+
+  xlab("day")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every day")
+```
+
+From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disneyland, thus requiring tourists to wait much less time. 
+
+The waiting time then steadily increases until April 1, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom.
+
+We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.
+
+```{r}
+average_wait_before = rowMeans(df_md_before[2:26],na.rm=TRUE)
+average_wait_after = rowMeans(df_md_after[2:26],na.rm=TRUE)
+df_mdwait_before <-cbind(df_md[1],average_wait_before)
+df_mdwait_covid <-cbind(df_mdwait_before,average_wait_after)
+df_mdwait_covid <-na.omit(df_mdwait_covid)
+df_mdwait_covid$md <- as.Date(df_mdwait_covid$md,format = "%m-%d")
+```
+
+#### Average Waiting Time per Facility per day before and after Covid-19
+```{r}
+ggplot(df_mdwait_covid,aes(x=md))+
+  geom_line(aes(y=average_wait_before,colour="average_wait_before"))+
+  geom_line(aes(y=average_wait_after,colour="average_wait_after"))+
+  scale_colour_manual("",
+                      breaks = c("average_wait_before", "average_wait_after"),
+                      values = c("blue","red"),
+                      labels = c("Before covid","After Covid"))+
+  scale_x_date(date_breaks = "1 month", date_labels = "%b %d")+
+  xlab("day")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every day")
+```
+
+We set January 1, 2020 as the threshold which separates the time before and after Covid-19 affected the world. The blue line represents the average waiting time before Covid, and the red line is for the period after Covid. Generally, the waiting time is shorter after Covid, especially during June and July.
 
 
+### Average Waiting Time per Facility per weekday
+
+```{r}
+weekday_wait = rowMeans(df_weekday[2:26],na.rm=TRUE)
+df_weekwait <-cbind(df_weekday[1],weekday_wait)
+df_weekwait$weekday <- factor(df_weekwait$weekday, levels= c("Sunday", "Monday", 
+    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+df_weekwait <-df_weekwait[order(df_weekwait$weekday), ]
+```
+
+```{r}
+ggplot(df_weekwait,aes(x=weekday,y=weekday_wait))+
+  geom_bar(stat="identity",fill="skyblue")+
+  geom_text(aes(label = round(weekday_wait,2)), vjust = -0.5, colour = "black")+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every weekday")
+```
+
+The graph above shows the average waiting time per facility every weekday. We do expect Saturday has a relatively high waiting time before we start the project. On the other hand, surprisingly, Sunday has the shortest waiting time, while Monday's and Wednesday's waiting times are above average.
+
+#### Average Waiting Time per Facility per weekday before and after Covid-19
+
+```{r}
+weekday_wait_before = rowMeans(df_weekday_before[2:26],na.rm=TRUE)
+df_weekwait_before <-cbind(df_weekday_before[1],weekday_wait_before)
+df_weekwait_before <-cbind(df_weekwait_before,c("before","before","before","before","before","before","before"))
+colnames(df_weekwait_before) <- c('weekday','weekday_wait','covid')
+
+weekday_wait_after= rowMeans(df_weekday_after[2:26],na.rm=TRUE)
+df_weekwait_after <-cbind(df_weekday_after[1],weekday_wait_after)
+df_weekwait_after <-cbind(df_weekwait_after,c("after","after","after","after","after","after","after"))
+colnames(df_weekwait_after) <- c('weekday','weekday_wait','covid')
+
+df_weekwait_covid <-rbind(df_weekwait_before,df_weekwait_after)
+df_weekwait_covid$weekday <- factor(df_weekwait_covid$weekday, levels= c("Sunday", "Monday", 
+    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+df_weekwait_covid <-df_weekwait_covid[order(df_weekwait_covid$weekday), ]
+df_weekwait_covid$covid <- factor(df_weekwait_covid$covid, levels = c('before', 'after'))
+```
+
+```{r}
+ggplot(df_weekwait_covid,aes(fill=covid,x=weekday,y=weekday_wait))+
+  geom_bar(stat="identity",position=position_dodge(width = 0.9))+
+  geom_text(position = position_dodge(width = 0.9),aes(label = round(weekday_wait,2), hjust = 0.5, vjust = -0.5), colour = "black",size=3.2)+
+  ylab("average waiting time(min)")+
+  ggtitle("Average waiting time for every weekday before and after covid")
+
+```
+
+The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. The tourists spend less time waiting after the Covid.
