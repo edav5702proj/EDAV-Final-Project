@@ -21,3 +21,53 @@ read_all <- function() {
     return(dict)
 }
 ```
+```{r}
+names <- get_attraction_name()
+# names[[4]]
+all_dsets <- read_all()
+num_dsets <- length(all_dsets)
+class(head(all_dsets[["dumbo"]]$Datetime))
+# num_dsets
+# Configure start/end date
+start_date <- as.Date("2020-04-01")
+end_date <- as.Date("2020-10-01")
+
+dates <- c(
+    "2020-04-01 12:00:00",
+    "2020-05-01 12:00:00",
+    "2020-06-01 12:00:00",
+    "2020-07-01 12:00:00",
+    "2020-08-01 12:00:00",
+    "2020-09-01 12:00:00",
+    "2020-10-01 12:00:00"
+)
+# Complementary dataframe
+comp_df <- data.frame(
+    "X" = as.character(c(0, 1, 2, 3, 4, 5, 6)),
+    "Datetime" = dates,
+    "Waiting.Time" = as.character(rep(0, 7))
+) # nolint
+# Print out statistics
+outliers <- rep(0, num_dsets)
+for (i in 1:num_dsets) {
+    name <- names[[i]]
+    date_df <- as.Date(all_dsets[[name]]$Datetime, "%Y-%m-%d %H:%M:%S")
+    mask <- date_df > start_date & date_df < end_date
+    outliers[[i]] <- sum(mask)
+    all_dsets[[name]]$Waiting.Time[mask] <- rep(as.numeric(0.0), sum(mask))
+    # add complementary data frames
+    all_dsets[[name]] <- bind_rows(list(all_dsets[[name]], comp_df))
+}
+class(sprintf("2020-%s-01 12:00:00", 12))
+sprintf("2020-%d-01 12:00:00", 4)
+outliers
+class(all_dsets[["dumbo"]][nrow(all_dsets[["dumbo"]]), ]$X)
+# sum(as.Date(head(all_dsets[["dumbo"]])$Datetime, "%Y-%m-%d %H:%M:%S") < start_date | as.Date(head(all_dsets[["dumbo"]])$Datetime, "%Y-%m-%d %H:%M:%S") > end_date)
+
+as.Date("2020-4-01 00:00:00", "%Y-%m-%d %H:%M:%S")
+
+# Print out statistics
+for (i in 1:num_dsets) {
+
+}
+```
