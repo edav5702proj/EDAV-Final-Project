@@ -91,7 +91,7 @@ for (csv in filenames) {
 ```
 
 ```{r}
-average_wait = rowMeans(df_md[2:35],na.rm=TRUE)
+average_wait = rowMeans(df_md[2:26],na.rm=TRUE)
 df_mdwait <-cbind(df_md[1],average_wait)
 df_mdwait <-na.omit(df_mdwait)
 df_mdwait$md <- as.Date(df_mdwait$md,format = "%m-%d")
@@ -105,11 +105,15 @@ ggplot(df_mdwait,aes(x=md,y=average_wait))+
   ylab("average waiting time(min)")+
   ggtitle("Average waiting time for every day")
 ```
-From the
+From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disney Land, thus requiring tourists to wait much less time. 
+
+The waiting time then steadily increases until April 1, when it decreases by almost 25%. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit Disney Land.
+
+We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. On the other hand, when they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.
 
 ```{r}
-average_wait_before = rowMeans(df_md_before[2:35],na.rm=TRUE)
-average_wait_after = rowMeans(df_md_after[2:35],na.rm=TRUE)
+average_wait_before = rowMeans(df_md_before[2:26],na.rm=TRUE)
+average_wait_after = rowMeans(df_md_after[2:26],na.rm=TRUE)
 df_mdwait_before <-cbind(df_md[1],average_wait_before)
 df_mdwait_covid <-cbind(df_mdwait_before,average_wait_after)
 df_mdwait_covid <-na.omit(df_mdwait_covid)
@@ -129,9 +133,10 @@ ggplot(df_mdwait_covid,aes(x=md))+
   ylab("average waiting time(min)")+
   ggtitle("Average waiting time for every day")
 ```
+We set January 1, 2020 as the threshold which separates the time before and after Covid-19 affected the world. The blue line represents the average waiting time before Covid, and the red line is for the period after Covid. Generally, the waiting time is shorter after Covid, especially during June and July.
 
 ```{r}
-weekday_wait = rowMeans(df_weekday[2:35],na.rm=TRUE)
+weekday_wait = rowMeans(df_weekday[2:26],na.rm=TRUE)
 df_weekwait <-cbind(df_weekday[1],weekday_wait)
 df_weekwait$weekday <- factor(df_weekwait$weekday, levels= c("Sunday", "Monday", 
     "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
@@ -145,9 +150,10 @@ ggplot(df_weekwait,aes(x=weekday,y=weekday_wait))+
   ylab("average waiting time(min)")+
   ggtitle("Average waiting time for every weekday")
 ```
+The graph above shows the average waiting time per facility every weekday. We do expect Saturday has a relatively high waiting time before we start the project. On the other hand, surprisingly, Sunday has the shortest waiting time, while Monday's and Wednesday's waiting times are above average.
 
 ```{r}
-weekday_wait_before = rowMeans(df_weekday_before[2:35],na.rm=TRUE)
+weekday_wait_before = rowMeans(df_weekday_before[2:26],na.rm=TRUE)
 df_weekwait_before <-cbind(df_weekday_before[1],weekday_wait_before)
 df_weekwait_before$weekday <- factor(df_weekwait_before$weekday, levels= c("Sunday", "Monday", 
     "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
@@ -164,7 +170,7 @@ ggplot(df_weekwait_before,aes(x=weekday,y=weekday_wait_before))+
 ```
 
 ```{r}
-weekday_wait_after = rowMeans(df_weekday_after[2:35],na.rm=TRUE)
+weekday_wait_after = rowMeans(df_weekday_after[2:26],na.rm=TRUE)
 df_weekwait_after <-cbind(df_weekday_after[1],weekday_wait_after)
 df_weekwait_after$weekday <- factor(df_weekwait_after$weekday, levels= c("Sunday", "Monday", 
     "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
@@ -179,55 +185,10 @@ ggplot(df_weekwait_after,aes(x=weekday,y=weekday_wait_after))+
   ggtitle("Average waiting time for every weekday after covid")
 ```
 
-
-```{r}
-df_dumbo <- df_weekday[c(1,9)]
-df_dumbo$weekday <- factor(df_dumbo$weekday, levels= c("Sunday", "Monday", 
-    "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
-df_dumbo <-df_dumbo[order(df_dumbo$weekday), ]
-ggplot(df_dumbo,aes(x=weekday,y=avg_wait.y))+
-  geom_bar(stat="identity")+
-  geom_text(aes(label = round(avg_wait.y,2)), vjust = 1.5, colour = "white")+
-  ylab("average waiting time(min)")+
-  ggtitle("Average waiting time for dumbo")
-```
-
-```{r}
-duration = read.csv("Data/data/entities.csv")
-```
-
-```{r}
-du <- duration[c(78,24,90,73,27,NaN,NaN,30,31,NaN,84,87,77,92,NaN,88,80,94,75,89,NaN,42,82,83,85,NaN,44,74,NaN,93, NaN,95,79,76),]
-```
-
-```{r}
-wait_time<-data.frame(0)
-names(wait_time)<-c("Waiting.time")
-for (csv in filenames) {
-  avg = mean(dict[[csv]]$Waiting.Time)
-  wait_time<-rbind(wait_time,avg)
-}
-```
-
-```{r}
-wait_time<-wait_time[2:35,]
-```
-
-```{r}
-du<-cbind(du,wait_time)
-```
-
-```{r}
-du <-na.omit(du)
-```
-
-```{r}
-ggplot(du,aes(x=duration,y=wait_time))+
-  geom_point()+
-  geom_smooth(method='loess', formula= y~x)
-```
+The two graphs above show the waiting time every weekday before and after covid. On every weekday, the average the less after covid than before covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.58 minutes. The tourists spend less time waiting after the covid.
 
 
+Given the analysis we provided above, we recommend that tourists visit Disney Land on a Sunday or Thursday in September in order to take advantage of as many facilities as possible.
 
 
 
