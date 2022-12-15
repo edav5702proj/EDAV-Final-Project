@@ -7,11 +7,10 @@ sources
 cleaning-transformation
 missing-value-analysis
 results
-<<<<<<< HEAD
-xysong-demo
-=======
-waiting-time-pattern-analysis
+assumption
+assumption-1
+assumption-2
+general-pattern-analysis
 identify-cyclical-patterns
->>>>>>> 4b9bb4815d859343938b63e3f491851372ecf9ac
 interactive-component
 conclusion

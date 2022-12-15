@@ -20,8 +20,11 @@ def read_metadata():
     return attractions
 
 
-def get_all_csv_names():
-    local_path = r"Data/data/Magic Kingdom"
+def get_all_csv_names(raw_data=True):
+    if raw_data:
+        local_path = r"Data/data/Magic Kingdom"
+    else:
+        local_path = r"Data/data/Magic Kingdom/xysong_python"
     csvs = os.listdir(local_path)
     # ic(csvs[0][:-4])
     csvs = np.array(list(filterfalse(lambda x: x[-4:] != '.csv', csvs)))
@@ -44,8 +47,8 @@ def find_num_matched(names, meta):
     return count
 
 
-def parse_attraction_name():
-    csv, raw = get_all_csv_names()
+def parse_attraction_name(raw_data=True):
+    csv, raw = get_all_csv_names(raw_data)
     # ic(raw)
     # ic(raw[0])
     # Parsing
@@ -64,11 +67,12 @@ def read_avg_wait():
     for item in df:
         name_duration[item[2].replace("_", " ").replace(
             "  ", " ").lower()] = item[-1]
-    ic(name_duration)
+    # ic(name_duration)
+    # ic(parse_attraction_name(True))
 
     lst = []
-    for name in parse_attraction_name():
-        ic(name)
+    for name in parse_attraction_name(False):
+        # ic(name)
         if name in name_duration:
             lst.append([name, name_duration[name]])
     # ic(lst)
