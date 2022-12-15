@@ -13,6 +13,11 @@ Disneyland estimates the waiting time based on the length of waiting lines. The 
 The staffs visit Disneyland and record their actual waiting time for each attraction.
 
 ## Cleaning / transformation
+There are 41 attractions’ CSV files available to download, but not all these files contain data. There are only 25 files that contain valid wait time data to explore. These CSV files all contain four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”. After plotting the raw data (Section 3.3.2), we discovered that there are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some errors, and we dropped these data from our analysis.
+
+The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped this column. “SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”. If both the “SACTMIN” and “SPOSTMIN” columns do not have value, then it means that the row does not have valid wait time data for our analysis, so we drop the row. After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the new column as “Waiting.Time” and dropped the “SACTMIN” column. In addition, we also add column “X” as an ID column.
+
+Moreover, in our analysis of wait time based on the time of the day, we also converted the “datetime” column from character type to datetime using as.POSIXlt(). This will allow us to compare time easily. We assigned time before 12 PM to be the morning category, time between 12 PM and before 6 PM to be the afternoon category, and time after 6 PM to be the evening category.
 
 ## Missing value analysis
 ```{r}
@@ -295,3 +300,5 @@ grid.arrange(g1, g2, g3, nrow = 3)
 # g_all + coord_flip()
 # g1
 ```
+
+From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each ride, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend. 
