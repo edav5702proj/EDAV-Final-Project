@@ -19,10 +19,10 @@ library(plotly)
 
 
 ```{r}
-filenames <- list.files("Data/data/Magic Kingdom/xysong_python")
+filenames <- list.files("Data/data/cleaned")
 dict <- hash()
 for (csv in filenames){
-  dict[[csv]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv))
+  dict[[csv]] <- read.csv(sprintf("Data/data/cleaned/%s", csv))
 }
 ```
 
@@ -103,11 +103,11 @@ ggplot(df_mdwait,aes(x=md,y=average_wait))+
   ylab("average waiting time(min)")+
   ggtitle("Average waiting time for every day")
 ```
-From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disney Land, thus requiring tourists to wait much less time. 
+From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disneyland, thus requiring tourists to wait much less time. 
 
-The waiting time then steadily increases until April 1, when it decreases by almost 25%. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit Disney Land.
+The waiting time then steadily increases until April 1, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom.
 
-We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. On the other hand, when they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.
+We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.
 
 ```{r}
 average_wait_before = rowMeans(df_md_before[2:26],na.rm=TRUE)
@@ -177,4 +177,4 @@ ggplot(df_weekwait_covid,aes(fill=covid,x=weekday,y=weekday_wait))+
 
 ```
 
-The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.58 minutes. The tourists spend less time waiting after the Covid.
+The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. The tourists spend less time waiting after the Covid.
