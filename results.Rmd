@@ -30,10 +30,12 @@ get_attraction_name <- function() {
 
 read_all <- function() {
     library(hash)
-    filenames <- list.files("Data/data/Magic Kingdom/xysong_python") # nolint
+    # filenames <- list.files("Data/data/Magic Kingdom/xysong_python") # nolint
+    filenames <- list.files("Data/data/cleaned/") # nolint
     dict <- hash()
     for (csv in filenames) {
-        dict[[process_name(csv)]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv)) # nolint
+        # dict[[process_name(csv)]] <- read.csv(sprintf("Data/data/Magic Kingdom/xysong_python/%s", csv)) # nolint
+        dict[[process_name(csv)]] <- read.csv(sprintf("Data/data/cleaned/%s", csv)) # nolint
     }
     return(dict)
 }
