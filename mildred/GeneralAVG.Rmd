@@ -1,0 +1,88 @@
+---
+title: "Untitled"
+author: "Mildred Ouyang"
+date: "2022-12-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+#install.packages("hash")
+library(hash)
+#install.packages("reticulate")
+library(reticulate)
+library(ggridges)
+library(forcats)
+```
+
+```{r}
+process_name <- function(csv){
+  return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function(){
+  return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
+}
+
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
+dict <- hash()
+for (csv in filenames) {
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
+}
+```
+
+```{r}
+avg <- list()
+for (csv in filenames) {
+  avg <- append(avg, mean(dict[[process_name(csv)]]$Waiting.Time))
+}
+```
+
+```{r}
+avg_time = data.frame(unlist(get_attraction_name()), unlist(avg))
+names(avg_time) = c("Ride","avgtime")
+```
+
+```{r}
+ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) + 
+  geom_point(color = "#B12228") +
+  labs(title = "Average Waiting Time for Each Ride", 
+       x = "Average Waiting Time", 
+       y = "Ride")
+```
+
+```{r}
+#head(sort(avg_time$avgtime, decreasing=TRUE), n = 5)
+sort_df <- avg_time[order(-avg_time$avgtime),]
+top_five <- list()
+df_comb <- NA
+for (i in head(sort_df, 5)$Ride) {
+  dict[[i]]['ride'] <- i
+  df_comb <- rbind(df_comb, dict[[i]])
+}
+df_comb <- na.omit(df_comb)
+```
+
+```{r}
+#reorder(ride, -Waiting.Time, median)
+ggplot(df_comb, aes(x=Waiting.Time, y=reorder(ride, Waiting.Time, median))) + 
+  geom_boxplot() + 
+  labs(title = "Top 5 Waiting Time", 
+       x = "Waiting Time", 
+       y = "Ride")
+```
+
+```{r}
+ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) +
+  geom_density_ridges(fill = "#EFBEB7", alpha = .5, bandwidth = 7, scale = 1.4) +
+  ggtitle("Top 5 Waiting Time") +
+  ylab("Ride")
+```
