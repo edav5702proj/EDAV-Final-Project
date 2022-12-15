@@ -117,7 +117,7 @@ def read_duration_avg_with_missing():
     name_duration_avg = {}
     for item in df:
         name_duration_avg[item[2].replace("_", " ").replace(
-            "  ", " ").lower()] = (item[-2], item[-1])
+            "  ", " ").lower()] = (item[-2], item[-1], item[-3])
     # ic(name_duration_avg)
     # ic(len(name_duration_avg))
     lst = []
@@ -125,12 +125,13 @@ def read_duration_avg_with_missing():
         # ic(name)
         if name in name_duration_avg:
             lst.append([name, name_duration_avg[name]
-                       [0], name_duration_avg[name][1]])
+                       [0], name_duration_avg[name][1], name_duration_avg[name][2]])
         else:
-            lst.append([name, nan, nan])
+            lst.append([name, nan, nan, nan])
     # ic(len(lst))
     # ic(lst)
-    df = pd.DataFrame(np.array(lst), columns=["name", "duration", "avg"])
+    df = pd.DataFrame(np.array(lst), columns=[
+                      "Official Name", "Duration", "AWT_100", "Open Time"])
     dest = "Data/data/entity_missing.csv"
     df.to_csv(dest)
 

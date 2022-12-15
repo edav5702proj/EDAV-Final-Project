@@ -74,23 +74,154 @@ names[14]
 ```
 
 ```{r}
-missing_values <- read.csv("Data/data/entity_missing.csv")
-# Replace all NaN with NA
-mask <- is.nan(missing_values$duration)
-missing_values$duration[mask] <- NA
-mask <- is.nan(missing_values$avg)
-missing_values$avg[mask] <- NA
-# missing_values
-missing_dsets <- missing_values %>%
-    # rownames_to_column("id") %>%
-    gather(key, value, -c(X)) %>%
-    mutate(missing = ifelse(is.na(value), "yes", "no"))
+process_missing <- function() {
+    missing_values <- read.csv("Data/data/entity_missing.csv")
+    # missing_values$Open.Time
+    missing_values <- missing_values[, c(2, 3, 4, 5)]
+    # missing_values
+    mask <- is.nan(missing_values$Duration)
+    missing_values$Duration[mask] <- NA
+    mask <- is.nan(missing_values$AWT_100)
+    missing_values$AWT_100[mask] <- NA
+    mask <- "nan" == missing_values$Open.Time
+    missing_values$Open.Time[mask] <- as.numeric(NA)
+    missing_values
+    return(missing_values)
+}
+plot_missing_heatmap <- function(missing_values) {
+    # missing_values
+    missing_dsets <- missing_values %>%
+        # rownames_to_column("id") %>%
+        gather(key, value, -c(Official.Name)) %>%
+        mutate(missing = ifelse(is.na(value), "yes", "no"))
+    library(ggeasy)
+    g <- ggplot(missing_dsets, aes(x = key, y = Official.Name, fill = missing)) +
+        geom_tile(color = "white") +
+        ggtitle("Missing Patterns for All Attractions") +
+        ggeasy::easy_center_title() +
+        ylab("Attractions") +
+        xlab("Attributes") +
+        scale_fill_viridis_d() + # discrete scale
+        theme_bw()
+    return(g)
+}
+```
+```{r}
+# Credit: the following code is the source code from redav library
+# We copy that here because we are not able to install the package due to R version issue.
+# Link: https://rdrr.io/github/jtr13/redav/src/R/plot_missing.R
+# library(redav)
+plot_missing <- function(x, percent = TRUE) {
+    na_count_all <- data.frame(is.na(x)) %>%
+        dplyr::group_by_all() %>%
+        dplyr::count(name = "count", sort = TRUE) %>%
+        dplyr::ungroup() %>%
+        tibble::rownames_to_column("pattern")
 
-g <- ggplot(missing_dsets, aes(x = key, y = X, fill = missing)) +
-    geom_tile(color = "white") +
-    ggtitle("mtcars with NAs added") +
-    ylab("") +
-    scale_fill_viridis_d() + # discrete scale
-    theme_bw()
-g
+    na_count_all <- na_count_all %>%
+        dplyr::mutate(pattern = factor(.data$pattern, levels = nrow(na_count_all):1))
+
+    # count the number of columns with missing values; will be used later to determine if there's a "none missing" pattern
+    na_count_all <- na_count_all %>%
+        dplyr::rowwise() %>%
+        dplyr::mutate(num_missing_cols = sum(dplyr::c_across(where(is.logical))))
+
+    # data frame for missing patterns bar chart
+    na_count_by_pattern <- na_count_all[, c("pattern", "count", "num_missing_cols")]
+    na_count_by_pattern$none_missing <- ifelse(na_count_by_pattern$num_missing_cols == 0, TRUE, FALSE)
+
+    # data frame for missing by column bar chart
+    na_count_by_column <- data.frame(is.na(x)) %>%
+        colSums() %>%
+        sort(decreasing = TRUE) %>%
+        tibble::enframe(name = "var", value = "count")
+
+    # tidy and sort na_count_all by column counts
+    na_count_all_tidy <- na_count_all %>%
+        tidyr::pivot_longer(where(is.logical), names_to = "variable") %>%
+        dplyr::mutate(variable = factor(.data$variable, levels = na_count_by_column$var)) %>%
+        dplyr::mutate(none_missing = ifelse(.data$num_missing_cols == 0, TRUE, FALSE))
+
+    # main plot
+    main_plot <- ggplot2::ggplot(na_count_all_tidy, ggplot2::aes(.data$variable, .data$pattern, fill = factor(.data$value), alpha = .data$none_missing)) +
+        ggplot2::geom_tile(color = "white") +
+        ggplot2::scale_fill_manual(values = c("grey70", "mediumpurple")) +
+        ggplot2::scale_alpha_manual(values = c(.7, 1)) +
+        ggplot2::ylab("missing pattern") +
+        ggplot2::guides(fill = "none", alpha = "none") +
+        ggplot2::theme_classic(12)
+
+    # check for "none missing" pattern
+    none_missing_pattern <- na_count_by_pattern %>%
+        dplyr::filter(.data$none_missing) %>%
+        dplyr::pull(.data$pattern)
+
+    if (length(none_missing_pattern) > 0) {
+        main_plot <- main_plot +
+            ggplot2::annotate("text",
+                x = (ncol(na_count_all) - 2) / 2,
+                y = nrow(na_count_all) + 1 - as.numeric(as.character(none_missing_pattern)),
+                label = "complete cases"
+            )
+    }
+
+    # margin plots
+
+    denom <- ifelse(percent, nrow(x) / 100, 1)
+
+    missing_by_column_plot <- ggplot2::ggplot(na_count_by_column, ggplot2::aes(forcats::fct_inorder(.data$var), .data$count / denom)) +
+        ggplot2::geom_col(fill = "cornflowerblue", alpha = .7) +
+        ggplot2::scale_y_continuous(expand = c(0, 0), n.breaks = 3) +
+        ggplot2::xlab("") +
+        ggplot2::ylab(ifelse(percent, "% rows \n missing:", "num rows \n missing:")) +
+        ggplot2::theme_linedraw(12) +
+        ggplot2::theme(
+            panel.grid.major.x = ggplot2::element_blank(),
+            panel.grid.minor.x = ggplot2::element_blank()
+        )
+
+    missing_by_pattern_plot <-
+        ggplot2::ggplot(na_count_by_pattern, ggplot2::aes(.data$pattern, .data$count / denom, alpha = .data$none_missing)) +
+        ggplot2::geom_col(fill = "cornflowerblue") +
+        ggplot2::coord_flip() +
+        ggplot2::scale_y_continuous(expand = c(0, 0), n.breaks = 3) +
+        ggplot2::scale_alpha_manual(values = c(.7, 1)) +
+        ggplot2::xlab("") +
+        ggplot2::ylab(ifelse(percent, "% rows", "row count")) +
+        ggplot2::guides(alpha = "none") +
+        ggplot2::theme_linedraw(12) +
+        ggplot2::theme(
+            panel.grid.major.y = ggplot2::element_blank(),
+            panel.grid.minor.y = ggplot2::element_blank()
+        )
+
+    if (percent) {
+        missing_by_column_plot <- missing_by_column_plot +
+            ggplot2::scale_y_continuous(
+                expand = c(0, 0), n.breaks = 5,
+                limits = c(0, 100)
+            )
+        missing_by_pattern_plot <- missing_by_pattern_plot +
+            ggplot2::scale_y_continuous(
+                expand = c(0, 0), n.breaks = 5,
+                limits = c(0, 100)
+            )
+    }
+
+    missing_by_column_plot + patchwork::plot_spacer() +
+        main_plot + missing_by_pattern_plot +
+        patchwork::plot_layout(widths = c(4, 1), heights = c(1, 4))
+}
+```
+
+
+```{r}
+library(gridExtra)
+# process_missing()
+g0 <- plot_missing_heatmap(process_missing())
+g0
+g1 <- plot_missing(process_missing(), percent = FALSE)
+g1
+# process_missing()
+# grid.arrange(g1, g0, nrow = 2)
 ```

@@ -1,26 +1,26 @@
-,name,duration,avg
-0,country bears,nan,nan
-1,7 dwarfs train,3.0,5.0
-2,pirates of caribbean,7.5,1.5
-3,astro orbiter,1.5,13.5
-4,regal carrousel,2.0,5.0
-5,big thunder mtn,7.0,2.5
-6,splash mountain,18.0,3.5
-7,hall of presidents,nan,nan
-8,space mountain,10.0,3.0
-9,jungle cruise,8.0,3.5
-10,mad tea party,1.5,7.5
-11,dumbo,1.5,10.0
-12,tom land speedway,nan,nan
-13,magic carpets,1.5,16.0
-14,peoplemover,10.0,1.5
-15,it s a small world,nan,nan
-16,carousel of progress,nan,nan
-17,under the sea,7.0,3.0
-18,barnstormer,2.0,7.0
-19,winnie the pooh,4.0,4.0
-20,enchanted tiki rm,14.5,nan
-21,liberty sq riverboat,nan,nan
-22,peter pan s flight,nan,nan
-23,haunted mansion,10.0,2.5
-24,buzz lightyear,4.5,3.0
+,Official Name,Duration,AWT_100,Open Time
+0,country bears,nan,nan,nan
+1,7 dwarfs train,3.0,5.0,05/28/2014
+2,pirates of caribbean,7.5,1.5,12/17/1973
+3,astro orbiter,1.5,13.5,02/25/1995
+4,regal carrousel,2.0,5.0,10/01/1971
+5,big thunder mtn,7.0,2.5,09/23/1980
+6,splash mountain,18.0,3.5,07/17/1992
+7,hall of presidents,nan,nan,nan
+8,space mountain,10.0,3.0,01/15/1975
+9,jungle cruise,8.0,3.5,10/01/1971
+10,mad tea party,1.5,7.5,10/01/1971
+11,dumbo,1.5,10.0,10/01/1971
+12,tom land speedway,nan,nan,nan
+13,magic carpets,1.5,16.0,05/23/2001
+14,peoplemover,10.0,1.5,07/01/1975
+15,it s a small world,nan,nan,nan
+16,carousel of progress,nan,nan,nan
+17,under the sea,7.0,3.0,12/06/2012
+18,barnstormer,2.0,7.0,10/01/1996
+19,winnie the pooh,4.0,4.0,06/05/1999
+20,enchanted tiki rm,14.5,nan,07/23/1963
+21,liberty sq riverboat,nan,nan,nan
+22,peter pan s flight,nan,nan,nan
+23,haunted mansion,10.0,2.5,10/01/1971
+24,buzz lightyear,4.5,3.0,10/07/1998
