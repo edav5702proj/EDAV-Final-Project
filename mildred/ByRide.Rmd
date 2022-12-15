@@ -30,10 +30,10 @@ get_attraction_name <- function(){
   return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
 }
 
-filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/cleaned")
 dict <- hash()
 for (csv in filenames) {
-  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/cleaned/%s", csv))
 }
 ```
 

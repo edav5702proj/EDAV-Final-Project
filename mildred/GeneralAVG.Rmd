@@ -32,10 +32,10 @@ get_attraction_name <- function(){
   return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
 }
 
-filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/cleaned")
 dict <- hash()
 for (csv in filenames) {
-  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/cleaned/%s", csv))
 }
 ```
 
@@ -61,7 +61,6 @@ ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) +
 
 The above Cleveland dot plot shows the average wait time for each attraction, and they are ranked in descending order with the longest time at the top. The Seven Dwarfs Mine Train attraction has the longest average waiting time of around 79.2 minutes. The second highest is the Space Mountain attraction, and it has an average wait time of 58.3 minutes. The third highest has a very close average wait time as the second one, and it is the Peter Pan's Flight attraction with a wait time of 58.0 minutes. The fourth is the Splash Mountain with an average wait time of 45.1 minutes, and the fifth is the Jungle Cruise with an average wait time of 44.2 minutes.      
 ```{r}
-#head(sort(avg_time$avgtime, decreasing=TRUE), n = 5)
 sort_df <- avg_time[order(-avg_time$avgtime),]
 top_five <- list()
 df_comb <- NA
