@@ -72,3 +72,25 @@ for (i in 1:25) {
 num_vals
 names[14]
 ```
+
+```{r}
+missing_values <- read.csv("Data/data/entity_missing.csv")
+# Replace all NaN with NA
+mask <- is.nan(missing_values$duration)
+missing_values$duration[mask] <- NA
+mask <- is.nan(missing_values$avg)
+missing_values$avg[mask] <- NA
+# missing_values
+missing_dsets <- missing_values %>%
+    # rownames_to_column("id") %>%
+    gather(key, value, -c(X)) %>%
+    mutate(missing = ifelse(is.na(value), "yes", "no"))
+
+g <- ggplot(missing_dsets, aes(x = key, y = X, fill = missing)) +
+    geom_tile(color = "white") +
+    ggtitle("mtcars with NAs added") +
+    ylab("") +
+    scale_fill_viridis_d() + # discrete scale
+    theme_bw()
+g
+```
