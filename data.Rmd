@@ -1,26 +1,29 @@
 # Data 
 
 ## Sources
-As described in the website, the data is collected directly from 3 sources:
+As described in the website, the data is collected directly from 3 sources:     
 
-1. from app users of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets])
-The app records the time its users enter waiting lines and enjoy the facility. The difference between these two times is the actual waiting time.
+1. from app users of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets])     
+The app records the time its users enter waiting lines and enjoy the facility. The difference between these two times is the actual waiting time.     
 
-2. [Disney’s My Disney Experience app](https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact|G|5231013.RR.AM.01.01|MWNOQXO|BR|601187705510&keyword_id=aud-300113739056:kwd-2901498835|dc|disney%20experience|601187705510|p|5060:3|&gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE)
-Disneyland estimates the waiting time based on the length of waiting lines. The estimated waiting time is posted on a sign at the entrance to attractions and shown on Disney's app.
+2. [Disney’s My Disney Experience app](https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact|G|5231013.RR.AM.01.01|MWNOQXO|BR|601187705510&keyword_id=aud-300113739056:kwd-2901498835|dc|disney%20experience|601187705510|p|5060:3|&gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE)     
+Disneyland estimates the waiting time based on the length of waiting lines. The estimated waiting time is posted on a sign at the entrance to attractions and shown on Disney's app.       
 
-3. observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights.
-The staffs visit Disneyland and record their actual waiting time for each attraction.
+3. observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights.     
+The staffs visit Disneyland and record their actual waiting time for each attraction.     
 
+Issues / problems with the data:     
+After plotting the raw data (Section 3.3.2), we discovered that there are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some errors, and we dropped these data from our analysis.     
+\      
+Other than the above data error, we also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.     
+      
 ## Cleaning / transformation
-There are 41 attractions’ CSV files available to download, but not all these files contain data. There are only 25 files that contain valid wait time data to explore. These CSV files all contain four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”. After plotting the raw data (Section 3.3.2), we discovered that there are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some errors, and we dropped these data from our analysis.
-
-Other than the above data error, we also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.
-
-The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped this column. “SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”. If both the “SACTMIN” and “SPOSTMIN” columns do not have value, then it means that the row does not have valid wait time data for our analysis, so we drop the row. After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the new column as “Waiting.Time” and dropped the “SACTMIN” column. In addition, we also add column “X” as an ID column.
-
-Moreover, in our analysis of wait time based on the time of the day, we also converted the “datetime” column from character type to datetime using as.POSIXlt(). This will allow us to compare time easily. We assigned time before 12 PM to be the morning category, time between 12 PM and before 6 PM to be the afternoon category, and time after 6 PM to be the evening category.
-
+There are 41 attractions’ CSV files available to download, but not all these files contain data. There are only 25 files that contain valid wait time data to explore. These CSV files all contain four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”.      
+\       
+The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped this column. “SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”. If both the “SACTMIN” and “SPOSTMIN” columns do not have value, then it means that the row does not have valid wait time data for our analysis, so we drop the row. After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the new column as “Waiting.Time” and dropped the “SACTMIN” column. In addition, we also add column “X” as an ID column.     
+\     
+Moreover, in our analysis of wait time based on the time of the day, we also converted the “datetime” column from character type to datetime using as.POSIXlt(). This will allow us to compare time easily. We assigned time before 12 PM to be the morning category, time between 12 PM and before 6 PM to be the afternoon category, and time after 6 PM to be the evening category.     
+     
 ## Missing value analysis
 ```{r}
 process_name <- function(csv) {
