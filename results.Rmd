@@ -167,6 +167,8 @@ Explanation: as Disneyland became more famous, there are more tourists but the a
 Explanation: this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.
 - Starting from _2020_, there is a general trend of increasing waiting time\
 Explanation: this corresponds to the fact that people are back to normal life from COVID disruption.
+- There is an obvious abnormality in the plot (_2020-04-01_ to _2020-10-01_), where the waiting times are all zeros, which correpond to the 
+closure of Disneyland. (Note that there is a design choice for plotting; see Data Cleaning section for details)
 
 **Note**: According to Disneyland's Officials, Disneyland was closed during COVID-19 outbreaks
 ```{r}
@@ -221,14 +223,15 @@ plot_in_one_shot <- function(df, name) {
     g <- identify_abnormal(g, start, end, max(grouped_dsets$avg))
     return(g)
 }
-# nrow(df_all)
+# nrow(df_all) #nolint
 g2 <- plot_in_one_shot(df_all, "All Attractions")
 g2
 ```
 
-Below are the time series plot for the average waiting time changing pattern for each attraction in Disneyland. **Click** 
-on the plots to zoom in. Through this juxtaposition, we can easily observed that the four trends and abnormalites that 
+Below are the time series plot for the average waiting time changing pattern for each attraction in Disneyland. **Click on the plots to zoom in**. 
+Through this juxtaposition, we can easily observed that the four trends and abnormalites that 
 we identified eariler is universal across all attractions, and we do not subject to _Simpson's Paradox_.
+
 <!-- :::{#abnormal_plot} -->
 ```{r, fig.show="hold", out.width="20%", out.extra='class="abnormal"'}
 all_plot <- list()
@@ -274,7 +277,7 @@ g <- ggplot(dset, aes(as.Date(format(Datetime, format = "%m-%d"), "%m-%d"), avg)
 g
 print(head(dset, 100), n = 100)
 as.character(as.Date("2020/01/01"))
-# grid.arrange(g,g, ncol=2)
+# grid.arrange(g,g, ncol=2) #nolint
 g
 g
 g
