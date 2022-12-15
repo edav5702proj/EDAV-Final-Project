@@ -63,16 +63,12 @@ for (i in 1:num_dsets) {
     all_dsets[[name]] <- bind_rows(list(all_dsets[[name]], comp_df))
     write.csv(all_dsets[[name]], sprintf("Data/data/cleaned/%s.csv", name))
 }
-# class(sprintf("2020-%s-01 12:00:00", 12))
-# sprintf("2020-%d-01 12:00:00", 4)
-# outliers
-# class(all_dsets[["dumbo"]][nrow(all_dsets[["dumbo"]]), ]$X)
-# # sum(as.Date(head(all_dsets[["dumbo"]])$Datetime, "%Y-%m-%d %H:%M:%S") < start_date | as.Date(head(all_dsets[["dumbo"]])$Datetime, "%Y-%m-%d %H:%M:%S") > end_date)
 
-# as.Date("2020-4-01 00:00:00", "%Y-%m-%d %H:%M:%S")
-
-# # Print out statistics
-# for (i in 1:num_dsets) {
-
-# }
+num_vals <- rep(0, 25)
+for (i in 1:25) {
+    name <- names[[i]]
+    num_vals[[i]] <- nrow(all_dsets[[name]])
+}
+num_vals
+names[14]
 ```

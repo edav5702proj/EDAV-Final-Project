@@ -13,6 +13,7 @@ assumption-2
 general-pattern-analysis---macro-level
 secular-trends
 identify-cyclical-patterns
+section-conclusion
 general-pattern-analysis---micro-level
 interactive-component
 conclusion

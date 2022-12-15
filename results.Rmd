@@ -161,13 +161,13 @@ we are doing macro-scale analysis, implying we will focus on the _average waitin
 To identify secular trend, we computed the _average waiting time_ for each month for all attractions and then made the following time series plot. 
 Here is the main observations:
 
-- From _2015_ to _2019_, there is a general trend of increasing waiting time.\
-Explanation: as Disneyland became more famous, there are more tourists but the attractions remain unchanged, which result in an increasing of waiting time.
-- From about _2019_ to _2020_, there is a huge decreasing in terms of waiting time.\
-Explanation: this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.
-- Starting from _2020_, there is a general trend of increasing waiting time\
-Explanation: this corresponds to the fact that people are back to normal life from COVID disruption.
-- There is an obvious abnormality in the plot (_2020-04-01_ to _2020-10-01_), where the waiting times are all zeros, which correpond to the 
+- ***Obs #1:*** From _2015_ to _2019_, there is a general trend of increasing waiting time.\
+***Exp:*** as Disneyland became more famous, there are more tourists but the attractions remain unchanged, which result in an increasing of waiting time.
+- ***Obs #2:*** From about _2019_ to _2020_, there is a huge decreasing in terms of waiting time.\
+***Exp:*** this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.
+- ***Obs #3:*** Starting from _2020_, there is a general trend of increasing waiting time\
+***Exp:*** this corresponds to the fact that people are back to normal life from COVID disruption.
+- ***Obs #4:*** There is an obvious abnormality in the plot (_2020-04-01_ to _2020-10-01_), where the waiting times are all zeros, which correpond to the 
 closure of Disneyland. (Note that there is a design choice for plotting; see Data Cleaning section for details)
 
 **Note**: According to Disneyland's Officials, Disneyland was closed during COVID-19 outbreaks
@@ -230,7 +230,7 @@ g2
 
 Below are the time series plot for the average waiting time changing pattern for each attraction in Disneyland. **Click on the plots to zoom in**. 
 Through this juxtaposition, we can easily observed that the four trends and abnormalites that 
-we identified eariler is universal across all attractions, and we do not subject to _Simpson's Paradox_.
+we identified eariler is ***universal*** across all attractions, and we do not subject to _Simpson's Paradox_.
 
 <!-- :::{#abnormal_plot} -->
 ```{r, fig.show="hold", out.width="20%", out.extra='class="abnormal"'}
@@ -255,14 +255,15 @@ Time series data commonly share some underlying cyclical patterns. We utilized f
 isolate average waiting time for each year and identify the following trends and patterns: (Explanations are based on 
 news, activities, and reports published by Disneyland Officials)
 
-- In general, there are two peaks of _average waiting time_ for attractions in Disneyland: _April - July_ and _December - January_. \
-Explanation: Spring _AWT_ peak corresponds to the fact that there are tons of activities held in that period, whereas winter peak is the direct result 
+- ***Obs #1:*** We managed to identify cyclical patterns by isolating _AWT_ for each year.
+- ***Obs #2:*** In general, there are two peaks of _AWT_ for attractions in Disneyland: _April - July_ (spring peak) and _December - January_ (winter peak). \
+***Exp:*** Spring _AWT_ peak corresponds to the fact that there are tons of activities held in that period, whereas winter peak is the direct result 
 of Christmas Holiday (Note that Florida is a good place to stay for many people during winter).
-
-- In _2020_, we observed a completely different trend due to the temporary closure of the park. 
-- In _2021_, even though the general waiting time decreases but the peaks are still around spring and winter. \
-Explanation: the decreasing waiting time (compared to _2015_ to _2019_) accounts for the influence of COVID-19 to people's life, while the consistency of peak seasons 
+- ***Obs #3:*** In _2020_, we observed a completely different trend due to the temporary closure of the park. 
+- ***Obs #4:*** In _2021_, the general _AWT_ decreases but the peaks are still around spring and winter. \
+***Exp:***  the decreasing waiting time (compared to _2015_ to _2019_) accounts for the influence of COVID-19 to people's life, while the consistency of peak seasons 
 confirmed the validity of previously-observed trends.
+
 :::{#facet}
 ```{r, fig.show="hold", out.width="100%"}
 dumbo <- all_dsets[["dumbo"]]
@@ -298,6 +299,16 @@ plot_faceting_in_one_shot <- function(df, name) {
 plot_faceting_in_one_shot(df_all, "All Attractions")
 ```
 :::
+
+Similarly, we can plot the _AWT_ for each attraction as what we did for the previous section to further confirm the global trends. 
+***Click on the plots below to zoom in.*** Here are the main takeaway from these plots:
+
+- ***Obs #1:*** _Most of the attractions_ share the similar patterns as identified before.
+- ***Obs #2:*** For attractions whose data are not sufficiently large (refer to Data Cleaning section for details), spring and winter peaks are observed as well.
+- ***Obs #3:*** Combined previous two observations, we can safely conclude that we do not suffer from _Simpson's Paradox_ and the trend is valid.
+- ***Obs #4:*** From this juxtapositin, we can easily discover features about each attraction. For example, 
+we can quickly guess that _Hall of Presidents_ was closed in 2017 (annoucement from Disneyland Officials confirmed our conjecture).
+
 ```{r, fig.show="hold", out.width="20%", out.extra='class="abnormal"'}
 all_plot <- list()
 names <- get_attraction_name()
@@ -325,6 +336,12 @@ write.csv(df, "Data/data/name_duration_avg.csv", row.names = FALSE)
 df <- read.csv("Data/data/name_duration_avg.csv")
 ```
 <script src="zoom.js"></script>
+
+### Section Conclusion
+
+A main takeaway of this macro-level analysis for tourists is that spring and winter are two peak seasons that the _AWT_ is higher than 
+that of other time; this trend is exhibited both before and after COVID-19, and will be consistent in the future. Therefore, one natural 
+suggestion is to visit the park in summer or fall.
 
 ## General Pattern Analysis - Micro-Level
 

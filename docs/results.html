@@ -95,6 +95,7 @@
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#secular-trends"><i class="fa fa-check"></i><b>4.2.1</b> Secular Trends</a></li>
 <li class="chapter" data-level="4.2.2" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.2.2</b> Identify cyclical patterns</a></li>
+<li class="chapter" data-level="4.2.3" data-path="results.html"><a href="results.html#section-conclusion"><i class="fa fa-check"></i><b>4.2.3</b> Section Conclusion</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a></li>
 </ul></li>
@@ -189,29 +190,51 @@ we are doing macro-scale analysis, implying we will focus on the <em>average wai
 <p>To identify secular trend, we computed the <em>average waiting time</em> for each month for all attractions and then made the following time series plot.
 Here is the main observations:</p>
 <ul>
-<li>From <em>2015</em> to <em>2019</em>, there is a general trend of increasing waiting time.<br />
-Explanation: as Disneyland became more famous, there are more tourists but the attractions remain unchanged, which result in an increasing of waiting time.</li>
-<li>From about <em>2019</em> to <em>2020</em>, there is a huge decreasing in terms of waiting time.<br />
-Explanation: this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.</li>
-<li>Starting from <em>2020</em>, there is a general trend of increasing waiting time<br />
-Explanation: this corresponds to the fact that people are back to normal life from COVID disruption.</li>
-<li>There is an obvious abnormality in the plot (<em>2020-04-01</em> to <em>2020-10-01</em>), where the waiting times are all zeros, which correpond to the
+<li><strong><em>Obs #1:</em></strong> From <em>2015</em> to <em>2019</em>, there is a general trend of increasing waiting time.<br />
+<strong><em>Exp:</em></strong> as Disneyland became more famous, there are more tourists but the attractions remain unchanged, which result in an increasing of waiting time.</li>
+<li><strong><em>Obs #2:</em></strong> From about <em>2019</em> to <em>2020</em>, there is a huge decreasing in terms of waiting time.<br />
+<strong><em>Exp:</em></strong> this corresponds to the outbreak of COVID-19 in the United States, which result in the temporary close of Disneyland and the huge decreasing of number of tourists even after reopening.</li>
+<li><strong><em>Obs #3:</em></strong> Starting from <em>2020</em>, there is a general trend of increasing waiting time<br />
+<strong><em>Exp:</em></strong> this corresponds to the fact that people are back to normal life from COVID disruption.</li>
+<li><strong><em>Obs #4:</em></strong> There is an obvious abnormality in the plot (<em>2020-04-01</em> to <em>2020-10-01</em>), where the waiting times are all zeros, which correpond to the
 closure of Disneyland. (Note that there is a design choice for plotting; see Data Cleaning section for details)</li>
 </ul>
 <p><strong>Note</strong>: According to Disneyland’s Officials, Disneyland was closed during COVID-19 outbreaks
 <img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Below are the time series plot for the average waiting time changing pattern for each attraction in Disneyland. <strong>Click on the plots to zoom in</strong>.
 Through this juxtaposition, we can easily observed that the four trends and abnormalites that
-we identified eariler is universal across all attractions, and we do not subject to <em>Simpson’s Paradox</em>.</p>
+we identified eariler is <strong><em>universal</em></strong> across all attractions, and we do not subject to <em>Simpson’s Paradox</em>.</p>
 <!-- :::{#abnormal_plot} -->
 <p><img src="finalproj_files/figure-html/unnamed-chunk-12-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-12-25.png" width="20%" class="abnormal" />
 <!-- ::: --></p>
 </div>
 <div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Identify cyclical patterns<a href="results.html#identify-cyclical-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Time series data commonly share some underlying cyclical patterns. We utilized faceting techniques to
+isolate average waiting time for each year and identify the following trends and patterns: (Explanations are based on
+news, activities, and reports published by Disneyland Officials)</p>
+<ul>
+<li><strong><em>Obs #1:</em></strong> We managed to identify cyclical patterns by isolating <em>AWT</em> for each year.</li>
+<li><strong><em>Obs #2:</em></strong> In general, there are two peaks of <em>AWT</em> for attractions in Disneyland: <em>April - July</em> (spring peak) and <em>December - January</em> (winter peak).<br />
+<strong><em>Exp:</em></strong> Spring <em>AWT</em> peak corresponds to the fact that there are tons of activities held in that period, whereas winter peak is the direct result
+of Christmas Holiday (Note that Florida is a good place to stay for many people during winter).</li>
+<li><strong><em>Obs #3:</em></strong> In <em>2020</em>, we observed a completely different trend due to the temporary closure of the park.</li>
+<li><strong><em>Obs #4:</em></strong> In <em>2021</em>, the general <em>AWT</em> decreases but the peaks are still around spring and winter.<br />
+<strong><em>Exp:</em></strong> the decreasing waiting time (compared to <em>2015</em> to <em>2019</em>) accounts for the influence of COVID-19 to people’s life, while the consistency of peak seasons
+confirmed the validity of previously-observed trends.</li>
+</ul>
 <div id="facet">
 <p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="100%" /></p>
 </div>
+<p>Similarly, we can plot the <em>AWT</em> for each attraction as what we did for the previous section to further confirm the global trends.
+<strong><em>Click on the plots below to zoom in.</em></strong> Here are the main takeaway from these plots:</p>
+<ul>
+<li><strong><em>Obs #1:</em></strong> <em>Most of the attractions</em> share the similar patterns as identified before.</li>
+<li><strong><em>Obs #2:</em></strong> For attractions whose data are not sufficiently large (refer to Data Cleaning section for details), spring and winter peaks are observed as well.</li>
+<li><strong><em>Obs #3:</em></strong> Combined previous two observations, we can safely conclude that we do not suffer from <em>Simpson’s Paradox</em> and the trend is valid.</li>
+<li><strong><em>Obs #4:</em></strong> From this juxtapositin, we can easily discover features about each attraction. For example,
+we can quickly guess that <em>Hall of Presidents</em> was closed in 2017 (annoucement from Disneyland Officials confirmed our conjecture).</li>
+</ul>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-14-25.png" width="20%" class="abnormal" /></p>
 <pre><code>##     X                 name duration
 ## 1   0       7 dwarfs train      3.0
@@ -233,6 +256,12 @@ we identified eariler is universal across all attractions, and we do not subject
 ## 17 16      haunted mansion     10.0
 ## 18 17       buzz lightyear      4.5</code></pre>
 <script src="zoom.js"></script>
+</div>
+<div id="section-conclusion" class="section level3 hasAnchor" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Section Conclusion<a href="results.html#section-conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A main takeaway of this macro-level analysis for tourists is that spring and winter are two peak seasons that the <em>AWT</em> is higher than
+that of other time; this trend is exhibited both before and after COVID-19, and will be consistent in the future. Therefore, one natural
+suggestion is to visit the park in summer or fall.</p>
 </div>
 </div>
 <div id="general-pattern-analysis---micro-level" class="section level2 hasAnchor" number="4.3">
