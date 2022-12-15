@@ -172,9 +172,9 @@ Explanation: this corresponds to the fact that people are back to normal life fr
 
 all_dsets <- read_all()
 dumbo <- all_dsets[["dumbo"]]
-class(dumbo)
+# class(dumbo)
 # Elementary statistics
-head(dumbo)
+# head(dumbo)
 # Get all datasets
 df_all <- bind_rows(lapply(get_attraction_name(), function(i) all_dsets[[i]]))
 # nrow(df_all) #nolint
@@ -194,6 +194,9 @@ group_by <- function(df) {
 plot_time_series <- function(dsets, name) { # Plot
     g <- ggplot(dsets, aes(month, avg), type = "l") +
         geom_line(color = "black") +
+        # geom_line(color = "#F3CC64") +
+        geom_point(color = "deeppink", alpha = 0.4) +
+        geom_smooth(method = "loess", span = .5, se = FALSE) +
         scale_x_date(date_labels = "%b %Y", date_breaks = "6 months", guide = guide_axis(angle = 45)) + # nolint
         xlab("Month") +
         ylab("Average Waiting Time (minutes)") +
@@ -202,9 +205,9 @@ plot_time_series <- function(dsets, name) { # Plot
     return(g)
 }
 identify_abnormal <- function(g, start, end, text_y) {
-    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.5) # nolint
+    g <- g + annotate("rect", xmin = start, xmax = end, ymin = -Inf, ymax = Inf, fill = "lightblue", alpha = 0.3) # nolint
     # Append text
-    g <- g + annotate("text", x = end + 10, y = text_y * (2 / 3), label = "Covid \nDisruption", color = "green", hjust = 0) # nolint
+    g <- g + annotate("text", x = end + 10, y = text_y * (4 / 5), label = "COVID \nOUTBREAK", color = "#393E8F", hjust = 0) # nolint
     return(g)
 }
 
@@ -217,7 +220,8 @@ plot_in_one_shot <- function(df, name) {
     return(g)
 }
 # nrow(df_all)
-plot_in_one_shot(df_all, "All Attractions")
+g2 <- plot_in_one_shot(df_all, "All Attractions")
+g2
 ```
 
 <!-- :::{#abnormal_plot} -->
