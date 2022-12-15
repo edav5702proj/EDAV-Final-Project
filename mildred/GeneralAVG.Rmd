@@ -1,5 +1,5 @@
 ---
-title: "Untitled"
+title: "General Average Wait Time"
 author: "Mildred Ouyang"
 date: "2022-12-13"
 output: html_document
@@ -54,11 +54,12 @@ names(avg_time) = c("Ride","avgtime")
 ```{r}
 ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) + 
   geom_point(color = "#B12228") +
-  labs(title = "Average Waiting Time for Each Ride", 
-       x = "Average Waiting Time", 
-       y = "Ride")
+  labs(title = "Average Waiting Time for Each Attraction", 
+       x = "Average Waiting Time (in minutes)", 
+       y = "Attraction")
 ```
 
+The above Cleveland dot plot shows the average wait time for each attraction, and they are ranked in descending order with the longest time at the top. The Seven Dwarfs Mine Train attraction has the longest average waiting time of around 79.2 minutes. The second highest is the Space Mountain attraction, and it has an average wait time of 58.3 minutes. The third highest has a very close average wait time as the second one, and it is the Peter Pan's Flight attraction with a wait time of 58.0 minutes. The fourth is the Splash Mountain with an average wait time of 45.1 minutes, and the fifth is the Jungle Cruise with an average wait time of 44.2 minutes.      
 ```{r}
 #head(sort(avg_time$avgtime, decreasing=TRUE), n = 5)
 sort_df <- avg_time[order(-avg_time$avgtime),]
@@ -77,12 +78,15 @@ ggplot(df_comb, aes(x=Waiting.Time, y=reorder(ride, Waiting.Time, median))) +
   geom_boxplot() + 
   labs(title = "Top 5 Waiting Time", 
        x = "Waiting Time", 
-       y = "Ride")
+       y = "Attraction")
 ```
 
 ```{r}
 ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) +
   geom_density_ridges(fill = "#EFBEB7", alpha = .5, bandwidth = 7, scale = 1.4) +
   ggtitle("Top 5 Waiting Time") +
-  ylab("Ride")
+  ylab("Attraction") +
+  xlab("Waiting Time")
 ```
+
+The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top. We can see that comparing with the average wait time chart, the attraction Seven Dwarfs Mine Train is still ranked top with the highest median wait time. Space Mountain and Peter Pan's Flight switched order, and Splash Mountain and Jungle Cruise hold the same order. 
