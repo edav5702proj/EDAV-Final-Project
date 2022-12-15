@@ -84,7 +84,3 @@ ggplot(avg_comb, aes(x=avg, y=fct_reorder2(ride,timeofday=='afternoon',avg,.desc
        x = "Average Waiting Time", 
        y = "Ride")
 ```
-
-```{r}
-
-```

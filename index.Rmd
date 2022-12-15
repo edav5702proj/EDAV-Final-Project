@@ -4,6 +4,7 @@ author: "Mildred Ouyang, Xiaoyang Song, Liwen Zhu* (Group 12)"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
+<script src="https://d3js.org/d3.v7.js"></script>
 
 # Introduction
 Disneyland is one of the most popular parks in the world. However, visitors often spend a long time waiting for facilities. They may wait for hours for a five-minute roller coaster. Thus, we want to find a way to spend less time waiting and enjoy as many facilities as possible. In this project, we will examine the data of Disneyland waiting times, find the pattern, and provide an optimal visit plan.

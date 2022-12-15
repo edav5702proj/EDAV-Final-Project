@@ -1,0 +1,146 @@
+---
+title: "PerDayTrendSection"
+author: "Mildred Ouyang"
+date: "2022-12-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+#install.packages("hash")
+library(hash)
+#install.packages("reticulate")
+library(reticulate)
+```
+
+```{r}
+process_name <- function(csv){
+  return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function(){
+  return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
+}
+
+filenames <- list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python")
+dict <- hash()
+for (csv in filenames) {
+  dict[[process_name(csv)]] <- read.csv(sprintf("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python/%s", csv)) 
+}
+```
+
+```{r}
+Adventureland <- c("enchanted tiki rm", "jungle cruise", "magic carpets", "pirates of caribbean")
+
+Fantasyland <- c("7 dwarfs train", "dumbo", "it s a small world", "peter pan s flight", "winnie the pooh", "under the sea", "regal carrousel", "mad tea party", "barnstormer")
+
+Frontierland <- c("big thunder mtn", "splash mountain", "country bears")
+
+Tomorrowland <- c("buzz lightyear", "astro orbiter", "space mountain", "tom land speedway", "peoplemover", "carousel of progress")
+
+Liberty_Square <- c("haunted mansion", "hall of presidents", "liberty sq riverboat")
+```
+
+```{r}
+adventure <- bind_rows(lapply(Adventureland, function(i) dict[[i]]))
+```
+
+```{r}
+fantasy <- bind_rows(lapply(Fantasyland, function(i) dict[[i]]))
+```
+
+```{r}
+frontier <- bind_rows(lapply(Frontierland, function(i) dict[[i]]))
+```
+
+```{r}
+tomorrow <- bind_rows(lapply(Tomorrowland, function(i) dict[[i]]))
+```
+
+```{r}
+liberty <- bind_rows(lapply(Liberty_Square, function(i) dict[[i]]))
+```
+
+```{r}
+avg_section <- c(mean(adventure$Waiting.Time), mean(fantasy$Waiting.Time), mean(frontier$Waiting.Time), mean(tomorrow$Waiting.Time), mean(liberty$Waiting.Time))
+```
+
+```{r}
+section_avg = data.frame(unlist(section_list), unlist(avg_section))
+names(section_avg) = c("section","avg")
+```
+
+```{r}
+ggplot(section_avg, aes(x=avg, y=fct_reorder(section, avg))) + 
+  geom_bar(stat = "identity", fill = "#393E8F") +
+  labs(title = "Average Waiting Time for Each Section", 
+       x = "Average Waiting Time", 
+       y = "Section")
+```
+```{r}
+adventure$Datetime <- as.POSIXlt(adventure$Datetime)
+fantasy$Datetime <- as.POSIXlt(fantasy$Datetime)
+frontier$Datetime <- as.POSIXlt(frontier$Datetime)
+tomorrow$Datetime <- as.POSIXlt(tomorrow$Datetime)
+liberty$Datetime <- as.POSIXlt(liberty$Datetime)
+```
+
+```{r}
+m_savg <- list()
+a_savg <- list()
+e_savg <- list()
+
+section_name <- list("Adventureland", "Fantasyland", "Frontierland", "Tomorrowland", "Liberty Square")
+
+m_savg <- append(m_savg, mean(adventure[adventure$Datetime$hour < 12, 'Waiting.Time']))
+m_savg <- append(m_savg, mean(fantasy[fantasy$Datetime$hour < 12, 'Waiting.Time']))
+m_savg <- append(m_savg, mean(frontier[frontier$Datetime$hour < 12, 'Waiting.Time']))
+m_savg <- append(m_savg, mean(tomorrow[tomorrow$Datetime$hour < 12, 'Waiting.Time']))
+m_savg <- append(m_savg, mean(liberty[liberty$Datetime$hour < 12, 'Waiting.Time']))
+
+a_savg <- append(a_savg, mean(adventure[((adventure$Datetime$hour >= 12) | (adventure$Datetime$hour < 18)), 'Waiting.Time']))
+a_savg <- append(a_savg, mean(fantasy[((fantasy$Datetime$hour >= 12) | (fantasy$Datetime$hour < 18)), 'Waiting.Time']))
+a_savg <- append(a_savg, mean(frontier[((frontier$Datetime$hour >= 12) | (frontier$Datetime$hour < 18)), 'Waiting.Time']))
+a_savg <- append(a_savg, mean(tomorrow[((tomorrow$Datetime$hour >= 12) | (tomorrow$Datetime$hour < 18)), 'Waiting.Time']))
+a_savg <- append(a_savg, mean(liberty[((liberty$Datetime$hour >= 12) | (liberty$Datetime$hour < 18)), 'Waiting.Time']))
+
+e_savg <- append(e_savg, mean(adventure[adventure$Datetime$hour >= 18, 'Waiting.Time']))
+e_savg <- append(e_savg, mean(fantasy[fantasy$Datetime$hour >= 18, 'Waiting.Time']))
+e_savg <- append(e_savg, mean(frontier[frontier$Datetime$hour >= 18, 'Waiting.Time']))
+e_savg <- append(e_savg, mean(tomorrow[tomorrow$Datetime$hour >= 18, 'Waiting.Time']))
+e_savg <- append(e_savg, mean(liberty[liberty$Datetime$hour >= 18, 'Waiting.Time']))
+
+m_savgtime = data.frame(unlist(as.character(section_name)), unlist(m_savg))
+names(m_savgtime) = c("section","avg")
+a_savgtime = data.frame(unlist(as.character(section_name)), unlist(a_savg))
+names(a_savgtime) = c("section","avg")
+e_savgtime = data.frame(unlist(as.character(section_name)), unlist(e_savg))
+names(e_savgtime) = c("section","avg")
+```
+
+```{r}
+m_savgtime['timeofday'] <- 'morning'
+a_savgtime['timeofday'] <- 'afternoon'
+e_savgtime['timeofday'] <- 'evening'
+savg_comb <- NA
+savg_comb <- rbind(savg_comb, m_savgtime)
+savg_comb <- rbind(savg_comb, a_savgtime)
+savg_comb <- rbind(savg_comb, e_savgtime)
+savg_comb <- na.omit(savg_comb)
+```
+
+```{r}
+ggplot(savg_comb, aes(x=avg, y=fct_reorder2(section,timeofday=='afternoon',avg,.desc=FALSE), color = timeofday)) + 
+  geom_point() +
+  labs(title = "Average Waiting Time for Each Section", 
+       x = "Average Waiting Time", 
+       y = "Section")
+```

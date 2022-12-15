@@ -1,6 +1,6 @@
 # Results
+
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="zoom.js"></script>
 
 <!-- Zoom in -->
 <div id="myModal" class="modal">
@@ -14,7 +14,8 @@
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
 </div>
-## Waiting Time Pattern Analysis
+
+## Assumption
 
 ```{r, out.extra='id:"avg_abnormal"'}
 process_name <- function(csv) {
@@ -37,12 +38,119 @@ read_all <- function() {
     return(dict)
 }
 ```
+As introduced in the data cleaning section, our exploratory analysis is heavily based on 
+the _waiting\_time_ statistics of attractions in the Walt Disneyland collected from thrid-party 
+organization. Therefore, it is extremely crucial 
+to examine the validity and reliability of the _assumptions_ that our analysis will rely on and 
+think about any _inductive biases_ that we implicitly impose in the analysis. Specifically, there are 
+two important aspects that we want to research on:
+
+- Assumption 1: the dataset is valid and reliable (i.e. no internal conflicts)
+- Assumption 2: waiting time statistic is a representative metric for analysis
+
+
+### Assumption 1
+Unlike most other groups whose datasets come from official sources including government websites 
+and database where verifications are conducted, the dataset we used is collected from a __thrid 
+party organization__ [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]).
+Therefore, validation of dataset is necessary and important. We performed our validation by identifying 
+internal conflicts of datasets and compare our preliminary analysis with reports from the official (i.e. Disneyland).
+
+The first simple task we tried to validiate our dataset is to predict top seven attractions according to 
+their popularity. In our dataset, we computed the _average waiting time_ for each attraction (denoted by _AWT_ in the plot) and 
+made usage of the _average\_wait\_every\_hundred_ statistic (i.e. denoted by _AWT\_100_ in the plot) to do the prediction. 
+Note that _AWT\_100_ represents the average waiting time for every hundred people. Therefore, attractions that are 
+popular should be those with high _AWT_ but low _AWT\_100_. 
 ```{r}
 library(ggplot2)
 library(ggeasy)
 library(dplyr)
 library(lubridate)
 library(tidyverse)
+# Setup scripts
+all_dsets <- read_all()
+# mean(all_dsets[["dumbo"]]$Waiting.Time)
+```
+```{r}
+# Read avg_wait_100 files
+avg_wait_100 <- read.csv("Data/data/name_avg_wait.csv")
+get_avg_df <- function(df) {
+    return(mean(df$Waiting.Time))
+}
+# 18 out of 25 rows have correponding no-NAs values
+avg_wait <- rep(0, 18)
+for (i in 1:18) {
+    avg_wait[[i]] <- mean(all_dsets[[avg_wait_100$name[[i]]]]$Waiting.Time)
+}
+avg_wait_100$avg <- avg_wait
+avg_wait_100$popular <- rep("Other Attractions", 18)
+# Manually insert popular
+for (i in c(1, 2, 5, 6, 7, 8, 17)) {
+    avg_wait_100$popular[[i]] <- "Top 7 Popular Attractions"
+}
+# avg_wait_100$popular
+# avg_wait_100
+# Plot
+g0 <- ggplot(avg_wait_100, aes(avg_wait_time, avg, color = popular)) +
+    geom_point(alpha = 0.4, size = 4) +
+    labs(x = "AWT_100 (min)", y = "AWT (min)") + # nolint
+
+    ggtitle("AWT vs. AWT_100") +
+    ggeasy::easy_center_title()
+g0
+```
+
+According to this reasoning, we identified that the top 7 most popular attractions from the 
+scatter plot above: _Seven Dwarfs Mine Train_, _Space Mountain_, _Jungle Cruise_, _Splash Mountain_
+, _Big Thunder Mountain Railroad_, _Pirates of Caribbean_, and _Haunted Mansions_. Based on the report of 
+most popular attractions by [magicguides.com](https://magicguides.com/best-magic-kingdom-rides/) and the 
+introduction from [Disneyland Officials](https://disneyworld.disney.go.com/destinations/magic-kingdom/?ef_id=CjwKCAiAheacBhB8EiwAItVO2w0FdC8qLzR3mnfUO_KKMy3L1hkZoT3LEHDEm9hiGW9Keu9XNjT1JhoC0t0QAvD_BwE:G:s&s_kwcid=AL!5060!3!590827088345!e!!g!!magic%20kingdom%20theme%20park&CMP=KNC-FY23_WDW_TRA_DXF_W365_TKT_TCKC_Tickets_EVRGRN_MKParks-Exact|G|5231213.RR.AM.01.01|M5JMF0M|BR|590827088345&keyword_id=kwd-1416849944|dc|magic%20kingdom%20theme%20park|590827088345|e|5060:3|&gclid=CjwKCAiAheacBhB8EiwAItVO2w0FdC8qLzR3mnfUO_KKMy3L1hkZoT3LEHDEm9hiGW9Keu9XNjT1JhoC0t0QAvD_BwE) 
+the most popular 7 attractions are: _Big Thunder Mountain Railroad_, _Jungle Cruise_
+, _Splash Mountain_, _Peter Pan's Flight_, _Haunted Mansions_, _Pirates of Caribbean_, and _Seven Dwarfs Mine Train_. 
+Our prediction results matched with most of their analysis (6/7), and we can improve our confidence about the 
+reliability of the source data from this small prediction task. In addition, there is no internal conflict in our dataset 
+because they are all time series data for different attractions.
+
+### Assumption 2
+
+By calculating and plotting the waiting time for each attraction, 
+we identified that _average waiting time_ itself is not a good indicator for 
+popularity of the attraction. Note that we observe that the _average waiting time_ is not always higher for 
+popular attractions identified in previous section. Thus, we should not solely leverage on that when analyzing the popularity of attractions. However, 
+with the power of time series data, it is powerful when analyzing trend and designing visiting plans.
+
+```{r}
+num_dsets <- length(all_dsets)
+names <- get_attraction_name()
+avg_wait <- rep(0, num_dsets)
+for (i in 1:num_dsets) {
+    avg_wait[[i]] <- mean(all_dsets[[names[[i]]]]$Waiting.Time)
+}
+# avg_wait
+df <- data.frame(
+    name = c(unlist(names)),
+    avg_wait = c(unlist(avg_wait)),
+    popular = c(unlist(rep("Other Attractions", 25)))
+)
+for (i in c(1, 2, 5, 6, 7, 8, 17)) {
+    df$popular[[i]] <- "Top 7 Popular Attractions"
+}
+
+g1 <- df %>% ggplot(aes(x = fct_reorder(name, avg_wait, .desc = TRUE), y = avg_wait, fill = popular)) + # nolint
+    geom_bar(stat = "identity", alpha = 0.8) +
+    ggtitle("Average Waiting Time for Each Attraction") +
+    xlab("Attractions") +
+    ylab("AWT") +
+    # scale_color_manual()+
+    ggtitle("AWT vs. Attraction") +
+    ggeasy::easy_center_title() +
+    scale_x_discrete(guide = guide_axis(angle = 45)) +
+    theme(panel.grid.major.x = element_blank())
+g1
+```
+
+## General Pattern Analysis - Macro-Level
+```{r}
 # source("Utility/utils.R")
 
 all_dsets <- read_all()
@@ -52,10 +160,10 @@ class(dumbo)
 head(dumbo)
 # Get all datasets
 df_all <- bind_rows(lapply(get_attraction_name(), function(i) all_dsets[[i]]))
-# nrow(df_all)
+# nrow(df_all) #nolint
 
 # Example
-# head(dsets)
+# head(dsets) #nolint
 group_by <- function(df) {
     # Process dataframe
     dsets <- df %>%
@@ -148,6 +256,22 @@ head(dset, 100)
 ```
 :::
 
+```{r}
+# Check duration
+df <- read.csv("Data/data/name_duration.csv")
+df
+avg_wait <- rep(0, 18)
+for (i in 1:18) {
+    avg_wait[[i]] <- mean(all_dsets[[df$name[[i]]]]$Waiting.Time)
+}
+df$avg <- avg_wait
+write.csv(df, "Data/data/name_duration_avg.csv", row.names = FALSE)
+# Check writing csv
+df <- read.csv("Data/data/name_duration_avg.csv")
+```
+<script src="zoom.js"></script>
+
+## General Pattern Analysis - Micro-Level
 
 
 

@@ -86,10 +86,16 @@
 </ul></li>
 <li class="chapter" data-level="4" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>4</b> Results</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#waiting-time-pattern-analysis"><i class="fa fa-check"></i><b>4.1</b> Waiting Time Pattern Analysis</a>
+<li class="chapter" data-level="4.1" data-path="results.html"><a href="results.html#assumption"><i class="fa fa-check"></i><b>4.1</b> Assumption</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.1.1</b> Identify cyclical patterns</a></li>
+<li class="chapter" data-level="4.1.1" data-path="results.html"><a href="results.html#assumption-1"><i class="fa fa-check"></i><b>4.1.1</b> Assumption 1</a></li>
+<li class="chapter" data-level="4.1.2" data-path="results.html"><a href="results.html#assumption-2"><i class="fa fa-check"></i><b>4.1.2</b> Assumption 2</a></li>
 </ul></li>
+<li class="chapter" data-level="4.2" data-path="results.html"><a href="results.html#general-pattern-analysis---macro-level"><i class="fa fa-check"></i><b>4.2</b> General Pattern Analysis - Macro-Level</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="results.html"><a href="results.html#identify-cyclical-patterns"><i class="fa fa-check"></i><b>4.2.1</b> Identify cyclical patterns</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
@@ -115,7 +121,6 @@
 <div id="results" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="zoom.js"></script>
 <!-- Zoom in -->
 <div id="myModal" class="modal">
 <p><!-- The Close Button -->
@@ -127,8 +132,54 @@
 
 </div>
 </div>
-<div id="waiting-time-pattern-analysis" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Waiting Time Pattern Analysis<a href="results.html#waiting-time-pattern-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="assumption" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Assumption<a href="results.html#assumption" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As introduced in the data cleaning section, our exploratory analysis is heavily based on
+the <em>waiting_time</em> statistics of attractions in the Walt Disneyland collected from thrid-party
+organization. Therefore, it is extremely crucial
+to examine the validity and reliability of the <em>assumptions</em> that our analysis will rely on and
+think about any <em>inductive biases</em> that we implicitly impose in the analysis. Specifically, there are
+two important aspects that we want to research on:</p>
+<ul>
+<li>Assumption 1: the dataset is valid and reliable (i.e. no internal conflicts)</li>
+<li>Assumption 2: waiting time statistic is a representative metric for analysis</li>
+</ul>
+<div id="assumption-1" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Assumption 1<a href="results.html#assumption-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike most other groups whose datasets come from official sources including government websites
+and database where verifications are conducted, the dataset we used is collected from a <strong>thrid
+party organization</strong> <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a>.
+Therefore, validation of dataset is necessary and important. We performed our validation by identifying
+internal conflicts of datasets and compare our preliminary analysis with reports from the official (i.e. Disneyland).</p>
+<p>The first simple task we tried to validiate our dataset is to predict top seven attractions according to
+their popularity. In our dataset, we computed the <em>average waiting time</em> for each attraction (denoted by <em>AWT</em> in the plot) and
+made usage of the <em>average_wait_every_hundred</em> statistic (i.e. denoted by <em>AWT_100</em> in the plot) to do the prediction.
+Note that <em>AWT_100</em> represents the average waiting time for every hundred people. Therefore, attractions that are
+popular should be those with high <em>AWT</em> but low <em>AWT_100</em>.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>According to this reasoning, we identified that the top 7 most popular attractions from the
+scatter plot above: <em>Seven Dwarfs Mine Train</em>, <em>Space Mountain</em>, <em>Jungle Cruise</em>, <em>Splash Mountain</em>
+, <em>Big Thunder Mountain Railroad</em>, <em>Pirates of Caribbean</em>, and <em>Haunted Mansions</em>. Based on the report of
+most popular attractions by <a href="https://magicguides.com/best-magic-kingdom-rides/">magicguides.com</a> and the
+introduction from <a href="https://disneyworld.disney.go.com/destinations/magic-kingdom/?ef_id=CjwKCAiAheacBhB8EiwAItVO2w0FdC8qLzR3mnfUO_KKMy3L1hkZoT3LEHDEm9hiGW9Keu9XNjT1JhoC0t0QAvD_BwE:G:s&amp;s_kwcid=AL!5060!3!590827088345!e!!g!!magic%20kingdom%20theme%20park&amp;CMP=KNC-FY23_WDW_TRA_DXF_W365_TKT_TCKC_Tickets_EVRGRN_MKParks-Exact%7CG%7C5231213.RR.AM.01.01%7CM5JMF0M%7CBR%7C590827088345&amp;keyword_id=kwd-1416849944%7Cdc%7Cmagic%20kingdom%20theme%20park%7C590827088345%7Ce%7C5060:3%7C&amp;gclid=CjwKCAiAheacBhB8EiwAItVO2w0FdC8qLzR3mnfUO_KKMy3L1hkZoT3LEHDEm9hiGW9Keu9XNjT1JhoC0t0QAvD_BwE">Disneyland Officials</a>
+the most popular 7 attractions are: <em>Big Thunder Mountain Railroad</em>, <em>Jungle Cruise</em>
+, <em>Splash Mountain</em>, <em>Peter Pan’s Flight</em>, <em>Haunted Mansions</em>, <em>Pirates of Caribbean</em>, and <em>Seven Dwarfs Mine Train</em>.
+Our prediction results matched with most of their analysis (6/7), and we can improve our confidence about the
+reliability of the source data from this small prediction task. In addition, there is no internal conflict in our dataset
+because they are all time series data for different attractions.</p>
+</div>
+<div id="assumption-2" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Assumption 2<a href="results.html#assumption-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>By calculating and plotting the waiting time for each attraction,
+we identified that <em>average waiting time</em> itself is not a good indicator for
+popularity of the attraction. Note that we observe that the <em>average waiting time</em> is not always higher for
+popular attractions identified in previous section. Thus, we should not solely leverage on that when analyzing the popularity of attractions. However,
+with the power of time series data, it is powerful when analyzing trend and designing visiting plans.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+<div id="general-pattern-analysis---macro-level" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> General Pattern Analysis - Macro-Level<a href="results.html#general-pattern-analysis---macro-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <pre><code>##   X            Datetime Waiting.Time
 ## 1 0 2015-01-01 09:02:13           10
@@ -137,12 +188,12 @@
 ## 4 3 2015-01-01 09:22:35           10
 ## 5 4 2015-01-01 09:23:12           10
 ## 6 5 2015-01-01 09:29:12           10</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <!-- :::{#abnormal_plot} -->
-<p><img src="finalproj_files/figure-html/unnamed-chunk-7-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-7-25.png" width="20%" class="abnormal" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-10-25.png" width="20%" class="abnormal" />
 <!-- ::: --></p>
-<div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.1.1">
-<h3><span class="header-section-number">4.1.1</span> Identify cyclical patterns<a href="results.html#identify-cyclical-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Identify cyclical patterns<a href="results.html#identify-cyclical-patterns" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="facet">
 <pre><code>##   X            Datetime Waiting.Time
 ## 1 0 2015-01-01 09:02:13           10
@@ -278,10 +329,33 @@
 ##  9 2015-01-09  12.2  2015
 ## 10 2015-01-10  21.6  2015
 ## # … with 90 more rows</code></pre>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-8-2.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-8-3.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-8-4.png" width="50%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-11-2.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-11-3.png" width="50%" /><img src="finalproj_files/figure-html/unnamed-chunk-11-4.png" width="50%" /></p>
 </div>
+<pre><code>##     X                 name duration
+## 1   0       7 dwarfs train      3.0
+## 2   1 pirates of caribbean      7.5
+## 3   2        astro orbiter      1.5
+## 4   3      regal carrousel      2.0
+## 5   4      big thunder mtn      7.0
+## 6   5      splash mountain     18.0
+## 7   6       space mountain     10.0
+## 8   7        jungle cruise      8.0
+## 9   8        mad tea party      1.5
+## 10  9                dumbo      1.5
+## 11 10        magic carpets      1.5
+## 12 11          peoplemover     10.0
+## 13 12        under the sea      7.0
+## 14 13          barnstormer      2.0
+## 15 14      winnie the pooh      4.0
+## 16 15    enchanted tiki rm     14.5
+## 17 16      haunted mansion     10.0
+## 18 17       buzz lightyear      4.5</code></pre>
+<script src="zoom.js"></script>
+</div>
+</div>
+<div id="general-pattern-analysis---micro-level" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> General Pattern Analysis - Micro-Level<a href="results.html#general-pattern-analysis---micro-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
-</div>
 </div>
 </div>
             </section>
