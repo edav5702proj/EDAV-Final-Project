@@ -106,6 +106,12 @@
 <li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#awt-vs.-days"><i class="fa fa-check"></i><b>4.3.1</b> AWT vs. Days</a></li>
 <li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#awt-vs.-weekday"><i class="fa fa-check"></i><b>4.3.2</b> AWT vs. Weekday</a></li>
 </ul></li>
+<li class="chapter" data-level="4.4" data-path="results.html"><a href="results.html#attraction-level-awt-analysis"><i class="fa fa-check"></i><b>4.4</b> Attraction-Level <em>AWT</em> Analysis</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="results.html"><a href="results.html#awt-vs.-attraction"><i class="fa fa-check"></i><b>4.4.1</b> <em>AWT</em> vs. Attraction</a></li>
+<li class="chapter" data-level="4.4.2" data-path="results.html"><a href="results.html#awt-vs.-attraction-time-of-a-day"><i class="fa fa-check"></i><b>4.4.2</b> <em>AWT</em> vs. Attraction: time of a day</a></li>
+<li class="chapter" data-level="4.4.3" data-path="results.html"><a href="results.html#awt-of-attractions-vs.-land"><i class="fa fa-check"></i><b>4.4.3</b> <em>AWT</em> of Attractions vs. Land</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
@@ -327,10 +333,12 @@ COVID’s outbreak so people’s life is getting back to normal.</li>
 in a year. Similarly, we can do one step further to examine the <em>AWT</em> for each day in a week in order to identify
 the patterns within a week.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<p>According to the plot above, here are the main observations:
-- <strong><em>Obs #1:</em></strong> We do expect <em>Saturday</em> has a relatively high waiting time before we start the project.
-- <strong><em>Obs #2:</em></strong> On the other hand, surprisingly, <em>Sunday</em> has the least <em>AWT</em>, while <em>AWT</em> of <em>Monday</em> and <em>Wednesday</em> are above average.
-- <strong><em>Obs #3:</em></strong> However, even though there are difference among each day in a week, the difference is not huge. The maximum difference is only about 5 minutes.</p>
+<p>According to the plot above, here are the main observations:</p>
+<ul>
+<li><p><strong><em>Obs #1:</em></strong> We do expect <em>Saturday</em> has a relatively high waiting time before we start the project.</p></li>
+<li><p><strong><em>Obs #2:</em></strong> On the other hand, surprisingly, <em>Sunday</em> has the least <em>AWT</em>, while <em>AWT</em> of <em>Monday</em> and <em>Wednesday</em> are above average.</p></li>
+<li><p><strong><em>Obs #3:</em></strong> However, even though there are difference among each day in a week, the difference is not huge. The maximum difference is only about 5 minutes.</p></li>
+</ul>
 <p>Similarly, we can make plots to examine the patterns before and after COVID-19, and we sticked with the
 thresholds that we used in previous sections.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
@@ -341,6 +349,28 @@ This indicates that on average, for every 2.5 hours, the tourists can enjoy one 
 <!-- The tourists spend less time on waiting and enjoy more facilities after the Covid. --></li>
 <li><strong><em>Obs #2:</em></strong> Similarly, the difference is still not huge among all weekdays, implying that weekday is not a huge factor that impacts people’s traveling plan to Disneyland.</li>
 </ul>
+</div>
+</div>
+<div id="attraction-level-awt-analysis" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Attraction-Level <em>AWT</em> Analysis<a href="results.html#attraction-level-awt-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="awt-vs.-attraction" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> <em>AWT</em> vs. Attraction<a href="results.html#awt-vs.-attraction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<!-- The above Cleveland dot plot shows the average wait time for each attraction, and they are ranked in descending order with the longest time at the top. The Seven Dwarfs Mine Train attraction has the longest average waiting time of around 79.2 minutes. The second highest is the Space Mountain attraction, and it has an average wait time of 58.3 minutes. The third highest has a very close average wait time as the second one, and it is the Peter Pan's Flight attraction with a wait time of 58.0 minutes. The fourth is the Splash Mountain with an average wait time of 45.1 minutes, and the fifth is the Jungle Cruise with an average wait time of 44.2 minutes.       -->
+<p><img src="finalproj_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top. We can see that comparing with the average wait time chart, the attraction Seven Dwarfs Mine Train is still ranked top with the highest median wait time. Space Mountain and Peter Pan’s Flight switched order, and Splash Mountain and Jungle Cruise hold the same order.</p>
+</div>
+<div id="awt-vs.-attraction-time-of-a-day" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> <em>AWT</em> vs. Attraction: time of a day<a href="results.html#awt-vs.-attraction-time-of-a-day" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest. For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest. Moreover, the attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time.</p>
+</div>
+<div id="awt-of-attractions-vs.-land" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> <em>AWT</em> of Attractions vs. Land<a href="results.html#awt-of-attractions-vs.-land" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p>The above bar chart shows the average wait time by each themed land, and it is sorted by descending order from the top. Frontierland has the longest average wait time followed by Tomorrowland. The rest have similar average wait time.<br />
+However, this chart illustrated the Simpson’s Paradox. The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan’s Flight - are not in the Frontierland.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p>The above Cleveland dot plot shows the average wait time by each land at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. The order of themed lands is the same as the one in the average wait time plot. For all themed lands, the average afternoon wait time is the longest. The average evening time is the shortest for 4 of the 5 themed lands. Only one themed land has morning as the the shortest average wait time.</p>
 
 </div>
 </div>

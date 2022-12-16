@@ -19,6 +19,10 @@ section-conclusion
 general-pattern-analysis---micro-level
 awt-vs.-days
 awt-vs.-weekday
+attraction-level-awt-analysis
+awt-vs.-attraction
+awt-vs.-attraction-time-of-a-day
+awt-of-attractions-vs.-land
 interactive-component
 awt-vs.-duration
 awt_100-vs.-duration
