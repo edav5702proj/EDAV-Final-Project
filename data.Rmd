@@ -343,3 +343,8 @@ grid.arrange(g1, g2, g3, nrow = 3)
 # g_all + coord_flip()
 # g1
 ```
+
+Since it is not easy to visualize the missing data pattern for time series data, we chose to make three bar charts that represent the number of data records for each month between 
+January 2015 and December 2021. As a result, we found that there is a gap between April 2020 and October 2020, corresponding to our previous discovery of potentially wrong data. In addition, from the plot above, we can observe that the number of 
+data points are approxmately equivalent for each month before COVID disruption; but after COVID, the number of data points decrease, corresponding to the fact that there are fewer tourists after COVID outbreaks. However, we identified that the data points for each month are 
+sufficient for us to do analysis in later part.
