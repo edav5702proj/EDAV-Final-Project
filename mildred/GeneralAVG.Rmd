@@ -15,20 +15,20 @@ library(plyr)
 library(dplyr)
 library(tidyverse)
 
-#install.packages("hash")
+# install.packages("hash")
 library(hash)
-#install.packages("reticulate")
+# install.packages("reticulate")
 library(reticulate)
 library(ggridges)
 library(forcats)
 ```
 
 ```{r}
-process_name <- function(csv){
+process_name <- function(csv) {
   return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
 }
 
-get_attraction_name <- function(){
+get_attraction_name <- function() {
   return(lapply(list.files("/Users/mildredouyang/Desktop/5702/EDAV-Final-Project/Data/data/Magic Kingdom/xysong_python"), process_name))
 }
 
@@ -47,37 +47,41 @@ for (csv in filenames) {
 ```
 
 ```{r}
-avg_time = data.frame(unlist(get_attraction_name()), unlist(avg))
-names(avg_time) = c("Ride","avgtime")
+avg_time <- data.frame(unlist(get_attraction_name()), unlist(avg))
+names(avg_time) <- c("Ride", "avgtime")
 ```
 
 ```{r}
-ggplot(avg_time, aes(x=avgtime, y=fct_reorder(Ride, avgtime))) + 
+ggplot(avg_time, aes(x = avgtime, y = fct_reorder(Ride, avgtime))) +
   geom_point(color = "#B12228") +
-  labs(title = "Average Waiting Time for Each Attraction", 
-       x = "Average Waiting Time (in minutes)", 
-       y = "Attraction")
+  labs(
+    title = "Average Waiting Time for Each Attraction",
+    x = "Average Waiting Time (in minutes)",
+    y = "Attraction"
+  )
 ```
 
 The above Cleveland dot plot shows the average wait time for each attraction, and they are ranked in descending order with the longest time at the top. The Seven Dwarfs Mine Train attraction has the longest average waiting time of around 79.2 minutes. The second highest is the Space Mountain attraction, and it has an average wait time of 58.3 minutes. The third highest has a very close average wait time as the second one, and it is the Peter Pan's Flight attraction with a wait time of 58.0 minutes. The fourth is the Splash Mountain with an average wait time of 45.1 minutes, and the fifth is the Jungle Cruise with an average wait time of 44.2 minutes.      
 ```{r}
-sort_df <- avg_time[order(-avg_time$avgtime),]
+sort_df <- avg_time[order(-avg_time$avgtime), ]
 top_five <- list()
 df_comb <- NA
 for (i in head(sort_df, 5)$Ride) {
-  dict[[i]]['ride'] <- i
+  dict[[i]]["ride"] <- i
   df_comb <- rbind(df_comb, dict[[i]])
 }
 df_comb <- na.omit(df_comb)
 ```
 
 ```{r}
-#reorder(ride, -Waiting.Time, median)
-ggplot(df_comb, aes(x=Waiting.Time, y=reorder(ride, Waiting.Time, median))) + 
-  geom_boxplot() + 
-  labs(title = "Top 5 Waiting Time", 
-       x = "Waiting Time", 
-       y = "Attraction")
+# reorder(ride, -Waiting.Time, median)
+ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) +
+  geom_boxplot() +
+  labs(
+    title = "Top 5 Waiting Time",
+    x = "Waiting Time",
+    y = "Attraction"
+  )
 ```
 
 ```{r}

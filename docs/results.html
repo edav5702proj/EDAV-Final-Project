@@ -104,7 +104,7 @@
 <li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a>
 <ul>
 <li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#awt-vs.-days"><i class="fa fa-check"></i><b>4.3.1</b> AWT vs. Days</a></li>
-<li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-weekday"><i class="fa fa-check"></i><b>4.3.2</b> Average Waiting Time per Facility per weekday</a></li>
+<li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#awt-vs.-weekday"><i class="fa fa-check"></i><b>4.3.2</b> AWT vs. Weekday</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
@@ -312,7 +312,7 @@ The second reason is inherited from the internal nature of our dataset, where we
 <em>2020-04-01</em> and <em>2020-10-01</em> due to Disneyland’s closure; thus, it is reasonable to remove the data from whole year and use this year as a threshold.
 Based on our plots, here are the main observations:</p>
 <ul>
-<li><strong><em>Obs #1:</em></strong> There is a general trend of decreasing <em>AWT</em> for nearly all time periods in a year after COVID outbreak.<br />
+<li><strong><em>Obs #1:</em></strong> There is a trend of decreasing <em>AWT</em> for nearly all time periods in a year after COVID outbreak.<br />
 <strong><em>Exp:</em></strong> the concerns of public safety prevented many people from going out and travelling.</li>
 <li><strong><em>Obs #2:</em></strong> There exists outlier of the trend in <strong><em>Obs #1</em></strong>: in Christmas, the <em>AWT</em> is higher than before.<br />
 <strong><em>Exp:</em></strong> Recall our threshold for <em>After COVID</em> period is <em>2021-01-01</em> to <em>2022-01-01</em>, so in December 2022, there is already 1.5 years since
@@ -321,16 +321,27 @@ COVID’s outbreak so people’s life is getting back to normal.</li>
 <strong><em>Exp:</em></strong> Again, public safety concerns and schools reopening led to less tourists.</li>
 </ul>
 </div>
-<div id="average-waiting-time-per-facility-per-weekday" class="section level3 hasAnchor" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Average Waiting Time per Facility per weekday<a href="results.html#average-waiting-time-per-facility-per-weekday" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="awt-vs.-weekday" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> AWT vs. Weekday<a href="results.html#awt-vs.-weekday" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the previous section, we move from a macro-level analysis to a micro-level analysis by focusing on each day
+in a year. Similarly, we can do one step further to examine the <em>AWT</em> for each day in a week in order to identify
+the patterns within a week.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
-<p>The graph above shows the average waiting time per facility every weekday. We do expect Saturday has a relatively high waiting time before we start the project. On the other hand, surprisingly, Sunday has the shortest waiting time, while Monday’s and Wednesday’s waiting times are above average.</p>
-<div id="average-waiting-time-per-facility-per-weekday-before-and-after-covid-19" class="section level4 hasAnchor" number="4.3.2.1">
-<h4><span class="header-section-number">4.3.2.1</span> Average Waiting Time per Facility per weekday before and after Covid-19<a href="results.html#average-waiting-time-per-facility-per-weekday-before-and-after-covid-19" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>According to the plot above, here are the main observations:
+- <strong><em>Obs #1:</em></strong> We do expect <em>Saturday</em> has a relatively high waiting time before we start the project.
+- <strong><em>Obs #2:</em></strong> On the other hand, surprisingly, <em>Sunday</em> has the least <em>AWT</em>, while <em>AWT</em> of <em>Monday</em> and <em>Wednesday</em> are above average.
+- <strong><em>Obs #3:</em></strong> However, even though there are difference among each day in a week, the difference is not huge. The maximum difference is only about 5 minutes.</p>
+<p>Similarly, we can make plots to examine the patterns before and after COVID-19, and we sticked with the
+thresholds that we used in previous sections.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<p>The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. This indicates that for every two and half hours, the tourists can enjoy one more facility after the Covid than before.The tourists spend less time on waiting and enjoy more facilities after the Covid.</p>
+<p>The graph above showed that the <em>AWT</em> for each weekday before COVID-19 is lower than that after COVID-19.</p>
+<ul>
+<li><strong><em>Obs #1:</em></strong> By calculation, <em>AWT</em> dropped from 31.45 minutes to 26.26 minutes.
+This indicates that on average, for every 2.5 hours, the tourists can enjoy one more attraction after the Covid than before.
+<!-- The tourists spend less time on waiting and enjoy more facilities after the Covid. --></li>
+<li><strong><em>Obs #2:</em></strong> Similarly, the difference is still not huge among all weekdays, implying that weekday is not a huge factor that impacts people’s traveling plan to Disneyland.</li>
+</ul>
 
-</div>
 </div>
 </div>
 </div>

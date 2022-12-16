@@ -549,8 +549,9 @@ COVID's outbreak so people's life is getting back to normal.
 
 ### AWT vs. Weekday
 
-Similarly, we can do one step further to examine the _AWT_ for each day in a week in order to identify 
-the patterns within a week.
+In the previous section, we move from a macro-level analysis to a micro-level analysis by focusing on each day 
+in a year. Similarly, we can do one step further to examine the _AWT_ for each day in a week in order to identify 
+the patterns within a week. 
 
 
 ```{r}
@@ -567,13 +568,22 @@ df_weekwait <- df_weekwait[order(df_weekwait$weekday), ]
 ggplot(df_weekwait, aes(x = weekday, y = weekday_wait)) +
     geom_bar(stat = "identity", fill = "skyblue") +
     geom_text(aes(label = round(weekday_wait, 2)), vjust = -0.5, colour = "black") +
-    ylab("average waiting time(min)") +
-    ggtitle("Average waiting time for every weekday")
+    ylab("AWT (min)") +
+    xlab("Weekday") +
+    ggtitle("AWT for every weekday") +
+    ggeasy::easy_center_title()
 ```
 
-The graph above shows the average waiting time per facility every weekday. We do expect Saturday has a relatively high waiting time before we start the project. On the other hand, surprisingly, Sunday has the shortest waiting time, while Monday's and Wednesday's waiting times are above average.
+According to the plot above, here are the main observations:
 
-#### Average Waiting Time per Facility per weekday before and after Covid-19
+- ***Obs #1:*** We do expect _Saturday_ has a relatively high waiting time before we start the project. 
+
+- ***Obs #2:*** On the other hand, surprisingly, _Sunday_ has the least _AWT_, while _AWT_ of _Monday_ and _Wednesday_ are above average.
+
+- ***Obs #3:*** However, even though there are difference among each day in a week, the difference is not huge. The maximum difference is only about 5 minutes.
+
+Similarly, we can make plots to examine the patterns before and after COVID-19, and we sticked with the 
+thresholds that we used in previous sections.
 
 ```{r}
 weekday_wait_before <- rowMeans(df_weekday_before[2:26], na.rm = TRUE)
@@ -599,8 +609,14 @@ df_weekwait_covid$covid <- factor(df_weekwait_covid$covid, levels = c("before", 
 ggplot(df_weekwait_covid, aes(fill = covid, x = weekday, y = weekday_wait)) +
     geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
     geom_text(position = position_dodge(width = 0.9), aes(label = round(weekday_wait, 2), hjust = 0.5, vjust = -0.5), colour = "black", size = 3.2) +
-    ylab("average waiting time(min)") +
-    ggtitle("Average waiting time for every weekday before and after covid")
+    ylab("AWT (min)") +
+    ggtitle("AWT for every weekday before and after covid") +
+    ggeasy::easy_center_title()
 ```
 
-The graph above shows the waiting time every weekday before and after Covid. On every weekday, the average the less after Covid than before Covid. There was a tremendous drop on Saturday, and the waiting time dropped from 31.45 minutes per facility to 26.26 minutes. This indicates that for every two and half hours, the tourists can enjoy one more facility after the Covid than before.The tourists spend less time on waiting and enjoy more facilities after the Covid.
+The graph above showed that the _AWT_ for each weekday before COVID-19 is lower than that after COVID-19. 
+
+- ***Obs #1:*** By calculation, _AWT_ dropped from 31.45 minutes to 26.26 minutes. 
+This indicates that on average, for every 2.5 hours, the tourists can enjoy one more attraction after the Covid than before.
+<!-- The tourists spend less time on waiting and enjoy more facilities after the Covid. -->
+- ***Obs #2:*** Similarly, the difference is still not huge among all weekdays, implying that weekday is not a huge factor that impacts people's traveling plan to Disneyland.
