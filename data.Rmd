@@ -275,6 +275,7 @@ g1
 # process_missing()
 # grid.arrange(g1, g0, nrow = 2)
 ```
+From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each attraction, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend.     
 
 ### Missing Time Series Data
 
@@ -329,5 +330,3 @@ grid.arrange(g1, g2, g3, nrow = 3)
 # g_all + coord_flip()
 # g1
 ```
-
-From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each attraction, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend. 
