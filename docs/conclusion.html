@@ -103,7 +103,7 @@
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-day"><i class="fa fa-check"></i><b>4.3.1</b> Average Waiting Time per Facility per day</a></li>
+<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#awt-vs.-days"><i class="fa fa-check"></i><b>4.3.1</b> AWT vs. Days</a></li>
 <li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-weekday"><i class="fa fa-check"></i><b>4.3.2</b> Average Waiting Time per Facility per weekday</a></li>
 </ul></li>
 </ul></li>
@@ -112,7 +112,11 @@
 <li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
 <li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation"><i class="fa fa-check"></i><b>6.1</b> Recommendation</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i><b>6.2</b> Future Directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -134,10 +138,22 @@
             <section class="normal" id="section-">
 <div id="conclusion" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Conclusion<a href="conclusion.html#conclusion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The waiting time in Disneyland has seasonal pattern. Tourists need to wait longer time during Spring and Winter than Summer and Fall. We believe it is related to students’ schedule. The average waiting time (AWT) significantly drops after the spring semester and the fall semester begin. There are also two small sudden peak around the Fall break and the Thanksgiving break. Besides the seasonal patter, we also notice that people need to wait more on Saturday and Monday. While Sunday and Thursday cost less time on waiting. What’s more, due to Covid-19, the AWT in recent two years is less than before 2020.
-## Recommendation
-We recommend tourists visit Disneyland on a Sunday during Fall.The weather is comfortable and they don’t have to wait for a long time.</p>
+<p>The waiting time in Disneyland has seasonal pattern. Tourists need to wait longer time during Spring and Winter than Summer and Fall. We believe it is related to students’ schedule. The average waiting time (AWT) significantly drops after the spring semester and the fall semester begin. There are also two small sudden peak around the Fall break and the Thanksgiving break. Besides the seasonal patter, we also notice that people need to wait more on Saturday and Monday. While Sunday and Thursday cost less time on waiting. What’s more, due to Covid-19, the AWT in recent two years is less than before 2020.  </p>
+<div id="recommendation" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Recommendation<a href="conclusion.html#recommendation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We recommend tourists visit Disneyland on a Sunday during Fall.The weather is comfortable and they don’t have to wait for a long time. 
+ 
+Based on the average wait time analysis, we can conclude that if a visitor wants to take the most popular attraction, the Seven Dwarf Mine Train, then the best time to visit is after 6 PM because the average wait time is the shortest in the evening. For the second most popular attraction, the Buzz Lightyear, the best time to visit is again in the evening. The best time to visit the third most popular attraction, the Astro Orbiter, is in the morning before 12 PM. 
+ 
+Other than the popular attractions, if a visitor wants to visit the Space Mountain, then the best time to go is in the morning. The best time to visit Peter Pan’s flight and the Jungle Cruise is in the evening. Splash Mountain and the Big Thunder Mountain have shorter average wait time in both the morning and evening.  </p>
+</div>
+<div id="future-directions" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Future Directions<a href="conclusion.html#future-directions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>From our exploratory analysis, we observed that there are some common trends and cyclical patterns in the historical wait time. Our project serves as a solid and directed base for possible supervised machine learning studies. Models can be designed to predict the wait time at Magic Kingdom.  
+ 
+Other than only using the wait time data, other categories of data can also be incorporated to discover more patterns. For example, weather data, flight ticket price data, and hotel price data can be used to find correlations with wait time.</p>
 
+</div>
 </div>
             </section>
 
