@@ -11,6 +11,8 @@ we will exploit the advantages of D3 and interactive plots to make our plots mor
 
 The plot below is an interactive scatterplot of the duration of a attraction and the _AWT_, drawn using D3. 
 
+***Note: Moving the mouse to the data point to see more information and click on the button to see popular attractions.***
+
 <div style="text-align:center;">
 <input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
 <input type="radio" name="identify_pop" value="normal" checked="true"> Original Plot
@@ -31,7 +33,6 @@ of tourists; on the other hand, _AWT\_100_ is closely related to customers' pref
 - ***Obs #3:*** Even though it is not as obvious as before, we can weakly conclude that popular attractions usually had higher _AWT_ andd _Duration_. But again, we can 
 only make conjecture about this. The pattern is not super obvious and maybe spurious.
 
-***Note: Moving the mouse to the data point to see more information.***
 
 ## _AWT\_100_ vs. Duration
 
@@ -39,6 +40,9 @@ The discovery in previous section led us to discover the relationship between _A
 there should exists a positive correlation between _AWT\_100_ and _Duration_ because a longer attraction should normally have longer 
 waiting time; therefore, for every 100 people, the waiting time is supposed to be longer as well. We chose to investigated this issue 
 using D3 techniques again. Below is the D3 plot.
+
+***Note: Moving the mouse to the data point to see more information and click on the button to see popular attractions.***
+
 <div style="text-align:center;">
 <input type="radio" id="dd2" name="identify_pop" value="pop"> Identify Popular Attractions
 <input type="radio" id ="dd2" name="identify_pop" value="normal" checked="true"> Original Plot
