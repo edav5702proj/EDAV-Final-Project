@@ -80,7 +80,11 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#basic-information-about-data"><i class="fa fa-check"></i><b>3.1.1</b> Basic Information about Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="data.html"><a href="data.html#issues-design-choice"><i class="fa fa-check"></i><b>3.1.2</b> Issues &amp; Design Choice:</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a>
 <ul>
@@ -115,8 +119,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
-<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.1.1</b> <em>AWT_100</em> vs. Duration</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
 <ul>
@@ -146,39 +152,71 @@
 <h1><span class="header-section-number">Chapter 3</span> Data<a href="data.html#data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="sources" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Sources<a href="data.html#sources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>As described in the website, the data is collected directly from 3 sources:</p>
+<p>The data comes from Touringplans.com, and the website collected all its data from the following three sources:</p>
 <ol style="list-style-type: decimal">
-<li><p>from app users of <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a><br />
+<li><p>From app users of <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a><br />
 The app records the time its users enter waiting lines and enjoy the facility. The difference between these two times is the actual waiting time.</p></li>
 <li><p><a href="https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&amp;s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&amp;CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact%7CG%7C5231013.RR.AM.01.01%7CMWNOQXO%7CBR%7C601187705510&amp;keyword_id=aud-300113739056:kwd-2901498835%7Cdc%7Cdisney%20experience%7C601187705510%7Cp%7C5060:3%7C&amp;gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE">Disney’s My Disney Experience app</a><br />
 Disneyland estimates the waiting time based on the length of waiting lines. The estimated waiting time is posted on a sign at the entrance to attractions and shown on Disney’s app.</p></li>
-<li><p>observation from the staffs of <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a> on sights.<br />
-The staffs visit Disneyland and record their actual waiting time for each attraction.<br />
- 
-Issues / problems with the data:  <br />
-After plotting the raw data (Section 3.3.2), we discovered that there are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some errors, and we dropped these data from our analysis.<br />
- <br />
-Other than the above data error, we also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.</p></li>
+<li><p>Observation from the staffs of <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a> on sights.  
+The staffs visit Disneyland and record their actual waiting time for each attraction.</p></li>
 </ol>
+<div id="basic-information-about-data" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Basic Information about Data<a href="data.html#basic-information-about-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The data can be downloaded directly from the website for free in CSV format. In total, there are 5143775 time series records plus 95 rows of metadata cocntaining meta information about attraction.
+A CSV document downloaded contains all wait time data for a specific attraction.
+The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day.
+Each CSV files consists of four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”.
+Each columns has the type character, character, integer, and integer accordingly.</p>
+</div>
+<div id="issues-design-choice" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Issues &amp; Design Choice:<a href="data.html#issues-design-choice" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>After plotting the raw data (Section 3.3.2), we discovered the following problems:</p>
+<ol style="list-style-type: decimal">
+<li><p>There are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak, and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some error, and we dropped these data from our analysis.</p></li>
+<li><p>We also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.</p></li>
+<li><p>There are 41 attractions CSV files available to download, but not all these files contain valid data. Some files contain only <em>NA</em> data for wait time, so after filtering out these files, there are only 25 files with valid wait time data.</p></li>
+</ol>
+</div>
 </div>
 <div id="cleaning-transformation" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> Cleaning / transformation<a href="data.html#cleaning-transformation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are 41 attractions’ CSV files available to download, but not all these files contain data. There are only 25 files that contain valid wait time data to explore. These CSV files all contain four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”.<br />
- <br />
-The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped this column. “SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”. If both the “SACTMIN” and “SPOSTMIN” columns do not have value, then it means that the row does not have valid wait time data for our analysis, so we drop the row. After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the new column as “Waiting.Time” and dropped the “SACTMIN” column. In addition, we also add column “X” as an ID column.<br />
- <br />
-Moreover, in our analysis of wait time based on the time of the day, we also converted the “datetime” column from character type to datetime using as.POSIXlt(). This will allow us to compare time easily. We assigned time before 12 PM to be the morning category, time between 12 PM and before 6 PM to be the afternoon category, and time after 6 PM to be the evening category.</p>
+<p>After coarse filtering, our datasets have 25 CSV files. Below is an example of how our raw data look like for the attraction <em>Dumbo</em>:</p>
+<pre><code>##         date            datetime SACTMIN SPOSTMIN
+## 1 01/01/2015 2015-01-01 07:16:12      NA       10
+## 2 01/01/2015 2015-01-01 07:23:12      NA       10
+## 3 01/01/2015 2015-01-01 07:29:12      NA       10
+## 4 01/01/2015 2015-01-01 07:37:12      NA       15
+## 5 01/01/2015 2015-01-01 07:44:12      NA       10
+## 6 01/01/2015 2015-01-01 07:51:12      NA       10</code></pre>
+<p>Below is a list of all the data cleaning/transformation we have performed on raw data:</p>
+<ol style="list-style-type: decimal">
+<li><p>The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped the “date” column.</p></li>
+<li><p>“SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”.</p></li>
+<li><p>If both the “SACTMIN” and “SPOSTMIN” columns are <em>NA</em>, then it means that the row does not have valid wait time data for our analysis, so we drop the row.</p></li>
+<li><p>After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the old “SPOSTMIN” column to “Waiting Time” and dropped the “SACTMIN” column.</p></li>
+<li><p>In the new “Waiting Time” column, we also checked that if there are values less than 0. Since wait time cannot be negative, we dropped these negative values.</p></li>
+</ol>
+<p>Below is an example of how our cleaned data look like for the attraction Dumbo:</p>
+<pre><code>##   X            Datetime Waiting.Time
+## 1 0 2015-01-01 09:02:13           10
+## 2 1 2015-01-01 09:09:16           10
+## 3 2 2015-01-01 09:16:12           10
+## 4 3 2015-01-01 09:22:35           10
+## 5 4 2015-01-01 09:23:12           10
+## 6 5 2015-01-01 09:29:12           10</code></pre>
+<p>Moreover, in our analysis of wait time based on the time of the day, we also converted the “datetime” column from character type to datetime using as.POSIXlt(). This will allow us to compare time easily. We assigned time before 12 PM to be the morning category, time between 12 PM and before 6 PM to be the afternoon category, and time after 6 PM to be the evening category.</p>
 </div>
 <div id="missing-value-analysis" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="missing-metadata" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Missing Metadata<a href="data.html#missing-metadata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-8-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-8-2.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="672" />
+From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each attraction, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend.</p>
 </div>
 <div id="missing-time-series-data" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Missing Time Series Data<a href="data.html#missing-time-series-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each ride, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 
 </div>
 </div>
