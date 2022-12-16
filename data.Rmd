@@ -12,15 +12,38 @@ Disneyland estimates the waiting time based on the length of waiting lines. The 
 3. observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights.     
 The staffs visit Disneyland and record their actual waiting time for each attraction.     
 \ 
-Issues / problems with the data:    \   
-After plotting the raw data (Section 3.3.2), we discovered that there are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some errors, and we dropped these data from our analysis.     
+### Issues & Design Choice:    \   
+After plotting the raw data (Section 3.3.2), we discovered the following problems:\ 
+\ 
+1. There are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak, and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some error, and we dropped these data from our analysis.     
 \      
-Other than the above data error, we also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.     
-      
+2. We also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.     
+\ 
+3.There are 41 attractions’ CSV files available to download, but not all these files contain valid data. Some files contain only _NA_ data for wait time, so after filtering out these files, there are only 25 files with valid wait time data.     
+    
 ## Cleaning / transformation
-There are 41 attractions’ CSV files available to download, but not all these files contain data. There are only 25 files that contain valid wait time data to explore. These CSV files all contain four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”.      
+After coarse filtering, our datasets have 25 CSV files, and each of them consists of four columns, which are “date”, “datetime”, “SACTMIN”, and “SPOSTMIN”. Below is an example of how our raw data look like for the attraction _Dumbo_:\  
+```{r}
+df_temp <- read.csv("Data/data/Magic Kingdom/dumbo.csv")
+head(df_temp)
+```
 \       
-The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped this column. “SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”. If both the “SACTMIN” and “SPOSTMIN” columns do not have value, then it means that the row does not have valid wait time data for our analysis, so we drop the row. After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the new column as “Waiting.Time” and dropped the “SACTMIN” column. In addition, we also add column “X” as an ID column.     
+Below is a list of all the data cleaning/transformation we have performed on raw data:\ 
+1. The “date” column is redundant because its values are all contained in the “datetime” column too, so we dropped the "date" column.       
+\ 
+2. “SACTMIN” has a lot of missing values, and we observed that when “SPOSTMIN” has missing data, its corresponding “SACTMIN” has a value and vice versa. Hence, we replaced all the missing values in “SPOSTMIN” with the values from “SACTMIN”.     
+\ 
+3. If both the “SACTMIN” and “SPOSTMIN” columns are _NA_, then it means that the row does not have valid wait time data for our analysis, so we drop the row.     
+\ 
+4. After combining the “SACTMIN” and “SPOSTMIN” columns, we renamed the old "SPOSTMIN” column to “Waiting Time” and dropped the “SACTMIN” column.      
+\ 
+5. In the new “Waiting Time” column, we also checked that if there are values less than 0. Since wait time cannot be negative, we dropped these negative values.      
+\ 
+Below is an example of how our cleaned data look like for the attraction Dumbo:\ 
+```{r}
+df_temp2 <- read.csv("Data/data/Magic Kingdom/xysong_python/dumbo.csv")
+head(df_temp2)
+```
 \     
 Moreover, in our analysis of wait time based on the time of the day, we also converted the “datetime” column from character type to datetime using as.POSIXlt(). This will allow us to compare time easily. We assigned time before 12 PM to be the morning category, time between 12 PM and before 6 PM to be the afternoon category, and time after 6 PM to be the evening category.     
      
@@ -45,6 +68,7 @@ read_raw <- function() {
     return(dict)
 }
 ```
+
 ```{r}
 # names <- get_attraction_name()
 # # names[[4]]
@@ -306,4 +330,4 @@ grid.arrange(g1, g2, g3, nrow = 3)
 # g1
 ```
 
-From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each ride, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend. 
+From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each attraction, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend. 

@@ -2,13 +2,13 @@
 The waiting time in Disneyland has seasonal pattern. Tourists need to wait longer time during Spring and Winter than Summer and Fall. We believe it is related to students' schedule. The average waiting time (AWT) significantly drops after the spring semester and the fall semester begin. There are also two small sudden peak around the Fall break and the Thanksgiving break. Besides the seasonal patter, we also notice that people need to wait more on Saturday and Monday. While Sunday and Thursday cost less time on waiting. What's more, due to Covid-19, the AWT in recent two years is less than before 2020. \ 
 
 ## Recommendation
-We recommend tourists visit Disneyland on a Sunday during Fall.The weather is comfortable and they don't have to wait for a long time.     \ 
-      \ 
-Based on the average wait time analysis, we can conclude that if a visitor wants to take the most popular attraction, the Seven Dwarf Mine Train, then the best time to visit is after 6 PM because the average wait time is the shortest in the evening. For the second most popular attraction, the Buzz Lightyear, the best time to visit is again in the evening. The best time to visit the third most popular attraction, the Astro Orbiter, is in the morning before 12 PM.     \ 
-     \ 
-Other than the popular attractions, if a visitor wants to visit the Space Mountain, then the best time to go is in the morning. The best time to visit Peter Pan’s flight and the Jungle Cruise is in the evening. Splash Mountain and the Big Thunder Mountain have shorter average wait time in both the morning and evening. \ 
+We recommend tourists visit Disneyland on a Sunday during Fall.The weather is comfortable and they don't have to wait for a long time.        
+\ 
+Based on the average wait time analysis, we can conclude that if a visitor wants to take the most popular attraction, the Seven Dwarf Mine Train, then the best time to visit is after 6 PM because the average wait time is the shortest in the evening. For the second most popular attraction, the Space Mountain, the best time to visit is in the morning. The best time to visit the third most popular attraction, the Splash Mountain, is either in the morning before 12 PM or in the evening after 6 PM. The best time to visit the forth most popular attraction, Jungle Cruise, is in the evening. Lastly, it is better to visit the fifth most popular attraction, the Big Thunder Mountain, in either the morning or evening.     
+\ 
+Other than the popular attractions, Peter Pan’s flight has the third highest _AWT_, and the best time to go is in the evening.     
 
 ## Future Directions
-From our exploratory analysis, we observed that there are some common trends and cyclical patterns in the historical wait time. Our project serves as a solid and directed base for possible supervised machine learning studies. Models can be designed to predict the wait time at Magic Kingdom.     \ 
-     \ 
-Other than only using the wait time data, other categories of data can also be incorporated to discover more patterns. For example, weather data, flight ticket price data, and hotel price data can be used to find correlations with wait time. What's more, there is limited data after Covid. Our conclusions on the difference before and after Covid will be more solid if we repeat the project years later.
+From our exploratory analysis, we observed that there are some common trends and cyclical patterns in the historical wait time. Our project serves as a solid and directed base for possible supervised machine learning studies. Models can be designed to predict the wait time at Magic Kingdom.       
+\ 
+Other than only using the wait time data, other categories of data can also be incorporated to discover more patterns. For example, weather data, flight ticket price data, and hotel price data can be used to find correlations with wait time. What's more, there is limited data after Covid. Our conclusions on the difference before and after Covid will be more solid if we repeat the project years later.      
