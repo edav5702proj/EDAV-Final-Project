@@ -712,7 +712,12 @@ ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) 
     ggeasy::easy_center_title()
 ```
 
-The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top. We can see that comparing with the average wait time chart, the attraction Seven Dwarfs Mine Train is still ranked top with the highest median wait time. Space Mountain and Peter Pan's Flight switched order, and Splash Mountain and Jungle Cruise hold the same order. 
+The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top. 
+- ***Obs #1:*** The ranking is almost the same as in the average wait time chart, except Space Mountain and Peter Pan's Flight switched order
+- ***Obs #2:*** All of data have unimodel distribution except Splash Mountain
+- ***Obs #3:*** The modes are around 50 minutes
+- ***Obs #4:*** There are some waiting time less than 0 minute
+- ***Exp:*** There should be a clear cut at 0 minute. However, to make the graph smooth, we have some data showed less than zero.
 
 ### _AWT_ vs. Attraction: time of a day
 

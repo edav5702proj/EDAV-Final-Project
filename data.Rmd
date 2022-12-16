@@ -11,8 +11,8 @@ Disneyland estimates the waiting time based on the length of waiting lines. The 
 
 3. observation from the staffs of [Touringplans.com]([https://touringplans.com/walt-disney-world/crowd-calendar#DataSets]) on sights.     
 The staffs visit Disneyland and record their actual waiting time for each attraction.     
-
-Issues / problems with the data:     
+\ 
+Issues / problems with the data:    \   
 After plotting the raw data (Section 3.3.2), we discovered that there are no data from April 2020 to October 2020, except August 2020. This is due to the COVID-19 outbreak and the Magic Kingdom Park was closed. However, there is data for August, so we deemed that these data are recorded due to some errors, and we dropped these data from our analysis.     
 \      
 Other than the above data error, we also discovered that the “entities” data table assigned some attractions with the wrong themed land. To correctly group each attraction to the right land, we went to Disney’s official website to find a map and other related information.     
