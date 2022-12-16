@@ -326,7 +326,7 @@ for (g in all_plot) {
 ```{r}
 # Check duration
 df <- read.csv("Data/data/name_duration.csv")
-df
+# df
 avg_wait <- rep(0, 18)
 for (i in 1:18) {
     avg_wait[[i]] <- mean(all_dsets[[df$name[[i]]]]$Waiting.Time)

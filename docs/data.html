@@ -119,14 +119,13 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.1.1</b> <em>AWT_100</em> vs. Duration</a></li>
-</ul></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.3" data-path="interactive-component.html"><a href="interactive-component.html#future-work"><i class="fa fa-check"></i><b>5.3</b> Future Work</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation"><i class="fa fa-check"></i><b>6.1</b> Recommendation</a></li>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation-lessons-learned"><i class="fa fa-check"></i><b>6.1</b> Recommendation &amp; Lessons Learned</a></li>
 <li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i><b>6.2</b> Future Directions</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -211,12 +210,16 @@ Each columns has the type character, character, integer, and integer accordingly
 <h2><span class="header-section-number">3.3</span> Missing value analysis<a href="data.html#missing-value-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="missing-metadata" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Missing Metadata<a href="data.html#missing-metadata" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="672" />
-From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each attraction, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /><img src="finalproj_files/figure-html/unnamed-chunk-10-2.png" width="672" /></p>
+<p>From the above chart, we can see that there are missing data values for all the three variables. These three variables are some general information about each attraction, and we observe that if one variable has missing data, then the other two variables tend to be missing too, only one exception for attraction “enchanted tiki rm”. We dropped the missing data for our analysis. Since they do not have a strong relationship with analyzing the wait time trend.</p>
 </div>
 <div id="missing-time-series-data" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Missing Time Series Data<a href="data.html#missing-time-series-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>Since it is not easy to visualize the missing data pattern for time series data, we chose to make three bar charts that represent the number of data records for each month between
+January 2015 and December 2021. As a result, we found that there is a gap between April 2020 and October 2020, corresponding to our previous discovery of potentially wrong data. In addition, from the plot above, we can observe that the number of
+data points are approxmately equivalent for each month before COVID disruption; but after COVID, the number of data points decrease, corresponding to the fact that there are fewer tourists after COVID outbreaks. However, we identified that the data points for each month are
+sufficient for us to do analysis in later part.</p>
 
 </div>
 </div>

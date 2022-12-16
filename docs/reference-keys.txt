@@ -28,6 +28,7 @@ awt-of-attractions-vs.-land
 interactive-component
 awt-vs.-duration
 awt_100-vs.-duration
+future-work
 conclusion
-recommendation
+recommendation-lessons-learned
 future-directions

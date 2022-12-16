@@ -119,14 +119,13 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.1.1</b> <em>AWT_100</em> vs. Duration</a></li>
-</ul></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.3" data-path="interactive-component.html"><a href="interactive-component.html#future-work"><i class="fa fa-check"></i><b>5.3</b> Future Work</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation"><i class="fa fa-check"></i><b>6.1</b> Recommendation</a></li>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation-lessons-learned"><i class="fa fa-check"></i><b>6.1</b> Recommendation &amp; Lessons Learned</a></li>
 <li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i><b>6.2</b> Future Directions</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -158,8 +157,17 @@ an attraction is popular or not. Also, in previous section, we found it is hard 
 we will exploit the advantages of D3 and interactive plots to make our plots more straightforward and readable.</p>
 <div id="awt-vs.-duration" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> <em>AWT</em> vs. Duration<a href="interactive-component.html#awt-vs.-duration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The plot below is an interactive scatterplot of the duration of a attraction and the <em>AWT</em>, drawn using D3.
-Generally, there are several trends:</p>
+<p>The plot below is an interactive scatterplot of the duration of a attraction and the <em>AWT</em>, drawn using D3.</p>
+<p><strong><em>Note: Moving the mouse to the data point to see more information and click on the button to see popular attractions.</em></strong></p>
+<div style="text-align:center;">
+<p><input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
+<input type="radio" name="identify_pop" value="normal" checked="true"> Original Plot</p>
+</div>
+<div id="D3" style="text-align:center">
+
+</div>
+<script src="avg_d_d3.js"></script>
+<p>Generally, there are several trends:</p>
 <ul>
 <li><p><strong><em>Obs #1:</em></strong> If we remove two datapoints (the top-left one and the bottom-right one), there is a general trend of positive correlation
 between <em>AWT</em> and <em>Duration</em> of that attraction, which is a natural phenomenon to observe.</p></li>
@@ -170,21 +178,14 @@ of tourists; on the other hand, <em>AWT_100</em> is closely related to customers
 <li><p><strong><em>Obs #3:</em></strong> Even though it is not as obvious as before, we can weakly conclude that popular attractions usually had higher <em>AWT</em> andd <em>Duration</em>. But again, we can
 only make conjecture about this. The pattern is not super obvious and maybe spurious.</p></li>
 </ul>
-<p><strong><em>Note: Moving the mouse to the data point to see more information.</em></strong></p>
-<div style="text-align:center;">
-<p><input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
-<input type="radio" name="identify_pop" value="normal" checked="true"> Original Plot</p>
 </div>
-<div id="D3" style="text-align:center">
-
-</div>
-<script src="avg_d_d3.js"></script>
-<div id="awt_100-vs.-duration" class="section level3 hasAnchor" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> <em>AWT_100</em> vs. Duration<a href="interactive-component.html#awt_100-vs.-duration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-The discovery in previous section led us to discover the relationship between <em>AWT_100</em> and <em>Duration</em>. Intuitively,
+<div id="awt_100-vs.-duration" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> <em>AWT_100</em> vs. Duration<a href="interactive-component.html#awt_100-vs.-duration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The discovery in previous section led us to discover the relationship between <em>AWT_100</em> and <em>Duration</em>. Intuitively,
 there should exists a positive correlation between <em>AWT_100</em> and <em>Duration</em> because a longer attraction should normally have longer
 waiting time; therefore, for every 100 people, the waiting time is supposed to be longer as well. We chose to investigated this issue
-using D3 techniques again. Below is the D3 plot.
+using D3 techniques again. Below is the D3 plot.</p>
+<p><strong><em>Note: Moving the mouse to the data point to see more information and click on the button to see popular attractions.</em></strong></p>
 <div style="text-align:center;">
 <p><input type="radio" id="dd2" name="identify_pop" value="pop"> Identify Popular Attractions
 <input type="radio" id ="dd2" name="identify_pop" value="normal" checked="true"> Original Plot</p>
@@ -197,10 +198,18 @@ using D3 techniques again. Below is the D3 plot.
 observations and explanations:</p>
 <ul>
 <li><strong><em>Obs #1:</em></strong> Instead of positive correlation, there seems existing a negative correlation between <em>AWT_100</em> and <em>Duration</em>.<br />
-<strong><em>Exp:</em></strong> At the first glance, this seems not correct. However,</li>
+<strong><em>Exp:</em></strong> At the first glance, this seems not correct. However, this might because that attractions that have longer <em>Duration</em> sometimes also have
+larger capcity to balance its waiting time. Imagine the case where attractions with longer <em>Duration</em> share similar capcity as others: it will absolutely result in
+the imbalance of waiting time in the Disneyland and will make the burden of some attractions much heavier than that of others. This is something that the Disneyland Official wants to prevent for sure. Therefore, this negative correlation makes sense.</li>
 </ul>
-
+<p><strong><em>Note:</em></strong> Unfortunately, we do not have accurate data about the capacity of each attraction (different sources document them differently and Disneyland Officials do not provide those information). But based on our research, our conjecture is intuitive.</p>
 </div>
+<div id="future-work" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Future Work<a href="interactive-component.html#future-work" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Originally, we want to do an interactive map for this section, where users can click on each part of Disneyland on the map to see the detailed information of attractions.
+However, we spent tons of time (at least 5 hours) on finding empty maps that we can work on; all of the maps that we can find are those with colors, annotations, and labels. In the future, if we can find a valid map that we can work wtih, we will extend this interactive section to enable more advance interactivity, and hopefully those
+results can be more meaniingful. In addition, since we are majorly dealing with time series data, interactive components are not easy to do. In the future, we will try to visualize the time series data using D3 to improve this project.</p>
+
 </div>
 </div>
             </section>
