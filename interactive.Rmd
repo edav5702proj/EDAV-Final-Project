@@ -3,9 +3,9 @@
 
 ## _AWT_ vs. Duration
 
-The plot below shows the scatterplot of the duration of a facility and the average waiting time. 
+The plot below shows the scatterplot of the duration of a attraction and the average waiting time (AWT). 
 Generally, duration and waiting time are positively correlated. The longer the duration, the longer the waiting time.
-There are also some outliers, such as the 7 dwarf train. This facility only lasts 3 minutes, but the tourists must wait 79 minutes on average.</p>
+There are also some outliers, such as the 7 dwarf train. This attraction only lasts 3 minutes, but the tourists must wait 79 minutes on average. Another example is Enchanted Tiki Room, which has a duration of 15 minutes and AWT of 5 minutes. What's more, all the popular attractions require a long waiting time, at least 30 minutes.</p>
 ***Moving the mouse to the data point to see more information.***
 
 <div style="text-align:center;">
@@ -14,9 +14,3 @@ There are also some outliers, such as the 7 dwarf train. This facility only last
 </div>
 <div id="D3" style="text-align:center"></div>
 <script src="avg_d_d3.js"></script>
-
-## _AWT\_100_ vs. Duration
-
-```{r}
-
-```

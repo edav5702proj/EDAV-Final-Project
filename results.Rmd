@@ -784,7 +784,13 @@ ggplot(df, aes(x = avg, y = fct_reorder2(ride, timeofday == "Afternoon", avg, .d
     guides(color = guide_legend(title = "Time of Day"))
 ```
 
-The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest. For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest. Moreover, the attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time. 
+The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. 
+
+- ***Obs #1:*** For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest.
+
+- ***Obs #2:*** For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest. 
+
+- ***Obs #3:*** The attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time. 
 
 ### _AWT_ of Attractions vs. Land
 
@@ -843,8 +849,14 @@ ggplot(section_avg, aes(x = avg, y = fct_reorder(section, avg))) +
     ggeasy::easy_center_title()
 ```
 
-The above bar chart shows the average wait time by each themed land, and it is sorted by descending order from the top. Frontierland has the longest average wait time followed by Tomorrowland. The rest have similar average wait time.       
-However, this chart illustrated the Simpson's Paradox. The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan's Flight - are not in the Frontierland.    
+The above bar chart shows the average wait time by each themed land, and it is sorted by descending order from the top. 
+
+- ***Obs #1:*** Frontierland has the longest average wait time followed by Tomorrowland. The rest have similar average wait time.
+
+- ***Obs #2:*** The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan's Flight - are not in the Frontierland. 
+
+***Exp:*** There is a Simpson's Paradox.
+
 ```{r}
 adventure$Datetime <- as.POSIXlt(adventure$Datetime)
 fantasy$Datetime <- as.POSIXlt(fantasy$Datetime)
@@ -909,4 +921,10 @@ ggplot(savg_comb, aes(x = avg, y = fct_reorder2(section, timeofday == "Afternoon
     ggeasy::easy_center_title()
 ```
 
-The above Cleveland dot plot shows the average wait time by each land at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. The order of themed lands is the same as the one in the average wait time plot. For all themed lands, the average afternoon wait time is the longest. The average evening time is the shortest for 4 of the 5 themed lands. Only one themed land has morning as the the shortest average wait time.    
+The above Cleveland dot plot shows the average wait time by each land at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. 
+
+- ***Obs #1:*** The order of themed lands is the same as the one in the average wait time plot.
+
+- ***Obs #2:*** For all themed lands, the average afternoon wait time is the longest. 
+
+- ***Obs #3:*** The average evening time is the shortest for 4 of the 5 themed lands. Only one themed land has morning as the the shortest average wait time.   
