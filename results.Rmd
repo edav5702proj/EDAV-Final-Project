@@ -620,3 +620,157 @@ The graph above showed that the _AWT_ for each weekday before COVID-19 is lower 
 This indicates that on average, for every 2.5 hours, the tourists can enjoy one more attraction after the Covid than before.
 <!-- The tourists spend less time on waiting and enjoy more facilities after the Covid. -->
 - ***Obs #2:*** Similarly, the difference is still not huge among all weekdays, implying that weekday is not a huge factor that impacts people's traveling plan to Disneyland.
+
+## Attraction-Level _AWT_ Analysis
+
+### _AWT_ vs. Attraction
+```{r}
+library(ggplot2)
+library(plyr)
+library(dplyr)
+library(tidyverse)
+
+# install.packages("hash")
+library(hash)
+# install.packages("reticulate")
+library(reticulate)
+library(ggridges)
+library(forcats)
+```
+
+```{r}
+process_name <- function(csv) {
+    return(gsub("  ", "", gsub(".csv", "", gsub("_", " ", csv))))
+}
+
+get_attraction_name <- function() {
+    return(lapply(list.files("Data/data/cleaned"), process_name))
+}
+
+filenames <- list.files("Data/data/cleaned")
+# filenames
+dict <- hash()
+for (csv in filenames) {
+    dict[[process_name(csv)]] <- read.csv(sprintf("Data/data/cleaned/%s", csv))
+}
+```
+
+```{r}
+avg <- list()
+for (csv in filenames) {
+    avg <- append(avg, mean(dict[[process_name(csv)]]$Waiting.Time))
+}
+```
+
+```{r}
+avg_time <- data.frame(unlist(get_attraction_name()), unlist(avg))
+names(avg_time) <- c("Ride", "avgtime")
+```
+
+```{r}
+g <- ggplot(avg_time, aes(x = avgtime, y = fct_reorder(Ride, avgtime))) +
+    geom_point(color = "#B12228") +
+    labs(
+        title = "Average Waiting Time for Each Attraction",
+        x = "Average Waiting Time (in minutes)",
+        y = "Attraction"
+    )
+# ggeasy::easy_center_title()
+```
+
+<!-- The above Cleveland dot plot shows the average wait time for each attraction, and they are ranked in descending order with the longest time at the top. The Seven Dwarfs Mine Train attraction has the longest average waiting time of around 79.2 minutes. The second highest is the Space Mountain attraction, and it has an average wait time of 58.3 minutes. The third highest has a very close average wait time as the second one, and it is the Peter Pan's Flight attraction with a wait time of 58.0 minutes. The fourth is the Splash Mountain with an average wait time of 45.1 minutes, and the fifth is the Jungle Cruise with an average wait time of 44.2 minutes.       -->
+```{r}
+sort_df <- avg_time[order(-avg_time$avgtime), ]
+top_five <- list()
+df_comb <- NA
+for (i in head(sort_df, 5)$Ride) {
+    dict[[i]]["ride"] <- i
+    df_comb <- rbind(df_comb, dict[[i]])
+}
+df_comb <- na.omit(df_comb)
+```
+
+```{r}
+# reorder(ride, -Waiting.Time, median)
+# ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) +
+#     geom_boxplot() +
+#     labs(
+#         title = "Top 5 AWT",
+#         x = "AWT",
+#         y = "Attraction"
+#     ) +
+#     ggeasy::easy_center_title()
+```
+
+```{r}
+ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) +
+    geom_density_ridges(fill = "#EFBEB7", alpha = .5, bandwidth = 7, scale = 1.4) +
+    ggtitle("Top 5 Attraction AWT") +
+    ylab("Attraction") +
+    xlab("AWT") +
+    xlim(c(-30, 250)) +
+    ggeasy::easy_center_title()
+```
+
+The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top. We can see that comparing with the average wait time chart, the attraction Seven Dwarfs Mine Train is still ranked top with the highest median wait time. Space Mountain and Peter Pan's Flight switched order, and Splash Mountain and Jungle Cruise hold the same order. 
+
+### _AWT_ vs. Attraction: time of a day
+
+```{r}
+# name_list <- list()
+# for (csv in filenames) {
+#   temp <- process_name(csv)
+#   name_list <- append(name_list, temp)
+#   dict[[temp]]$Datetime <- as.POSIXlt(dict[[temp]]$Datetime)
+# }
+```
+
+```{r}
+# m_avg <- list()
+# a_avg <- list()
+# e_avg <- list()
+# for (n in name_list) {
+#   m_avg <- append(m_avg, mean(dict[[n]][dict[[n]]$Datetime$hour < 12, 'Waiting.Time']))
+#   a_avg <- append(a_avg, mean(dict[[n]][((dict[[n]]$Datetime$hour >= 12) | (dict[[n]]$Datetime$hour < 18)), 'Waiting.Time']))
+#   e_avg <- append(e_avg, mean(dict[[n]][dict[[n]]$Datetime$hour >= 18, 'Waiting.Time']))
+# }
+
+# m_avg_time = data.frame(unlist(name_list), unlist(m_avg))
+# names(m_avg_time) = c("ride","avg")
+
+# a_avg_time = data.frame(unlist(name_list), unlist(a_avg))
+# names(a_avg_time) = c("ride","avg")
+
+
+# e_avg_time = data.frame(unlist(name_list), unlist(e_avg))
+# names(e_avg_time) = c("ride","avg")
+```
+
+```{r}
+# m_avg_time['timeofday'] <- 'morning'
+# a_avg_time['timeofday'] <- 'afternoon'
+# e_avg_time['timeofday'] <- 'evening'
+# avg_comb <- NA
+# avg_comb <- rbind(avg_comb, m_avg_time)
+# avg_comb <- rbind(avg_comb, a_avg_time)
+# avg_comb <- rbind(avg_comb, e_avg_time)
+# avg_comb <- na.omit(avg_comb)
+# Save file
+# avg_comb
+# write.csv(avg_comb, "Data/data/avg_comb.csv")
+df <- read.csv("Data/data/avg_comb.csv")
+# df
+```
+
+```{r}
+ggplot(df, aes(x = avg, y = fct_reorder2(ride, timeofday == "afternoon", avg, .desc = FALSE), color = timeofday)) +
+    geom_point() +
+    labs(
+        title = "AWT for Each Attraction",
+        x = "AWT (min)",
+        y = "Attraction"
+    ) +
+    guides(color = guide_legend(title = "Time of Day"))
+```
+
+The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest. For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest. Moreover, the attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time. 
