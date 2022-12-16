@@ -357,10 +357,12 @@ are two peaks (spring and winter) of _AWT_, we hope that this micro-level analys
 
 ```{r}
 filenames <- list.files("Data/data/cleaned")
+library(hash)
 dict <- hash()
 for (csv in filenames) {
     dict[[csv]] <- read.csv(sprintf("Data/data/cleaned/%s", csv))
 }
+# dict[["dumbo.csv"]]
 ```
 
 ```{r}
@@ -713,11 +715,15 @@ ggplot(df_comb, aes(x = Waiting.Time, y = reorder(ride, Waiting.Time, median))) 
 ```
 
 The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top. 
+
 - ***Obs #1:*** The ranking is almost the same as in the average wait time chart, except Space Mountain and Peter Pan's Flight switched order
+
 - ***Obs #2:*** All of data have unimodel distribution except Splash Mountain
+
 - ***Obs #3:*** The modes are around 50 minutes
-- ***Obs #4:*** There are some waiting time less than 0 minute
-- ***Exp:*** There should be a clear cut at 0 minute. However, to make the graph smooth, we have some data showed less than zero.
+
+- ***Obs #4:*** There are some waiting time less than 0 minute \
+***Exp:*** There should be a clear cut at 0 minute. However, to make the graph smooth, we have some data showed less than zero.
 
 ### _AWT_ vs. Attraction: time of a day
 
