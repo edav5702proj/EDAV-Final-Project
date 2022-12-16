@@ -500,7 +500,7 @@ students, who occupy a large proportion of visitors, are going back to school,
 resulting in fewer visitors to Disneyland.
 - ***Obs #2:*** In this micro-level analysis, we manage to identify **the thrid** peak, which is around _Late June to Early August_. \
 ***Exp:*** This corresponds to the fact that most schools (ranging from Universities to Kindergarten) are in vacations.
-- ***Obs #3:*** ***Obs #2*** confirmed the effectiveness and necessity of this micro-level analysis.
+- ***Obs #3:*** confirmed the effectiveness and necessity of this micro-level analysis.
 
 <!-- exhibits an increasing pattern until _April_, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom. -->
 
@@ -853,9 +853,8 @@ The above bar chart shows the average wait time by each themed land, and it is s
 
 - ***Obs #1:*** Frontierland has the longest average wait time followed by Tomorrowland. The rest have similar average wait time.
 
-- ***Obs #2:*** The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan's Flight - are not in the Frontierland. 
-
-***Exp:*** There is a Simpson's Paradox.
+- ***Obs #2:*** The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan's Flight - are not in the Frontierland. \
+***Exp:*** This illustrates _Simpson's Paradox_.
 
 ```{r}
 adventure$Datetime <- as.POSIXlt(adventure$Datetime)
