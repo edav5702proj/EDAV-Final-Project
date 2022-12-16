@@ -257,7 +257,7 @@ isolate average waiting time for each year and identify the following trends and
 news, activities, and reports published by Disneyland Officials)
 
 - ***Obs #1:*** We managed to identify cyclical patterns by isolating _AWT_ for each year.
-- ***Obs #2:*** In general, there are two peaks of _AWT_ for attractions in Disneyland: _April - July_ (spring peak) and _December - January_ (winter peak). \
+- ***Obs #2:*** In general, there are two peaks of _AWT_ for attractions in Disneyland: _April - Late May_ (spring peak) and _December - January_ (winter peak). \
 ***Exp:*** Spring _AWT_ peak corresponds to the fact that there are tons of activities held in that period, whereas winter peak is the direct result 
 of Christmas Holiday (Note that Florida is a good place to stay for many people during winter).
 - ***Obs #3:*** In _2020_, we observed a completely different trend due to the temporary closure of the park. 
@@ -346,8 +346,15 @@ suggestion is to visit the park in summer or fall.
 
 ## General Pattern Analysis - Micro-Level
 
+Based on our exploratory analysis in the previous section, _AWT_ of all attractions is a good representation of _AWT_ of 
+each attraction. This crucial observation allowed us to conduct micro-level analysis on the cyclical 
+pattern that we identified earlier. 
 
-### Average Waiting Time per Facility per day
+### AWT vs. Days
+
+Specifically, we focused on the _AWT_ of all attractions for each day in a year. Although we have already identified that there 
+are two peaks (spring and winter) of _AWT_, we hope that this micro-level analysis can bring more intuitions about the underlying reasons.
+
 ```{r}
 filenames <- list.files("Data/data/cleaned")
 dict <- hash()
@@ -401,15 +408,15 @@ for (csv in filenames) {
             summarise(avg_wait = mean(Waiting.Time))
 
         df_ymd_after <- dict[[csv]] %>%
-            filter(ymd > "2020-01-01") %>%
+            filter(ymd > "2020-12-01") %>%
             dplyr::group_by(ymd) %>%
             summarise(avg_wait = mean(Waiting.Time))
         df_md_after <- dict[[csv]] %>%
-            filter(ymd > "2020-01-01") %>%
+            filter(ymd > "2020-12-01") %>%
             dplyr::group_by(md) %>%
             summarise(avg_wait = mean(Waiting.Time))
         df_weekday_after <- dict[[csv]] %>%
-            filter(ymd > "2020-01-01") %>%
+            filter(ymd > "2020-12-01") %>%
             dplyr::group_by(weekday) %>%
             summarise(avg_wait = mean(Waiting.Time))
         first <- 2
@@ -438,15 +445,15 @@ for (csv in filenames) {
             summarise(avg_wait = mean(Waiting.Time))
 
         df_nymd_after <- dict[[csv]] %>%
-            filter(ymd > "2020-01-01") %>%
+            filter(ymd > "2020-12-01") %>%
             dplyr::group_by(ymd) %>%
             summarise(avg_wait = mean(Waiting.Time))
         df_nmd_after <- dict[[csv]] %>%
-            filter(ymd > "2020-01-01") %>%
+            filter(ymd > "2020-12-01") %>%
             dplyr::group_by(md) %>%
             summarise(avg_wait = mean(Waiting.Time))
         df_nweekday_after <- dict[[csv]] %>%
-            filter(ymd > "2020-01-01") %>%
+            filter(ymd > "2020-12-01") %>%
             dplyr::group_by(weekday) %>%
             summarise(avg_wait = mean(Waiting.Time))
 
@@ -476,46 +483,75 @@ df_mdwait$md <- as.Date(df_mdwait$md, format = "%m-%d")
 ggplot(df_mdwait, aes(x = md, y = average_wait)) +
     geom_line() +
     scale_x_date(date_breaks = "1 month", date_labels = "%b %d") +
-    xlab("day") +
-    ylab("average waiting time(min)") +
-    ggtitle("Average waiting time for every day")
+    xlab("Day") +
+    ylab("AWT (min)") +
+    ggtitle("AWT of All Attractions for Every Day") +
+    ggeasy::easy_center_title()
 ```
 
-From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disneyland, thus requiring tourists to wait much less time. 
+From the graph above, we have the following observations:
 
-The waiting time then steadily increases until April 1, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom.
+- ***Obs #1:*** We clearly identified that there are two periods where the _AWT_ decrease significantly: 
+_Late August to Early September_ and _Beginning of January_ \
+***Exp:*** One possible explanation is that by the start of the Winter semester, 
+students, who occupy a large proportion of visitors, are going back to school, 
+resulting in fewer visitors to Disneyland.
+- ***Obs #2:*** In this micro-level analysis, we manage to identify **the thrid** peak, which is around _Late June to Early August_. \
+***Exp:*** This corresponds to the fact that most schools (ranging from Universities to Kindergarten) are in vacations.
+- ***Obs #3:*** ***Obs #2*** confirmed the effectiveness and necessity of this micro-level analysis.
 
-We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.
+<!-- exhibits an increasing pattern until _April_, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom. -->
+
+<!-- We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument. -->
+Recall in previous section, we discovered that there is an abnormal pattern in _2020_ due to COVID disruption. Therefore, a plot like above may not be 
+sufficient to capture this variation. Therefore, we manually filtered the data and compare the patterns of _AWT_ before and after COVID outbreak.
+
 
 ```{r}
 average_wait_before <- rowMeans(df_md_before[2:26], na.rm = TRUE)
 average_wait_after <- rowMeans(df_md_after[2:26], na.rm = TRUE)
 df_mdwait_before <- cbind(df_md[1], average_wait_before)
-df_mdwait_covid <- cbind(df_mdwait_before, average_wait_after)
+df_mdwait_covid <- cbind(df_mdwait_before[-366, ], average_wait_after)
 df_mdwait_covid <- na.omit(df_mdwait_covid)
 df_mdwait_covid$md <- as.Date(df_mdwait_covid$md, format = "%m-%d")
 ```
 
-#### Average Waiting Time per Facility per day before and after Covid-19
 ```{r}
 ggplot(df_mdwait_covid, aes(x = md)) +
+    # geom_point()+
     geom_line(aes(y = average_wait_before, colour = "average_wait_before")) +
     geom_line(aes(y = average_wait_after, colour = "average_wait_after")) +
     scale_colour_manual("",
         breaks = c("average_wait_before", "average_wait_after"),
-        values = c("blue", "red"),
-        labels = c("Before covid", "After Covid")
+        values = c("#0047DF", "#B12228"),
+        labels = c("Before COVID", "After COVID")
     ) +
     scale_x_date(date_breaks = "1 month", date_labels = "%b %d") +
-    xlab("day") +
-    ylab("average waiting time(min)") +
-    ggtitle("Average waiting time for every day")
+    xlab("Day") +
+    ylab("AWT (min)") +
+    ggtitle("Average waiting time for every day") +
+    ggeasy::easy_center_title()
 ```
 
-We set January 1, 2020 as the threshold which separates the time before and after Covid-19 affected the world. The blue line represents the average waiting time before Covid, and the red line is for the period after Covid. Generally, the waiting time is shorter after Covid, especially during June and July.
+Specifically, we manually classify the periods before _2020-01-01_ as _Before COVID_ period and time after _2021-01-01_ as 
+the _After COVID_ periods. The reasoning behind this is that the COVID outbreaks occurred at the beginning of _2020_ and it is under control at the end of _2020_ according to the report from [CDC](https://www.cdc.gov/). 
+The second reason is inherited from the internal nature of our dataset, where we have tons of missing data between 
+_2020-04-01_ and _2020-10-01_ due to Disneyland's closure; thus, it is reasonable to remove the data from whole year and use this year as a threshold. 
+Based on our plots, here are the main observations:
 
+- ***Obs #1:*** There is a trend of decreasing _AWT_ for nearly all time periods in a year after COVID outbreak.\
+***Exp:*** the concerns of public safety prevented many people from going out and travelling.
+- ***Obs #2:*** There exists outlier of the trend in ***Obs #1***: in Christmas, the _AWT_ is higher than before.\
+***Exp:*** Recall our threshold for _After COVID_ period is _2021-01-01_ to _2022-01-01_, so in December 2022, there is already 1.5 years since 
+COVID's outbreak so people's life is getting back to normal.
+- ***Obs #3:*** After COVID-19 shutdown, in _January_, there is a significant drop in _AWT_ compared to patterns before COVID-19. \
+***Exp:*** Again, public safety concerns and schools reopening led to less tourists.
 
-### Average Waiting Time per Facility per weekday
+### AWT vs. Weekday
+
+Similarly, we can do one step further to examine the _AWT_ for each day in a week in order to identify 
+the patterns within a week.
+
 
 ```{r}
 weekday_wait <- rowMeans(df_weekday[2:26], na.rm = TRUE)

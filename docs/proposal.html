@@ -103,7 +103,7 @@
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-day"><i class="fa fa-check"></i><b>4.3.1</b> Average Waiting Time per Facility per day</a></li>
+<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#awt-vs.-days"><i class="fa fa-check"></i><b>4.3.1</b> AWT vs. Days</a></li>
 <li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-weekday"><i class="fa fa-check"></i><b>4.3.2</b> Average Waiting Time per Facility per weekday</a></li>
 </ul></li>
 </ul></li>
@@ -112,7 +112,11 @@
 <li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
 <li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation"><i class="fa fa-check"></i><b>6.1</b> Recommendation</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i><b>6.2</b> Future Directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -142,13 +146,7 @@
 <div id="data-availability" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Data availability<a href="proposal.html#data-availability" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The data comes from <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a>. The data includes the most recent daily or hourly average waiting time for some selected attractions in the Magic Kingdom of Disney and the metadata that are useful for conducting analysis.</p>
-<p>As described in the website, the data is collected directly from 3 sources:</p>
-<ol style="list-style-type: decimal">
-<li>from app users of <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a></li>
-<li><a href="https://disneyworld.disney.go.com/plan/my-disney-experience/?ef_id=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE:G:s&amp;s_kwcid=AL!5060!3!601187705510!p!!g!!disney%20experience&amp;CMP=KNC-FY23_WDW_TRA_DXF_W365_SCP_MYDX_MDX_Exact%7CG%7C5231013.RR.AM.01.01%7CMWNOQXO%7CBR%7C601187705510&amp;keyword_id=aud-300113739056:kwd-2901498835%7Cdc%7Cdisney%20experience%7C601187705510%7Cp%7C5060:3%7C&amp;gclid=CjwKCAjw5P2aBhAlEiwAAdY7dIkqzaELf-qklZ0q5Yby8vqX2Yxy38GD99jYgCp2JARCUI_u3nHwWxoCGRMQAvD_BwE">Disney’s My Disney Experience app</a></li>
-<li>observation from the staffs of <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a> on sights.</li>
-</ol>
-<p>As for its availability, the data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. For example, the raw data for attraction <a href="https://disneyworld.disney.go.com/attractions/magic-kingdom/dumbo-the-flying-elephant/">Dumbo</a> and <a href="https://disneyworld.disney.go.com/attractions/magic-kingdom/monsters-inc-laugh-floor/">Laugh Floor</a> are displayed below.</p>
+<p>The data can be downloaded directly from the website for free in CSV format. A CSV document downloaded contains all wait time data for a specific attraction. The wait time is recorded at different time intervals (every 1 ~ 10 minutes) for each day. For example, the raw data for attraction <a href="https://disneyworld.disney.go.com/attractions/magic-kingdom/dumbo-the-flying-elephant/">Dumbo</a> and <a href="https://disneyworld.disney.go.com/attractions/magic-kingdom/monsters-inc-laugh-floor/">Laugh Floor</a> are displayed below.</p>
 <!-- <center> -->
 <!-- <img src="Imgs/dumbo_eg.png" alt="Example Wait Time Data", width = "50%" -->
 <!-- ![Dumbo](Imgs/dumbo_eg.jpeg){width=40%} ![Laugh Floor](Imgs/lf_eg.jpeg){width=40%} -->
@@ -161,7 +159,7 @@
 <img style="height: auto; width: 45%;" src="Imgs/lf_eg.jpeg" alt="lf"/>
 <figcaption style="text-align: center;">Fig. 1: Example Data for Dumbo (left) and Laugh Floor (right)</figcaption></div>
 <!-- </div> -->
-<p>By our investigation, the data is available for each park opening day from 01/01/2015 to 12/28/2021, and the website provides data for 41 attractions in the Magic Kingdom. Furthermore, we also identified that there are many useful metadata from <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a>. For instance, we have the access to the metadata for each attraction of the Magic Kingdom, which records useful information including its unique code, duration, and where it locates. Note that information like durations are extremely helpful when analyzing the waiting time of attractions. The example dataset is displayed below.</p>
+<p>By our investigation, the data is available for each park opening day from 01/01/2015 to 12/28/2021. Yet, from 04/01/2020 to 10/01/2020, Disneyland was closed, so we don’t have any data during this period. The website provides data for 41 attractions in the Magic Kingdom. Furthermore, we also identified that there are many useful metadata from <a href="%5Bhttps://touringplans.com/walt-disney-world/crowd-calendar#DataSets%5D">Touringplans.com</a>. For instance, we have the access to the metadata for each attraction of the Magic Kingdom, which records useful information including its unique code, duration, and where it locates. Note that information like durations are extremely helpful when analyzing the waiting time of attractions. The example dataset is displayed below.</p>
 <div class='container', style="text-align: center;">
 <img style="height: auto; width: 80%;" src="Imgs/metadata.jpeg" alt="metadata"/>
 <figcaption style="text-align: center;">Fig. 2: Example Metadata</figcaption>

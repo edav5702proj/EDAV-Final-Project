@@ -103,7 +103,7 @@
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="results.html"><a href="results.html#general-pattern-analysis---micro-level"><i class="fa fa-check"></i><b>4.3</b> General Pattern Analysis - Micro-Level</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-day"><i class="fa fa-check"></i><b>4.3.1</b> Average Waiting Time per Facility per day</a></li>
+<li class="chapter" data-level="4.3.1" data-path="results.html"><a href="results.html#awt-vs.-days"><i class="fa fa-check"></i><b>4.3.1</b> AWT vs. Days</a></li>
 <li class="chapter" data-level="4.3.2" data-path="results.html"><a href="results.html#average-waiting-time-per-facility-per-weekday"><i class="fa fa-check"></i><b>4.3.2</b> Average Waiting Time per Facility per weekday</a></li>
 </ul></li>
 </ul></li>
@@ -112,7 +112,11 @@
 <li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
 <li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a></li>
+<li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conclusion.html"><a href="conclusion.html#recommendation"><i class="fa fa-check"></i><b>6.1</b> Recommendation</a></li>
+<li class="chapter" data-level="6.2" data-path="conclusion.html"><a href="conclusion.html#future-directions"><i class="fa fa-check"></i><b>6.2</b> Future Directions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -189,80 +193,6 @@ we identified that <em>average waiting time</em> itself is not a good indicator 
 popularity of the attraction. Note that we observe that the <em>average waiting time</em> is not always higher for
 popular attractions identified in previous section. Thus, we should not solely leverage on that when analyzing the popularity of attractions. However,
 with the power of time series data, it is powerful when analyzing trend and designing visiting plans.</p>
-<pre><code>## [[1]]
-## [1] &quot;7 dwarfs train&quot;
-## 
-## [[2]]
-## [1] &quot;astro orbiter&quot;
-## 
-## [[3]]
-## [1] &quot;barnstormer&quot;
-## 
-## [[4]]
-## [1] &quot;big thunder mtn&quot;
-## 
-## [[5]]
-## [1] &quot;buzz lightyear&quot;
-## 
-## [[6]]
-## [1] &quot;carousel of progress&quot;
-## 
-## [[7]]
-## [1] &quot;country bears&quot;
-## 
-## [[8]]
-## [1] &quot;dumbo&quot;
-## 
-## [[9]]
-## [1] &quot;enchanted tiki rm&quot;
-## 
-## [[10]]
-## [1] &quot;hall of presidents&quot;
-## 
-## [[11]]
-## [1] &quot;haunted mansion&quot;
-## 
-## [[12]]
-## [1] &quot;it s a small world&quot;
-## 
-## [[13]]
-## [1] &quot;jungle cruise&quot;
-## 
-## [[14]]
-## [1] &quot;liberty sq riverboat&quot;
-## 
-## [[15]]
-## [1] &quot;mad tea party&quot;
-## 
-## [[16]]
-## [1] &quot;magic carpets&quot;
-## 
-## [[17]]
-## [1] &quot;peoplemover&quot;
-## 
-## [[18]]
-## [1] &quot;peter pan s flight&quot;
-## 
-## [[19]]
-## [1] &quot;pirates of caribbean&quot;
-## 
-## [[20]]
-## [1] &quot;regal carrousel&quot;
-## 
-## [[21]]
-## [1] &quot;space mountain&quot;
-## 
-## [[22]]
-## [1] &quot;splash mountain&quot;
-## 
-## [[23]]
-## [1] &quot;tom land speedway&quot;
-## 
-## [[24]]
-## [1] &quot;under the sea&quot;
-## 
-## [[25]]
-## [1] &quot;winnie the pooh&quot;</code></pre>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
 </div>
@@ -301,7 +231,7 @@ isolate average waiting time for each year and identify the following trends and
 news, activities, and reports published by Disneyland Officials)</p>
 <ul>
 <li><strong><em>Obs #1:</em></strong> We managed to identify cyclical patterns by isolating <em>AWT</em> for each year.</li>
-<li><strong><em>Obs #2:</em></strong> In general, there are two peaks of <em>AWT</em> for attractions in Disneyland: <em>April - July</em> (spring peak) and <em>December - January</em> (winter peak).<br />
+<li><strong><em>Obs #2:</em></strong> In general, there are two peaks of <em>AWT</em> for attractions in Disneyland: <em>April - Late May</em> (spring peak) and <em>December - January</em> (winter peak).<br />
 <strong><em>Exp:</em></strong> Spring <em>AWT</em> peak corresponds to the fact that there are tons of activities held in that period, whereas winter peak is the direct result
 of Christmas Holiday (Note that Florida is a good place to stay for many people during winter).</li>
 <li><strong><em>Obs #3:</em></strong> In <em>2020</em>, we observed a completely different trend due to the temporary closure of the park.</li>
@@ -352,17 +282,44 @@ suggestion is to visit the park in summer or fall.</p>
 </div>
 <div id="general-pattern-analysis---micro-level" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> General Pattern Analysis - Micro-Level<a href="results.html#general-pattern-analysis---micro-level" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="average-waiting-time-per-facility-per-day" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Average Waiting Time per Facility per day<a href="results.html#average-waiting-time-per-facility-per-day" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Based on our exploratory analysis in the previous section, <em>AWT</em> of all attractions is a good representation of <em>AWT</em> of
+each attraction. This crucial observation allowed us to conduct micro-level analysis on the cyclical
+pattern that we identified earlier.</p>
+<div id="awt-vs.-days" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> AWT vs. Days<a href="results.html#awt-vs.-days" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Specifically, we focused on the <em>AWT</em> of all attractions for each day in a year. Although we have already identified that there
+are two peaks (spring and winter) of <em>AWT</em>, we hope that this micro-level analysis can bring more intuitions about the underlying reasons.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
-<p>From the graph above, we can see that the waiting time drops by almost 20 minutes at the beginning of January, which can be explained by the start of the Spring semester. Since students occupy a large proportion of visitors, as they are going back to school, there are fewer visitors to Disneyland, thus requiring tourists to wait much less time.</p>
-<p>The waiting time then steadily increases until April 1, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom.</p>
-<p>We believe that the waiting time is related to students’ schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument.</p>
-<div id="average-waiting-time-per-facility-per-day-before-and-after-covid-19" class="section level4 hasAnchor" number="4.3.1.1">
-<h4><span class="header-section-number">4.3.1.1</span> Average Waiting Time per Facility per day before and after Covid-19<a href="results.html#average-waiting-time-per-facility-per-day-before-and-after-covid-19" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>From the graph above, we have the following observations:</p>
+<ul>
+<li><strong><em>Obs #1:</em></strong> We clearly identified that there are two periods where the <em>AWT</em> decrease significantly:
+<em>Late August to Early September</em> and <em>Beginning of January</em><br />
+<strong><em>Exp:</em></strong> One possible explanation is that by the start of the Winter semester,
+students, who occupy a large proportion of visitors, are going back to school,
+resulting in fewer visitors to Disneyland.</li>
+<li><strong><em>Obs #2:</em></strong> In this micro-level analysis, we manage to identify <strong>the thrid</strong> peak, which is around <em>Late June to Early August</em>.<br />
+<strong><em>Exp:</em></strong> This corresponds to the fact that most schools (ranging from Universities to Kindergarten) are in vacations.</li>
+<li><strong><em>Obs #3:</em></strong> <strong><em>Obs #2</em></strong> confirmed the effectiveness and necessity of this micro-level analysis.</li>
+</ul>
+<!-- exhibits an increasing pattern until _April_, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom. -->
+<!-- We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument. -->
+<p>Recall in previous section, we discovered that there is an abnormal pattern in <em>2020</em> due to COVID disruption. Therefore, a plot like above may not be
+sufficient to capture this variation. Therefore, we manually filtered the data and compare the patterns of <em>AWT</em> before and after COVID outbreak.</p>
 <p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
-<p>We set January 1, 2020 as the threshold which separates the time before and after Covid-19 affected the world. The blue line represents the average waiting time before Covid, and the red line is for the period after Covid. Generally, the waiting time is shorter after Covid, especially during June and July.</p>
-</div>
+<p>Specifically, we manually classify the periods before <em>2020-01-01</em> as <em>Before COVID</em> period and time after <em>2021-01-01</em> as
+the <em>After COVID</em> periods. The reasoning behind this is that the COVID outbreaks occurred at the beginning of <em>2020</em> and it is under control at the end of <em>2020</em> according to the report from <a href="https://www.cdc.gov/">CDC</a>.
+The second reason is inherited from the internal nature of our dataset, where we have tons of missing data between
+<em>2020-04-01</em> and <em>2020-10-01</em> due to Disneyland’s closure; thus, it is reasonable to remove the data from whole year and use this year as a threshold.
+Based on our plots, here are the main observations:</p>
+<ul>
+<li><strong><em>Obs #1:</em></strong> There is a general trend of decreasing <em>AWT</em> for nearly all time periods in a year after COVID outbreak.<br />
+<strong><em>Exp:</em></strong> the concerns of public safety prevented many people from going out and travelling.</li>
+<li><strong><em>Obs #2:</em></strong> There exists outlier of the trend in <strong><em>Obs #1</em></strong>: in Christmas, the <em>AWT</em> is higher than before.<br />
+<strong><em>Exp:</em></strong> Recall our threshold for <em>After COVID</em> period is <em>2021-01-01</em> to <em>2022-01-01</em>, so in December 2022, there is already 1.5 years since
+COVID’s outbreak so people’s life is getting back to normal.</li>
+<li><strong><em>Obs #3:</em></strong> After COVID-19 shutdown, in <em>January</em>, there is a significant drop in <em>AWT</em> compared to patterns before COVID-19.<br />
+<strong><em>Exp:</em></strong> Again, public safety concerns and schools reopening led to less tourists.</li>
+</ul>
 </div>
 <div id="average-waiting-time-per-facility-per-weekday" class="section level3 hasAnchor" number="4.3.2">
 <h3><span class="header-section-number">4.3.2</span> Average Waiting Time per Facility per weekday<a href="results.html#average-waiting-time-per-facility-per-weekday" class="anchor-section" aria-label="Anchor link to header"></a></h3>
