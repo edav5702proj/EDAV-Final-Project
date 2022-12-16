@@ -4,6 +4,8 @@ research-topic
 data-availability
 data
 sources
+basic-information-about-data
+issues-design-choice
 cleaning-transformation
 missing-value-analysis
 missing-metadata

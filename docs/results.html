@@ -80,7 +80,11 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#basic-information-about-data"><i class="fa fa-check"></i><b>3.1.1</b> Basic Information about Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="data.html"><a href="data.html#issues-design-choice"><i class="fa fa-check"></i><b>3.1.2</b> Issues &amp; Design Choice:</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a>
 <ul>
@@ -115,8 +119,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
-<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.1.1</b> <em>AWT_100</em> vs. Duration</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
 <ul>
@@ -180,7 +186,7 @@ their popularity. In our dataset, we computed the <em>average waiting time</em> 
 made usage of the <em>average_wait_every_hundred</em> statistic (i.e. denoted by <em>AWT_100</em> in the plot) to do the prediction.
 Note that <em>AWT_100</em> represents the average waiting time for every hundred people. Therefore, attractions that are
 popular should be those with high <em>AWT</em> but low <em>AWT_100</em>.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>According to this reasoning, we identified that the top 7 most popular attractions from the
 scatter plot above: <em>Seven Dwarfs Mine Train</em>, <em>Space Mountain</em>, <em>Jungle Cruise</em>, <em>Splash Mountain</em>
 , <em>Big Thunder Mountain Railroad</em>, <em>Pirates of Caribbean</em>, and <em>Haunted Mansions</em>. Based on the report of
@@ -199,7 +205,7 @@ we identified that <em>average waiting time</em> itself is not a good indicator 
 popularity of the attraction. Note that we observe that the <em>average waiting time</em> is not always higher for
 popular attractions identified in previous section. Thus, we should not solely leverage on that when analyzing the popularity of attractions. However,
 with the power of time series data, it is powerful when analyzing trend and designing visiting plans.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 </div>
 <div id="general-pattern-analysis---macro-level" class="section level2 hasAnchor" number="4.2">
@@ -222,12 +228,12 @@ Here is the main observations:</p>
 closure of Disneyland. (Note that there is a design choice for plotting; see Data Cleaning section for details)</li>
 </ul>
 <p><strong>Note</strong>: According to Disneyland’s Officials, Disneyland was closed during COVID-19 outbreaks
-<img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>Below are the time series plot for the average waiting time changing pattern for each attraction in Disneyland. <strong>Click on the plots to zoom in</strong>.
 Through this juxtaposition, we can easily observed that the four trends and abnormalites that
 we identified eariler is <strong><em>universal</em></strong> across all attractions, and we do not subject to <em>Simpson’s Paradox</em>.</p>
 <!-- :::{#abnormal_plot} -->
-<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-16-25.png" width="20%" class="abnormal" />
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-25.png" width="20%" class="abnormal" />
 <!-- ::: --></p>
 </div>
 <div id="identify-cyclical-patterns" class="section level3 hasAnchor" number="4.2.2">
@@ -246,7 +252,7 @@ of Christmas Holiday (Note that Florida is a good place to stay for many people 
 confirmed the validity of previously-observed trends.</li>
 </ul>
 <div id="facet">
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="100%" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="100%" /></p>
 </div>
 <p>Similarly, we can plot the <em>AWT</em> for each attraction as what we did for the previous section to further confirm the global trends.
 <strong><em>Click on the plots below to zoom in.</em></strong> Here are the main takeaway from these plots:</p>
@@ -257,7 +263,7 @@ confirmed the validity of previously-observed trends.</li>
 <li><strong><em>Obs #4:</em></strong> From this juxtapositin, we can easily discover features about each attraction. For example,
 we can quickly guess that <em>Hall of Presidents</em> was closed in 2017 (annoucement from Disneyland Officials confirmed our conjecture).</li>
 </ul>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-18-25.png" width="20%" class="abnormal" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-2.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-3.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-4.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-5.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-6.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-7.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-8.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-9.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-10.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-11.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-12.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-13.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-14.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-15.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-16.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-17.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-18.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-19.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-20.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-21.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-22.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-23.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-24.png" width="20%" class="abnormal" /><img src="finalproj_files/figure-html/unnamed-chunk-20-25.png" width="20%" class="abnormal" /></p>
 <pre><code>##     X                 name duration
 ## 1   0       7 dwarfs train      3.0
 ## 2   1 pirates of caribbean      7.5
@@ -295,7 +301,7 @@ pattern that we identified earlier.</p>
 <h3><span class="header-section-number">4.3.1</span> AWT vs. Days<a href="results.html#awt-vs.-days" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Specifically, we focused on the <em>AWT</em> of all attractions for each day in a year. Although we have already identified that there
 are two peaks (spring and winter) of <em>AWT</em>, we hope that this micro-level analysis can bring more intuitions about the underlying reasons.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>From the graph above, we have the following observations:</p>
 <ul>
 <li><strong><em>Obs #1:</em></strong> We clearly identified that there are two periods where the <em>AWT</em> decrease significantly:
@@ -305,13 +311,13 @@ students, who occupy a large proportion of visitors, are going back to school,
 resulting in fewer visitors to Disneyland.</li>
 <li><strong><em>Obs #2:</em></strong> In this micro-level analysis, we manage to identify <strong>the thrid</strong> peak, which is around <em>Late June to Early August</em>.<br />
 <strong><em>Exp:</em></strong> This corresponds to the fact that most schools (ranging from Universities to Kindergarten) are in vacations.</li>
-<li><strong><em>Obs #3:</em></strong> <strong><em>Obs #2</em></strong> confirmed the effectiveness and necessity of this micro-level analysis.</li>
+<li><strong><em>Obs #3:</em></strong> confirmed the effectiveness and necessity of this micro-level analysis.</li>
 </ul>
 <!-- exhibits an increasing pattern until _April_, when it decreases by almost 25%. This is probably becauase the Disneyland was closed on April, 2022. The number stays at the same level for about four months before dropping dramatically in August, which can be explained by the start of the Fall semester. From September to January, the waiting time generally increases, except for the first half of October and the second half of November, when it suddenly increases and then goes back to the original level. These two peaks correspond to the Fall break and Thanksgiving break, when many students are freed from school and visit the Magic Kingdom. -->
 <!-- We believe that the waiting time is related to students' schedules. When students need to go back to school, the waiting time is short. When they have breaks, the waiting time is longer. The sudden drops in January and August are two significant pieces of evidence that support our argument. -->
 <p>Recall in previous section, we discovered that there is an abnormal pattern in <em>2020</em> due to COVID disruption. Therefore, a plot like above may not be
 sufficient to capture this variation. Therefore, we manually filtered the data and compare the patterns of <em>AWT</em> before and after COVID outbreak.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>Specifically, we manually classify the periods before <em>2020-01-01</em> as <em>Before COVID</em> period and time after <em>2021-01-01</em> as
 the <em>After COVID</em> periods. The reasoning behind this is that the COVID outbreaks occurred at the beginning of <em>2020</em> and it is under control at the end of <em>2020</em> according to the report from <a href="https://www.cdc.gov/">CDC</a>.
 The second reason is inherited from the internal nature of our dataset, where we have tons of missing data between
@@ -332,7 +338,7 @@ COVID’s outbreak so people’s life is getting back to normal.</li>
 <p>In the previous section, we move from a macro-level analysis to a micro-level analysis by focusing on each day
 in a year. Similarly, we can do one step further to examine the <em>AWT</em> for each day in a week in order to identify
 the patterns within a week.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
 <p>According to the plot above, here are the main observations:</p>
 <ul>
 <li><p><strong><em>Obs #1:</em></strong> We do expect <em>Saturday</em> has a relatively high waiting time before we start the project.</p></li>
@@ -341,7 +347,7 @@ the patterns within a week.</p>
 </ul>
 <p>Similarly, we can make plots to examine the patterns before and after COVID-19, and we sticked with the
 thresholds that we used in previous sections.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
 <p>The graph above showed that the <em>AWT</em> for each weekday before COVID-19 is lower than that after COVID-19.</p>
 <ul>
 <li><strong><em>Obs #1:</em></strong> By calculation, <em>AWT</em> dropped from 31.45 minutes to 26.26 minutes.
@@ -356,7 +362,7 @@ This indicates that on average, for every 2.5 hours, the tourists can enjoy one 
 <div id="awt-vs.-attraction" class="section level3 hasAnchor" number="4.4.1">
 <h3><span class="header-section-number">4.4.1</span> <em>AWT</em> vs. Attraction<a href="results.html#awt-vs.-attraction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <!-- The above Cleveland dot plot shows the average wait time for each attraction, and they are ranked in descending order with the longest time at the top. The Seven Dwarfs Mine Train attraction has the longest average waiting time of around 79.2 minutes. The second highest is the Space Mountain attraction, and it has an average wait time of 58.3 minutes. The third highest has a very close average wait time as the second one, and it is the Peter Pan's Flight attraction with a wait time of 58.0 minutes. The fourth is the Splash Mountain with an average wait time of 45.1 minutes, and the fifth is the Jungle Cruise with an average wait time of 44.2 minutes.       -->
-<p><img src="finalproj_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 <p>The above is a Ridgeline plot that shows the wait time distribution of the top five attractions with the longest wait time, and they are ranked by their medians in descending order with the longest time at the top.</p>
 <ul>
 <li><p><strong><em>Obs #1:</em></strong> The ranking is almost the same as in the average wait time chart, except Space Mountain and Peter Pan’s Flight switched order</p></li>
@@ -368,16 +374,30 @@ This indicates that on average, for every 2.5 hours, the tourists can enjoy one 
 </div>
 <div id="awt-vs.-attraction-time-of-a-day" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> <em>AWT</em> vs. Attraction: time of a day<a href="results.html#awt-vs.-attraction-time-of-a-day" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
-<p>The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest. For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest. Moreover, the attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>The above Cleveland dot plot shows the average wait time of each attractive at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom.</p>
+<ul>
+<li><p><strong><em>Obs #1:</em></strong> For 23 out of the 25 attractions, the average afternoon wait time is the longest. For the other 2 rides, the average morning wait time is the highest.</p></li>
+<li><p><strong><em>Obs #2:</em></strong> For 17 out of 25 attractions, the average evening wait time is the shortest, and for the other 8 attractions, the average morning wait time is the shortest.</p></li>
+<li><p><strong><em>Obs #3:</em></strong> The attractions of the top 5 average afternoon wait time hold the same order as in the top 5 average wait time.</p></li>
+</ul>
 </div>
 <div id="awt-of-attractions-vs.-land" class="section level3 hasAnchor" number="4.4.3">
 <h3><span class="header-section-number">4.4.3</span> <em>AWT</em> of Attractions vs. Land<a href="results.html#awt-of-attractions-vs.-land" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
-<p>The above bar chart shows the average wait time by each themed land, and it is sorted by descending order from the top. Frontierland has the longest average wait time followed by Tomorrowland. The rest have similar average wait time.<br />
-However, this chart illustrated the Simpson’s Paradox. The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan’s Flight - are not in the Frontierland.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
-<p>The above Cleveland dot plot shows the average wait time by each land at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom. The order of themed lands is the same as the one in the average wait time plot. For all themed lands, the average afternoon wait time is the longest. The average evening time is the shortest for 4 of the 5 themed lands. Only one themed land has morning as the the shortest average wait time.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p>The above bar chart shows the average wait time by each themed land, and it is sorted by descending order from the top.</p>
+<ul>
+<li><p><strong><em>Obs #1:</em></strong> Frontierland has the longest average wait time followed by Tomorrowland. The rest have similar average wait time.</p></li>
+<li><p><strong><em>Obs #2:</em></strong> The top 3 longest average wait time attractions - Seven Dwarfs Mine Train, Space Mountain, and Peter Pan’s Flight - are not in the Frontierland.<br />
+<strong><em>Exp:</em></strong> This illustrates <em>Simpson’s Paradox</em>.</p></li>
+</ul>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p>The above Cleveland dot plot shows the average wait time by each land at different time of the day. The plot is sorted by the average afternoon wait time in descending order from top to bottom.</p>
+<ul>
+<li><p><strong><em>Obs #1:</em></strong> The order of themed lands is the same as the one in the average wait time plot.</p></li>
+<li><p><strong><em>Obs #2:</em></strong> For all themed lands, the average afternoon wait time is the longest.</p></li>
+<li><p><strong><em>Obs #3:</em></strong> The average evening time is the shortest for 4 of the 5 themed lands. Only one themed land has morning as the the shortest average wait time.</p></li>
+</ul>
 
 </div>
 </div>

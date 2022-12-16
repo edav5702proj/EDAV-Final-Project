@@ -80,7 +80,11 @@
 </ul></li>
 <li class="chapter" data-level="3" data-path="data.html"><a href="data.html"><i class="fa fa-check"></i><b>3</b> Data</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a></li>
+<li class="chapter" data-level="3.1" data-path="data.html"><a href="data.html#sources"><i class="fa fa-check"></i><b>3.1</b> Sources</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="data.html"><a href="data.html#basic-information-about-data"><i class="fa fa-check"></i><b>3.1.1</b> Basic Information about Data</a></li>
+<li class="chapter" data-level="3.1.2" data-path="data.html"><a href="data.html#issues-design-choice"><i class="fa fa-check"></i><b>3.1.2</b> Issues &amp; Design Choice:</a></li>
+</ul></li>
 <li class="chapter" data-level="3.2" data-path="data.html"><a href="data.html#cleaning-transformation"><i class="fa fa-check"></i><b>3.2</b> Cleaning / transformation</a></li>
 <li class="chapter" data-level="3.3" data-path="data.html"><a href="data.html#missing-value-analysis"><i class="fa fa-check"></i><b>3.3</b> Missing value analysis</a>
 <ul>
@@ -115,8 +119,10 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>5</b> Interactive component</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a></li>
-<li class="chapter" data-level="5.2" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.2</b> <em>AWT_100</em> vs. Duration</a></li>
+<li class="chapter" data-level="5.1" data-path="interactive-component.html"><a href="interactive-component.html#awt-vs.-duration"><i class="fa fa-check"></i><b>5.1</b> <em>AWT</em> vs. Duration</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="interactive-component.html"><a href="interactive-component.html#awt_100-vs.-duration"><i class="fa fa-check"></i><b>5.1.1</b> <em>AWT_100</em> vs. Duration</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>6</b> Conclusion</a>
 <ul>
@@ -145,13 +151,26 @@
 <div id="interactive-component" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> Interactive component<a href="interactive-component.html#interactive-component" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<p>For interactive components, we chose to focus on two variables in our datasets: <em>AWT</em> and <em>Duration</em>. Note that in the Assumption section,
+we managed to identify 7 popular attractions by observing the distributions of <em>AWT</em> and <em>AWT_100</em>, where we conclude that
+attractions with high <em>AWT</em> bu low <em>AWT_100</em> are popular. However, <em>Duration</em> and <em>AWT</em> can also be a good indicator when predicting whether
+an attraction is popular or not. Also, in previous section, we found it is hard to tell which point corresponds to which attraction; therefore, in this section,
+we will exploit the advantages of D3 and interactive plots to make our plots more straightforward and readable.</p>
 <div id="awt-vs.-duration" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> <em>AWT</em> vs. Duration<a href="interactive-component.html#awt-vs.-duration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-The plot below shows the scatterplot of the duration of a facility and the average waiting time.
-Generally, duration and waiting time are positively correlated. The longer the duration, the longer the waiting time.
-There are also some outliers, such as the 7 dwarf train. This facility only lasts 3 minutes, but the tourists must wait 79 minutes on average.
-</p>
-<p><strong><em>Moving the mouse to the data point to see more information.</em></strong></p>
+<p>The plot below is an interactive scatterplot of the duration of a attraction and the <em>AWT</em>, drawn using D3.
+Generally, there are several trends:</p>
+<ul>
+<li><p><strong><em>Obs #1:</em></strong> If we remove two datapoints (the top-left one and the bottom-right one), there is a general trend of positive correlation
+between <em>AWT</em> and <em>Duration</em> of that attraction, which is a natural phenomenon to observe.</p></li>
+<li><p><strong><em>Obs #2:</em></strong> Similarly as in the Assumption section, we want to identify popularity by looking at the pattern from this plot; however,
+unlike before, there is no obvious pattern that can help us predct the popularity of attrcations.<br />
+<strong><em>Exp:</em></strong> In general, the <em>Duration</em> of the attraction is something that is fixed and static once the park opened, which had nothing to do with the preferences
+of tourists; on the other hand, <em>AWT_100</em> is closely related to customers’ preferences and populariy.</p></li>
+<li><p><strong><em>Obs #3:</em></strong> Even though it is not as obvious as before, we can weakly conclude that popular attractions usually had higher <em>AWT</em> andd <em>Duration</em>. But again, we can
+only make conjecture about this. The pattern is not super obvious and maybe spurious.</p></li>
+</ul>
+<p><strong><em>Note: Moving the mouse to the data point to see more information.</em></strong></p>
 <div style="text-align:center;">
 <p><input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
 <input type="radio" name="identify_pop" value="normal" checked="true"> Original Plot</p>
@@ -160,10 +179,28 @@ There are also some outliers, such as the 7 dwarf train. This facility only last
 
 </div>
 <script src="avg_d_d3.js"></script>
+<div id="awt_100-vs.-duration" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> <em>AWT_100</em> vs. Duration<a href="interactive-component.html#awt_100-vs.-duration" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+The discovery in previous section led us to discover the relationship between <em>AWT_100</em> and <em>Duration</em>. Intuitively,
+there should exists a positive correlation between <em>AWT_100</em> and <em>Duration</em> because a longer attraction should normally have longer
+waiting time; therefore, for every 100 people, the waiting time is supposed to be longer as well. We chose to investigated this issue
+using D3 techniques again. Below is the D3 plot.
+<div style="text-align:center;">
+<p><input type="radio" id="dd2" name="identify_pop" value="pop"> Identify Popular Attractions
+<input type="radio" id ="dd2" name="identify_pop" value="normal" checked="true"> Original Plot</p>
 </div>
-<div id="awt_100-vs.-duration" class="section level2 hasAnchor" number="5.2">
-<h2><span class="header-section-number">5.2</span> <em>AWT_100</em> vs. Duration<a href="interactive-component.html#awt_100-vs.-duration" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="D3_2" style="text-align:center">
 
+</div>
+<script src="awt100_d.js"></script>
+<p>Surprisingly, we found the results and patterns that are counter-intuitive at the frst glance. Here are the main
+observations and explanations:</p>
+<ul>
+<li><strong><em>Obs #1:</em></strong> Instead of positive correlation, there seems existing a negative correlation between <em>AWT_100</em> and <em>Duration</em>.<br />
+<strong><em>Exp:</em></strong> At the first glance, this seems not correct. However,</li>
+</ul>
+
+</div>
 </div>
 </div>
             </section>

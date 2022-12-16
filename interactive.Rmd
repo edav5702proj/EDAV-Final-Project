@@ -1,12 +1,29 @@
 # Interactive component
 <script src="https://d3js.org/d3.v7.min.js"></script>
 
+For interactive components, we chose to focus on two variables in our datasets: _AWT_ and _Duration_. Note that in the Assumption section, 
+we managed to identify 7 popular attractions by observing the distributions of _AWT_ and _AWT\_100_, where we conclude that 
+attractions with high _AWT_ bu low _AWT\_100_ are popular. However, _Duration_ and _AWT_ can also be a good indicator when predicting whether 
+an attraction is popular or not. Also, in previous section, we found it is hard to tell which point corresponds to which attraction; therefore, in this section, 
+we will exploit the advantages of D3 and interactive plots to make our plots more straightforward and readable.
+
 ## _AWT_ vs. Duration
 
-The plot below shows the scatterplot of the duration of a attraction and the average waiting time (AWT). 
-Generally, duration and waiting time are positively correlated. The longer the duration, the longer the waiting time.
-There are also some outliers, such as the 7 dwarf train. This attraction only lasts 3 minutes, but the tourists must wait 79 minutes on average. Another example is Enchanted Tiki Room, which has a duration of 15 minutes and AWT of 5 minutes. What's more, all the popular attractions require a long waiting time, at least 30 minutes.</p>
-***Moving the mouse to the data point to see more information.***
+The plot below is an interactive scatterplot of the duration of a attraction and the _AWT_, drawn using D3. 
+Generally, there are several trends:
+
+- ***Obs #1:*** If we remove two datapoints (the top-left one and the bottom-right one), there is a general trend of positive correlation 
+between _AWT_ and _Duration_ of that attraction, which is a natural phenomenon to observe.
+
+- ***Obs #2:*** Similarly as in the Assumption section, we want to identify popularity by looking at the pattern from this plot; however, 
+unlike before, there is no obvious pattern that can help us predct the popularity of attrcations.\
+***Exp:*** In general, the _Duration_ of the attraction is something that is fixed and static once the park opened, which had nothing to do with the preferences 
+of tourists; on the other hand, _AWT\_100_ is closely related to customers' preferences and populariy.
+
+- ***Obs #3:*** Even though it is not as obvious as before, we can weakly conclude that popular attractions usually had higher _AWT_ andd _Duration_. But again, we can 
+only make conjecture about this. The pattern is not super obvious and maybe spurious.
+
+***Note: Moving the mouse to the data point to see more information.***
 
 <div style="text-align:center;">
 <input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
@@ -14,3 +31,28 @@ There are also some outliers, such as the 7 dwarf train. This attraction only la
 </div>
 <div id="D3" style="text-align:center"></div>
 <script src="avg_d_d3.js"></script>
+
+### _AWT\_100_ vs. Duration
+
+The discovery in previous section led us to discover the relationship between _AWT\_100_ and _Duration_. Intuitively, 
+there should exists a positive correlation between _AWT\_100_ and _Duration_ because a longer attraction should normally have longer 
+waiting time; therefore, for every 100 people, the waiting time is supposed to be longer as well. We chose to investigated this issue 
+using D3 techniques again. Below is the D3 plot.
+<div style="text-align:center;">
+<input type="radio" id="dd2" name="identify_pop" value="pop"> Identify Popular Attractions
+<input type="radio" id ="dd2" name="identify_pop" value="normal" checked="true"> Original Plot
+</div>
+<div id="D3_2" style="text-align:center"></div>
+<script src="awt100_d.js"></script>
+
+Surprisingly, we found the results and patterns that are counter-intuitive at the frst glance. Here are the main 
+observations and explanations:
+
+- ***Obs #1:*** Instead of positive correlation, there seems existing a negative correlation between _AWT\_100_ and _Duration_.\
+***Exp:*** At the first glance, this seems not correct. However, this might because that attractions that have longer _Duration_ sometimes also have 
+larger capcity to balance its waiting time. Imagine the case where attractions with longer _Duration_ share similar capcity as others: it will absolutely result in 
+the imbalance of waiting time in the Disneyland and will make the burden of some attractions much heavier than that of others. This is something that the Disneyland Official wants to prevent for sure. Therefore, this negative correlation makes sense.
+
+***Note:*** Unfortunately, we do not have accurate data about the capacity of each attraction (different sources document them differently and Disneyland Officials do not provide those information). But based on our research, our conjecture is intuitive.
+
+## Future Work
