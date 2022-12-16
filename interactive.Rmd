@@ -10,6 +10,14 @@ we will exploit the advantages of D3 and interactive plots to make our plots mor
 ## _AWT_ vs. Duration
 
 The plot below is an interactive scatterplot of the duration of a attraction and the _AWT_, drawn using D3. 
+
+<div style="text-align:center;">
+<input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
+<input type="radio" name="identify_pop" value="normal" checked="true"> Original Plot
+</div>
+<div id="D3" style="text-align:center"></div>
+<script src="avg_d_d3.js"></script>
+
 Generally, there are several trends:
 
 - ***Obs #1:*** If we remove two datapoints (the top-left one and the bottom-right one), there is a general trend of positive correlation 
@@ -25,14 +33,7 @@ only make conjecture about this. The pattern is not super obvious and maybe spur
 
 ***Note: Moving the mouse to the data point to see more information.***
 
-<div style="text-align:center;">
-<input type="radio" name="identify_pop" value="pop"> Identify Popular Attractions
-<input type="radio" name="identify_pop" value="normal" checked="true"> Original Plot
-</div>
-<div id="D3" style="text-align:center"></div>
-<script src="avg_d_d3.js"></script>
-
-### _AWT\_100_ vs. Duration
+## _AWT\_100_ vs. Duration
 
 The discovery in previous section led us to discover the relationship between _AWT\_100_ and _Duration_. Intuitively, 
 there should exists a positive correlation between _AWT\_100_ and _Duration_ because a longer attraction should normally have longer 
@@ -56,3 +57,7 @@ the imbalance of waiting time in the Disneyland and will make the burden of some
 ***Note:*** Unfortunately, we do not have accurate data about the capacity of each attraction (different sources document them differently and Disneyland Officials do not provide those information). But based on our research, our conjecture is intuitive.
 
 ## Future Work
+
+Originally, we want to do an interactive map for this section, where users can click on each part of Disneyland on the map to see the detailed information of attractions.
+However, we spent tons of time (at least 5 hours) on finding empty maps that we can work on; all of the maps that we can find are those with colors, annotations, and labels. In the future, if we can find a valid map that we can work wtih, we will extend this interactive section to enable more advance interactivity, and hopefully those 
+results can be more meaniingful. In addition, since we are majorly dealing with time series data, interactive components are not easy to do. In the future, we will try to visualize the time series data using D3 to improve this project.
